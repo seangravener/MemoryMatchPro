@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 // prettier-ignore
 const emojiSet: string[] = [
@@ -17,6 +18,8 @@ interface Card {
   providedIn: 'root',
 })
 export class GameService {
+  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([{} as Card]);
+  cards$ = this.cardsSubject.asObservable()
   cards: Card[] = [];
   matchesFound = 0;
   moveCount = 0;
@@ -24,13 +27,14 @@ export class GameService {
 
   constructor() {}
 
-  initGame(cards: Card[]) {
+  initGame() {
     this.gameStarted = true;
     this.matchesFound = 0;
     this.moveCount = 0;
 
-    this.cards = this.createCards();
-    this.cards = this.shuffleCards(this.cards);
+    // this.cards = this.createCards();
+    // this.cards = this.shuffleCards(this.cards);
+    this.cardsSubject.next(this.shuffleCards(this.createCards()))
   }
 
   createCards() {
