@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   title = 'AngularMemory';
   // cards = this.gameService.cards
   cards$ = this.gameService.cards$
-  handleCardFlip = this.gameService.handleCardFlip
+  // handleCardFlip = this.gameService.handleCardFlip
+  handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
 
   constructor(private gameService: GameService) {
 

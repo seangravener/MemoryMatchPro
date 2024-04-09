@@ -1,7 +1,7 @@
 <h1>Angular Memory Game</h1>
 <ng-container *ngIf="cards$ | async as cards">
   {{ cards | json }}
-  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)">
+  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" style="margin: 20px; padding: 20px; border: 1px solid #ccc;">
     <div *ngIf="card.flipped; else showUnflipped">
       card:
       {{card.imageContent}} <!-- This will display the emoji -->

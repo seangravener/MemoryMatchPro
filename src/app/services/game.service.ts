@@ -18,12 +18,13 @@ interface Card {
   providedIn: 'root',
 })
 export class GameService {
-  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([{} as Card]);
-  cards$ = this.cardsSubject.asObservable()
-  cards: Card[] = [];
+  private cards: Card[] = [];
   matchesFound = 0;
   moveCount = 0;
   gameStarted = false;
+
+  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([{} as Card]);
+  cards$ = this.cardsSubject.asObservable();
 
   constructor() {}
 
@@ -32,9 +33,8 @@ export class GameService {
     this.matchesFound = 0;
     this.moveCount = 0;
 
-    // this.cards = this.createCards();
-    // this.cards = this.shuffleCards(this.cards);
-    this.cardsSubject.next(this.shuffleCards(this.createCards()))
+    this.cards = this.shuffleCards(this.createCards());
+    this.cardsSubject.next(this.cards);
   }
 
   createCards() {
@@ -57,14 +57,38 @@ export class GameService {
   }
 
   handleCardFlip(cardIndex: number) {
+    console.log(
+      'the card:',
+      this.cards.find((card) => card.id === cardIndex) || ({} as Card)
+    );
     if (!this.gameStarted || this.cards[cardIndex].flipped) {
       return;
     }
 
-    const flipped = this.cards.filter((card) => card.flipped && !card.matched);
+    const newCards = [...this.cards];
+    const flippedCards = newCards.filter(
+      (card) => card.flipped && !card.matched
+    );
 
-    this.moveCount++;
+    if (flippedCards.length < 2) {
+      this.cards[cardIndex].flipped = true;
+      this.moveCount++;
+    }
 
+    if (flippedCards.length === 1) {
+      const matchFound = this.checkForMatch(
+        this.cards.find((card) => card.id === cardIndex) || ({} as Card),
+        flippedCards[0]
+      );
+      if (!matchFound) {
+        setTimeout(() => {
+          // flip cards back over
+          flippedCards[0].flipped = false;
+          newCards[cardIndex].flipped = false;
+          this.cardsSubject.next([...this.cards, ...flippedCards, ...newCards]);
+        }, 500);
+      }
+    }
     // @todo
     // flip card and check for matches
   }
