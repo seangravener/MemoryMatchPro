@@ -3,8 +3,7 @@
   {{ cards | json }}
   <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" style="margin: 20px; padding: 20px; border: 1px solid #ccc;">
     <div *ngIf="card.flipped; else showUnflipped">
-      card:
-      {{card.imageContent}} <!-- This will display the emoji -->
+      card is face up -- {{card.imageContent}}
     </div>
     <ng-template #showUnflipped>
       Back of Card

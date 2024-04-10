@@ -56,36 +56,48 @@ export class GameService {
     return cards;
   }
 
-  handleCardFlip(cardIndex: number) {
-    console.log(
-      'the card:',
-      this.cards.find((card) => card.id === cardIndex) || ({} as Card)
-    );
-    if (!this.gameStarted || this.cards[cardIndex].flipped) {
+  handleCardFlip(cardId: number) {
+    const currentCard =
+      this.cards.find((card) => card.id === cardId) || ({} as Card);
+
+    console.log('cardId', cardId);
+    console.log('initial currentCard state:', currentCard);
+    if (!this.gameStarted || currentCard.flipped) {
+      console.log('card is already face up!');
       return;
     }
 
-    const newCards = [...this.cards];
+    let newCards = [...this.cards];
     const flippedCards = newCards.filter(
       (card) => card.flipped && !card.matched
     );
 
     if (flippedCards.length < 2) {
-      this.cards[cardIndex].flipped = true;
+      newCards = newCards.map((card) => {
+        return card.id === cardId ? { ...card, flipped: true } : card;
+      });
       this.moveCount++;
     }
 
+    console.log('flipped: ', flippedCards);
+    console.log('updated currentCard state:', newCards.find((card) => card.id === cardId) || ({} as Card));
+    this.cards = [...newCards]
+    this.cardsSubject.next([...newCards]);
+
+
     if (flippedCards.length === 1) {
-      const matchFound = this.checkForMatch(
-        this.cards.find((card) => card.id === cardIndex) || ({} as Card),
-        flippedCards[0]
-      );
+      // const matchFound = this.checkForMatch(
+      //   newCards.find((card) => card.id === cardIndex) || ({} as Card),
+      //   flippedCards[0]
+      // );
+
+      const matchFound = false;
       if (!matchFound) {
         setTimeout(() => {
           // flip cards back over
-          flippedCards[0].flipped = false;
-          newCards[cardIndex].flipped = false;
-          this.cardsSubject.next([...this.cards, ...flippedCards, ...newCards]);
+          // flippedCards[0].flipped = false;
+          // newCards[cardIndex].flipped = false;
+          // this.cardsSubject.next([...this.cards, ...flippedCards, ...newCards]);
         }, 500);
       }
     }
