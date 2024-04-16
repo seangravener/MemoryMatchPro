@@ -64,10 +64,16 @@ export class GameService {
     console.log('initial currentCard state:', currentCard);
     if (!this.gameStarted || currentCard.flipped) {
       console.log('card is already face up!');
-      return;
+
     }
 
     let newCards = [...this.cards];
+    if (currentCard.flipped) {
+      currentCard.flipped = false;
+      newCards = { ...newCards, ...currentCard };
+      this.cardsSubject.next([...newCards]);
+      return;
+    }
     const flippedCards = newCards.filter(
       (card) => card.flipped && !card.matched
     );
@@ -80,10 +86,12 @@ export class GameService {
     }
 
     console.log('flipped: ', flippedCards);
-    console.log('updated currentCard state:', newCards.find((card) => card.id === cardId) || ({} as Card));
-    this.cards = [...newCards]
+    console.log(
+      'updated currentCard state:',
+      newCards.find((card) => card.id === cardId) || ({} as Card)
+    );
+    this.cards = [...newCards];
     this.cardsSubject.next([...newCards]);
-
 
     if (flippedCards.length === 1) {
       // const matchFound = this.checkForMatch(
