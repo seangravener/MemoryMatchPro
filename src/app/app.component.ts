@@ -14,12 +14,11 @@ export class AppComponent implements OnInit {
   title = 'AngularMemory';
   // cards = this.gameService.cards
   cards$ = this.gameService.cards$
+  gamePlayStatus$ = this.gameService.gamePlayStatus$
   // handleCardFlip = this.gameService.handleCardFlip
   handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
 
-  constructor(private gameService: GameService) {
-
-  }
+  constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
       this.gameService.initGame()

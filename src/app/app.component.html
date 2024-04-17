@@ -1,13 +1,21 @@
 <h1>Angular Memory Game</h1>
+
+<p>
+  Card Play Status: <ng-container *ngIf="gamePlayStatus$ | async as gamePlayStatus">{{ gamePlayStatus }}</ng-container>
+</p>
+
 <ng-container *ngIf="cards$ | async as cards">
-  {{ cards | json }}
-  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" style="margin: 20px; padding: 20px; border: 1px solid #ccc;">
+  <!-- {{ cards | json }} -->
+  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)"
+    style="margin: 20px; padding: 20px; border: 1px solid #ccc; width: 100px; height: 125px; float: left;">
     <div *ngIf="card.flipped; else showUnflipped">
-      card is face up -- {{card.imageContent}}
+      Card is face up
+      <div>ID: {{ card.id }}</div>
+      <div>{{card.imageContent}}</div>
     </div>
     <ng-template #showUnflipped>
       Back of Card
+      <div>ID: {{ card.id }}</div>
     </ng-template>
   </div>
-
 </ng-container>

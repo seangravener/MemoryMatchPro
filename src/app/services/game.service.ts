@@ -19,12 +19,20 @@ interface Card {
 })
 export class GameService {
   private cards: Card[] = [];
+  private isProcessing = false;
   matchesFound = 0;
   moveCount = 0;
   gameStarted = false;
 
-  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([{} as Card]);
+  private cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([
+    {} as Card,
+  ]);
+  private gamePlayStatusSubject: BehaviorSubject<string> = new BehaviorSubject(
+    ''
+  );
+
   cards$ = this.cardsSubject.asObservable();
+  gamePlayStatus$ = this.gamePlayStatusSubject.asObservable();
 
   constructor() {}
 
@@ -56,65 +64,77 @@ export class GameService {
     return cards;
   }
 
-  handleCardFlip(cardId: number) {
-    const currentCard =
-      this.cards.find((card) => card.id === cardId) || ({} as Card);
-
-    console.log('cardId', cardId);
-    console.log('initial currentCard state:', currentCard);
-    if (!this.gameStarted || currentCard.flipped) {
-      console.log('card is already face up!');
-
-    }
-
-    let newCards = [...this.cards];
-    if (currentCard.flipped) {
-      currentCard.flipped = false;
-      newCards = { ...newCards, ...currentCard };
-      this.cardsSubject.next([...newCards]);
+  handleCardFlip(cardId: number): void {
+    if (!this.gameStarted || this.isProcessing) {
+      console.log('Game has not started or is processing');
       return;
     }
-    const flippedCards = newCards.filter(
-      (card) => card.flipped && !card.matched
-    );
 
-    if (flippedCards.length < 2) {
-      newCards = newCards.map((card) => {
-        return card.id === cardId ? { ...card, flipped: true } : card;
-      });
-      this.moveCount++;
+    const updatedCards = this.flipCard(this.cards, cardId);
+    const flippedCards = this.getFlippedCards(updatedCards);
+
+    if (flippedCards.length === 2) {
+      this.isProcessing = true;
+      this.processFlippedCards(flippedCards, updatedCards);
+    } else {
+      this.isProcessing = false;
+      this.updateGameState(updatedCards);
     }
+  }
 
-    console.log('flipped: ', flippedCards);
-    console.log(
-      'updated currentCard state:',
-      newCards.find((card) => card.id === cardId) || ({} as Card)
+  // Toggle the flip state of a specific card
+  private flipCard(cards: Card[], cardId: number): Card[] {
+    return cards.map((card) =>
+      card.id === cardId ? { ...card, flipped: !card.flipped } : card
     );
-    this.cards = [...newCards];
-    this.cardsSubject.next([...newCards]);
+  }
 
-    if (flippedCards.length === 1) {
-      // const matchFound = this.checkForMatch(
-      //   newCards.find((card) => card.id === cardIndex) || ({} as Card),
-      //   flippedCards[0]
-      // );
+  // Filter out cards that are currently flipped and not matched
+  private getFlippedCards(cards: Card[]): Card[] {
+    return cards.filter((card) => card.flipped && !card.matched);
+  }
 
-      const matchFound = false;
-      if (!matchFound) {
-        setTimeout(() => {
-          // flip cards back over
-          // flippedCards[0].flipped = false;
-          // newCards[cardIndex].flipped = false;
-          // this.cardsSubject.next([...this.cards, ...flippedCards, ...newCards]);
-        }, 500);
+  // Determine the game logic based on the flipped cards
+  private processFlippedCards(
+    flippedCards: Card[],
+    updatedCards: Card[]
+  ): void {
+    if (flippedCards.length === 2) {
+      this.moveCount++;
+      if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
+        this.matchesFound++;
+        this.markCardsAsMatched(flippedCards);
+        this.isProcessing = false;
+      } else {
+        this.resetFlippedCardsAfterDelay(flippedCards, updatedCards);
       }
     }
-    // @todo
-    // flip card and check for matches
+
+    this.updateGameState(updatedCards);
+  }
+
+  private markCardsAsMatched(flippedCards: Card[]): void {
+    flippedCards.forEach((card) => (card.matched = true));
+  }
+
+  private resetFlippedCardsAfterDelay(
+    flippedCards: Card[],
+    updatedCards: Card[]
+  ): void {
+    setTimeout(() => {
+      flippedCards.forEach((card) => (card.flipped = false));
+      this.isProcessing = false;
+      this.cardsSubject.next(updatedCards);
+    }, 1000);
+  }
+
+  private updateGameState(updatedCards: Card[]): void {
+    this.cards = updatedCards; // Update the internal state with new cards
+    this.cardsSubject.next(updatedCards); // Publish the new state
   }
 
   checkForMatch(card1: Card, card2: Card) {
-    if (card1.id === card2.id && card1.imageContent === card2.imageContent) {
+    if (card1.imageContent === card2.imageContent) {
       this.matchesFound++;
       return true;
     }
