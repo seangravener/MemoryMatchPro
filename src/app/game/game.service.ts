@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-// prettier-ignore
-const emojiSet: string[] = [
-  '😀', '🐶', '🍕', '⚽', '🌈', '🍉', '🦄', '🚀',
-  '🌵', '🎸', '🧩', '🎨', '🥇', '🎁', '🔔', '📚'
-];
-
-interface Card {
-  id: number;
-  flipped: boolean;
-  matched: boolean;
-  imageContent: string;
-}
+import { Card } from './game.model'
+import { emojiSet } from './emojiSet';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { GameService } from './services/game.service';
+import { GameService } from './game/game.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,10 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'AngularMemory';
-  // cards = this.gameService.cards
   cards$ = this.gameService.cards$
   gamePlayStatus$ = this.gameService.gamePlayStatus$
-  // handleCardFlip = this.gameService.handleCardFlip
   handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
 
   constructor(private gameService: GameService) {}
