@@ -5,20 +5,9 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'AngularMemory';
-  cards$ = this.gameService.cards$
-  gamePlayStatus$ = this.gameService.gamePlayStatus$
-  handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
-
-  constructor(private gameService: GameService) {}
-
-  ngOnInit(): void {
-      this.gameService.initGame()
-  }
 }

@@ -1,0 +1,44 @@
+<ng-container *ngIf="cards$ | async as cards">
+  <p>
+    Card Play Status: <ng-container *ngIf="gamePlayStatus$ | async as gamePlayStatus">{{ gamePlayStatus
+      }}</ng-container>
+  </p>
+
+  <div>
+    <code>{{ cards | json }}</code>
+
+  </div>
+
+  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" class="card" [ngClass]="{'flipped': card.flipped}"
+    style="margin: 20px; padding: 20px; border: 1px solid #ccc; width: 100px; height: 125px; float: left;">
+    <div *ngIf="card.flipped; else showUnflipped">
+      FACE UP
+      <div>ID: {{ card.id }}</div>
+      <div class="text-large text-center">{{card.imageContent}}</div>
+    </div>
+    <ng-template #showUnflipped>
+      FACE DOWN
+      <div>ID: {{ card.id }}</div>
+      <div class="text-large text-center">X</div>
+    </ng-template>
+  </div>
+</ng-container>
+
+<style>
+  .text-center {
+    text-align: center;
+  }
+
+  .text-large {
+    font-size: 44px;
+  }
+
+  .card {
+    cursor: pointer;
+    background-color: #ccc;
+  }
+
+  .flipped {
+    background-color: #fff;
+  }
+</style>
