@@ -46,7 +46,7 @@ export class GameService {
   }
 
   isGameAvailable(): boolean {
-    const { gameStarted, isProcessing } = this.gameState.getCurrentState();
+    const { gameStarted, isProcessing } = this.gameState.currentState;
     return !gameStarted || isProcessing;
   }
 
@@ -56,7 +56,7 @@ export class GameService {
       return;
     }
 
-    const { cards } = this.gameState.getCurrentState();
+    const { cards } = this.gameState.currentState;
     const updatedCards = this.flipCard(cards, cardId);
     const flippedCards = this.getFlippedCards(updatedCards);
 
@@ -86,11 +86,11 @@ export class GameService {
     updatedCards: Card[]
   ): void {
     if (flippedCards.length === 2) {
-      const { moveCount } = this.gameState.getCurrentState();
+      const { moveCount } = this.gameState.currentState;
       this.gameState.updateGameState({ moveCount });
 
       if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
-        const matchesFound = this.gameState.getCurrentState().matchesFound++;
+        const matchesFound = this.gameState.currentState.matchesFound++;
         this.markCardsAsMatched(flippedCards);
         this.gameState.updateGameState({ isProcessing: false, matchesFound });
       } else {
@@ -122,7 +122,7 @@ export class GameService {
 
   checkForMatch(card1: Card, card2: Card) {
     if (card1.imageContent === card2.imageContent) {
-      let currentState = this.gameState.getCurrentState();
+      let currentState = this.gameState.currentState;
       this.gameState.updateGameState({
         matchesFound: currentState.matchesFound++,
       });

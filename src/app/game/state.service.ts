@@ -10,6 +10,10 @@ export class GameStateService {
   private gameStateSubject = new BehaviorSubject<GameState>(this.gameState);
   gameState$ = this.gameStateSubject.asObservable();
 
+  get currentState() {
+    return this.gameState
+  }
+
   constructor() {}
 
   updateGameState(newState: Partial<GameState>) {
@@ -20,9 +24,5 @@ export class GameStateService {
   resetGameState() {
     this.gameState = { ...initialState };
     this.gameStateSubject.next(this.gameState);
-  }
-
-  getCurrentState(): GameState {
-    return this.gameState;
   }
 }
