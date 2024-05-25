@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SplashPageComponent } from './game/scenes/splash-page/splash-page.component';
+import { SplashSceneComponent } from './game/scenes/splash/splash-scene.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SplashPageComponent,
+    component: SplashSceneComponent,
     pathMatch: 'full',
   },
   {

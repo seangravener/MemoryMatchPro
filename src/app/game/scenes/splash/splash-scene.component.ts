@@ -5,4 +5,4 @@ import { Component, OnInit } from '@angular/core';
   template: `splash scene works! <a href="/game">Goto game</a> `,
   // styleUrl: './game.component.scss'
 })
-export class SplashPageComponent {}
+export class SplashSceneComponent {}
