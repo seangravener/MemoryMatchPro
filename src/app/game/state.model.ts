@@ -5,18 +5,26 @@ export interface Card {
   imageContent: string;
 }
 
+export interface GameStats {
+  moves: number;
+  matches: number;
+  score: number;
+}
+
 export interface GameState {
   cards: Card[];
   gameStarted: boolean;
-  matchesFound: number;
-  moveCount: number;
   isProcessing: boolean;
+  stats: GameStats;
 }
 
 export const initialState: GameState = {
   cards: [],
   gameStarted: false,
-  matchesFound: 0,
-  moveCount: 0,
   isProcessing: false,
+  stats: {
+    moves: 0,
+    matches: 0,
+    score: 0,
+  },
 };

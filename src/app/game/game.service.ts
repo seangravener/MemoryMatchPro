@@ -86,16 +86,14 @@ export class GameService {
     updatedCards: Card[]
   ): void {
     if (flippedCards.length === 2) {
-      const { moveCount } = this.gameState.currentState;
-      this.gameState.updateGameState({ moveCount });
+      this.gameState.incrementMove()
 
       if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
-        const matchesFound = this.gameState.currentState.matchesFound++;
         const cards = this.markCardsAsMatched(flippedCards);
+        this.gameState.incrementMatches();
         this.gameState.updateGameState({
           cards,
           isProcessing: false,
-          matchesFound,
         });
       } else {
         this.resetFlippedCardsAfterDelay(flippedCards, updatedCards);
@@ -126,11 +124,7 @@ export class GameService {
 
   checkForMatch(card1: Card, card2: Card) {
     if (card1.imageContent === card2.imageContent) {
-      let currentState = this.gameState.currentState;
-      this.gameState.updateGameState({
-        matchesFound: currentState.matchesFound++,
-      });
-
+      this.gameState.incrementMatches()
       return true;
     }
 

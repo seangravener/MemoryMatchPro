@@ -1,37 +1,28 @@
+// stats.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, Observable } from 'rxjs';
 import { GameStateService } from './state.service';
-import { GameStats } from './stats.model';
-import { GameState } from './state.model';
-
-const initialState: GameStats = {
-  moves: 0,
-  matches: 0,
-  gameInProgress: false,
-}
+import { GameStats, GameState } from './state.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StatsService {
-  private statsSubject = new BehaviorSubject<GameStats>(initialState);
-  stats$ = this.statsSubject.asObservable();
+  currentStats$: Observable<GameStats>;
 
-  constructor(private gameState: GameStateService) {
-    this.gameState.gameState$.subscribe((state) => {
-      this.updateStats(state);
-    });
+  constructor(private gameStateService: GameStateService) {
+    this.currentStats$ = this.gameStateService.gameState$.pipe(
+      map((state) => this.calculateStats(state))
+    );
   }
 
-  private updateStats(state: GameState): void {
-    const stats: GameStats = {
-      moves: state.moveCount,
-      matches: state.matchesFound,
-      gameInProgress: state.gameStarted && !state.isProcessing,
+  private calculateStats(state: GameState): GameStats {
+    // 100 points per match, minus 10 points per move
+    const score = state.stats.matches * 100 - state.stats.moves * 10;
+
+    return {
+      ...state.stats,
+      score: score,
     };
-    this.statsSubject.next(stats);
   }
-
-  // Additional utility methods for stats can be added here
 }
