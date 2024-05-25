@@ -91,8 +91,12 @@ export class GameService {
 
       if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
         const matchesFound = this.gameState.currentState.matchesFound++;
-        this.markCardsAsMatched(flippedCards);
-        this.gameState.updateGameState({ isProcessing: false, matchesFound });
+        const cards = this.markCardsAsMatched(flippedCards);
+        this.gameState.updateGameState({
+          cards,
+          isProcessing: false,
+          matchesFound,
+        });
       } else {
         this.resetFlippedCardsAfterDelay(flippedCards, updatedCards);
       }
@@ -101,8 +105,8 @@ export class GameService {
     this.gameState.updateGameState({ cards: updatedCards });
   }
 
-  private markCardsAsMatched(flippedCards: Card[]): void {
-    flippedCards.forEach((card) => (card.matched = true));
+  private markCardsAsMatched(flippedCards: Card[]): Card[] {
+    return flippedCards.map((card) => ({ ...card, matched: true }));
   }
 
   private resetFlippedCardsAfterDelay(
