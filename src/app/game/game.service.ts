@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 import { Card, GameState } from './game.model';
-import { emojiSet } from '../core/constants/emojiSet';
+import { emojiSet } from './constants/emojiSet';
 import { GameStateService } from './state.service';
 
 @Injectable({
