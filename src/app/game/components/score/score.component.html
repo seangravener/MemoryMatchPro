@@ -1,3 +1,3 @@
-<p>
-  score works!
+<p *ngIf="gameState$ | async as gameState">
+  score works! {{ gameState | json }}
 </p>
