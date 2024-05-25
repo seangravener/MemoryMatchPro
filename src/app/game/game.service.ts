@@ -33,12 +33,16 @@ export class GameService {
   }
 
   shuffleCards(cards: Card[]): Card[] {
-    for (let i = cards.length - 1; i > 0; i--) {
+    let shuffledCards = [...cards];
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [cards[i], cards[j]] = [cards[j], cards[i]]; // Swap
+      [shuffledCards[i], shuffledCards[j]] = [
+        shuffledCards[j],
+        shuffledCards[i],
+      ]; // Swap using destructuring
     }
 
-    return cards;
+    return shuffledCards;
   }
 
   isGameAvailable(): boolean {
@@ -67,19 +71,16 @@ export class GameService {
     }
   }
 
-  // Toggle the flip state of a specific card
   private flipCard(cards: Card[], cardId: number): Card[] {
     return cards.map((card) =>
       card.id === cardId ? { ...card, flipped: !card.flipped } : card
     );
   }
 
-  // Filter out cards that are currently flipped and not matched
   private getFlippedCards(cards: Card[]): Card[] {
     return cards.filter((card) => card.flipped && !card.matched);
   }
 
-  // Determine the game logic based on the flipped cards
   private processFlippedCards(
     flippedCards: Card[],
     updatedCards: Card[]
@@ -109,19 +110,23 @@ export class GameService {
     updatedCards: Card[]
   ): void {
     setTimeout(() => {
-      flippedCards.forEach((card) => (card.flipped = false));
+      const cards = updatedCards.map((card) =>
+        flippedCards.find((fc) => fc.id === card.id)
+          ? { ...card, flipped: false }
+          : card
+      );
 
-      this.gameState.updateGameState({
-        cards: updatedCards,
-        isProcessing: false,
-      });
+      this.gameState.updateGameState({ cards, isProcessing: false });
     }, 1000);
   }
 
   checkForMatch(card1: Card, card2: Card) {
     if (card1.imageContent === card2.imageContent) {
-      let { matchesFound } = this.gameState.getCurrentState();
-      this.gameState.updateGameState({ matchesFound: matchesFound++ });
+      let currentState = this.gameState.getCurrentState();
+      this.gameState.updateGameState({
+        matchesFound: currentState.matchesFound++,
+      });
+
       return true;
     }
 
