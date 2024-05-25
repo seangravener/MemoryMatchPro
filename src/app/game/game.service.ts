@@ -1,38 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { Card } from './game.model'
+import { Card, GameState } from './game.model';
 import { emojiSet } from '../core/constants/emojiSet';
+import { GameStateService } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
-  private cards: Card[] = [];
-  private isProcessing = false;
-  matchesFound = 0;
-  moveCount = 0;
-  gameStarted = false;
-
-  private cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject([
-    {} as Card,
-  ]);
-  private gamePlayStatusSubject: BehaviorSubject<string> = new BehaviorSubject(
-    ''
+  cards$ = this.gameState.gameState$.pipe(
+    map((state: GameState) => state.cards)
   );
 
-  cards$ = this.cardsSubject.asObservable();
-  gamePlayStatus$ = this.gamePlayStatusSubject.asObservable();
-
-  constructor() {}
+  constructor(private gameState: GameStateService) {}
 
   initGame() {
-    this.gameStarted = true;
-    this.matchesFound = 0;
-    this.moveCount = 0;
-
-    this.cards = this.shuffleCards(this.createCards());
-    this.cardsSubject.next(this.cards);
+    this.gameState.updateGameState({
+      gameStarted: true,
+      cards: this.shuffleCards(this.createCards()),
+    });
   }
 
   createCards() {
@@ -54,21 +41,29 @@ export class GameService {
     return cards;
   }
 
+  isGameAvailable(): boolean {
+    const { gameStarted, isProcessing } = this.gameState.getCurrentState();
+    return !gameStarted || isProcessing;
+  }
+
   handleCardFlip(cardId: number): void {
-    if (!this.gameStarted || this.isProcessing) {
+    if (this.isGameAvailable()) {
       console.log('Game has not started or is processing');
       return;
     }
 
-    const updatedCards = this.flipCard(this.cards, cardId);
+    const { cards } = this.gameState.getCurrentState();
+    const updatedCards = this.flipCard(cards, cardId);
     const flippedCards = this.getFlippedCards(updatedCards);
 
     if (flippedCards.length === 2) {
-      this.isProcessing = true;
+      this.gameState.updateGameState({ isProcessing: true });
       this.processFlippedCards(flippedCards, updatedCards);
     } else {
-      this.isProcessing = false;
-      this.updateGameState(updatedCards);
+      this.gameState.updateGameState({
+        cards: updatedCards,
+        isProcessing: false,
+      });
     }
   }
 
@@ -90,17 +85,19 @@ export class GameService {
     updatedCards: Card[]
   ): void {
     if (flippedCards.length === 2) {
-      this.moveCount++;
+      const { moveCount } = this.gameState.getCurrentState();
+      this.gameState.updateGameState({ moveCount });
+
       if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
-        this.matchesFound++;
+        const matchesFound = this.gameState.getCurrentState().matchesFound++;
         this.markCardsAsMatched(flippedCards);
-        this.isProcessing = false;
+        this.gameState.updateGameState({ isProcessing: false, matchesFound });
       } else {
         this.resetFlippedCardsAfterDelay(flippedCards, updatedCards);
       }
     }
 
-    this.updateGameState(updatedCards);
+    this.gameState.updateGameState({ cards: updatedCards });
   }
 
   private markCardsAsMatched(flippedCards: Card[]): void {
@@ -113,19 +110,18 @@ export class GameService {
   ): void {
     setTimeout(() => {
       flippedCards.forEach((card) => (card.flipped = false));
-      this.isProcessing = false;
-      this.cardsSubject.next(updatedCards);
-    }, 1000);
-  }
 
-  private updateGameState(updatedCards: Card[]): void {
-    this.cards = updatedCards; // Update the internal state with new cards
-    this.cardsSubject.next(updatedCards); // Publish the new state
+      this.gameState.updateGameState({
+        cards: updatedCards,
+        isProcessing: false,
+      });
+    }, 1000);
   }
 
   checkForMatch(card1: Card, card2: Card) {
     if (card1.imageContent === card2.imageContent) {
-      this.matchesFound++;
+      let { matchesFound } = this.gameState.getCurrentState();
+      this.gameState.updateGameState({ matchesFound: matchesFound++ });
       return true;
     }
 

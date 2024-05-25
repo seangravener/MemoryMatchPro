@@ -8,7 +8,6 @@ import { GameService } from '../game.service';
 })
 export class BoardComponent {
   cards$ = this.gameService.cards$
-  gamePlayStatus$ = this.gameService.gamePlayStatus$
   handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
 
   constructor(private gameService: GameService) {}

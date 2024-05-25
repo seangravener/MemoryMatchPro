@@ -1,12 +1,6 @@
 <ng-container *ngIf="cards$ | async as cards">
-  <p>
-    Card Play Status: <ng-container *ngIf="gamePlayStatus$ | async as gamePlayStatus">{{ gamePlayStatus
-      }}</ng-container>
-  </p>
-
   <div>
     <code>{{ cards | json }}</code>
-
   </div>
 
   <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" class="card" [ngClass]="{'flipped': card.flipped}"

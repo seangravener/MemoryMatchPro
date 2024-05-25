@@ -6,14 +6,4 @@ import { GameService } from './game.service';
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
-export class GameComponent implements OnInit {
-  cards$ = this.gameService.cards$
-  gamePlayStatus$ = this.gameService.gamePlayStatus$
-  handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService)
-
-  constructor(private gameService: GameService) {}
-
-  ngOnInit(): void {
-      this.gameService.initGame()
-  }
-}
+export class GameComponent {}
