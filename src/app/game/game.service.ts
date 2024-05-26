@@ -92,7 +92,7 @@ export class GameService {
 
     if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
       this.gameState.updateGameState({
-        cards: this.markCardsAsMatched(currentCards, flippedCards),
+        cards: this.markFlippedAsMatched(currentCards, flippedCards),
         isProcessing: false,
       });
       this.gameState.incrementMatches();
@@ -104,7 +104,7 @@ export class GameService {
     this.gameState.incrementMove();
   }
 
-  private markCardsAsMatched(
+  private markFlippedAsMatched(
     currentCards: Card[],
     flippedCards: Card[]
   ): Card[] {

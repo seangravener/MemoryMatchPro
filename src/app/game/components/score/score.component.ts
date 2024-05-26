@@ -11,6 +11,5 @@ import { GameState } from '../../state.model';
 })
 export class ScoreComponent {
   gameState$ = this.gameStateService.gameState$;
-
   constructor(private gameStateService: GameStateService) {}
 }
