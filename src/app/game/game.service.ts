@@ -61,7 +61,6 @@ export class GameService {
     const flippedCards = this.getFlippedCards(updatedCards);
 
     if (flippedCards.length === 2) {
-      this.gameState.updateGameState({ isProcessing: true });
       this.processFlippedCards(flippedCards, updatedCards);
     } else {
       this.gameState.updateGameState({
@@ -83,28 +82,38 @@ export class GameService {
 
   private processFlippedCards(
     flippedCards: Card[],
-    updatedCards: Card[]
+    currentCards: Card[]
   ): void {
-    if (flippedCards.length === 2) {
-      this.gameState.incrementMove()
-
-      if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
-        const cards = this.markCardsAsMatched(flippedCards);
-        this.gameState.incrementMatches();
-        this.gameState.updateGameState({
-          cards,
-          isProcessing: false,
-        });
-      } else {
-        this.resetFlippedCardsAfterDelay(flippedCards, updatedCards);
-      }
+    if (flippedCards.length !== 2) {
+      return;
     }
 
-    this.gameState.updateGameState({ cards: updatedCards });
+    this.gameState.updateGameState({ isProcessing: true });
+
+    if (this.checkForMatch(flippedCards[0], flippedCards[1])) {
+      this.gameState.updateGameState({
+        cards: this.markCardsAsMatched(currentCards, flippedCards),
+        isProcessing: false,
+      });
+      this.gameState.incrementMatches();
+    } else {
+      this.resetFlippedCardsAfterDelay(flippedCards, currentCards);
+      this.gameState.updateGameState({ cards: currentCards });
+    }
+
+    this.gameState.incrementMove();
   }
 
-  private markCardsAsMatched(flippedCards: Card[]): Card[] {
-    return flippedCards.map((card) => ({ ...card, matched: true }));
+  private markCardsAsMatched(
+    currentCards: Card[],
+    flippedCards: Card[]
+  ): Card[] {
+    return currentCards.map((card) => {
+      if (flippedCards.some((flippedCard) => flippedCard.id === card.id)) {
+        return { ...card, matched: true };
+      }
+      return card;
+    });
   }
 
   private resetFlippedCardsAfterDelay(
@@ -123,11 +132,6 @@ export class GameService {
   }
 
   checkForMatch(card1: Card, card2: Card) {
-    if (card1.imageContent === card2.imageContent) {
-      this.gameState.incrementMatches()
-      return true;
-    }
-
-    return false;
+    return card1.imageContent === card2.imageContent;
   }
 }
