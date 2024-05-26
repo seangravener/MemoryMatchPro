@@ -1,0 +1,10 @@
+<!-- <div class="card" [ngClass]="{ 'is-flipped': card.flipped }" (click)="handleFlip()"> -->
+  <div class="card-inner" (click)="handleFlip()">
+    <div class="card-front">
+      {{ card | json }}
+    </div>
+    <div class="card-back">
+      back
+    </div>
+  </div>
+<!-- </div> -->

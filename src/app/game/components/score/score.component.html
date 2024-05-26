@@ -1,3 +1,4 @@
+stats: timer, moves made, matches found / remaining, score,
 <p *ngIf="gameState$ | async as gameState">
-  score works! {{ gameState.stats | json }}
+  {{ gameState.stats | json }}
 </p>

@@ -1,4 +1,39 @@
+<h1>Demo Card Flip</h1>
+
+<div style="display: flex; gap: 22px">
+
+  <!-- <app-card (onFlip)="handleCardFlip"></app-card>
+  <app-card></app-card> -->
+
+  <div class="card" [ngClass]="{ 'active': demoCard.flipped }" (click)="demoCard.flipped = !demoCard.flipped">
+    <div class="card-inner">
+      <div class="card-front">
+        front
+      </div>
+      <div class="card-back">
+        back
+      </div>
+    </div>
+  </div>
+
+  <div class="card" [ngClass]="{ 'active': demoCard.flipped }" (click)="demoCard.flipped = !demoCard.flipped">
+    <div class="card-inner">
+      <div class="card-front">
+        front
+      </div>
+      <div class="card-back">
+        back
+      </div>
+    </div>
+  </div>
+</div>
+
 <ng-container *ngIf="cards$ | async as cards">
+
+  <div style="display: flex; gap: 22px; flex-wrap: wrap;">
+    <app-card *ngFor="let card of cards" [card]="card" (onFlip)="handleCardFlip(card.id)"></app-card>
+  </div>
+
   <div>
     <code>{{ cards | json }}</code>
   </div>

@@ -9,11 +9,13 @@ import { StatsService } from './stats.service';
 import { ScoreComponent } from './components/score/score.component';
 import { ControlsComponent } from './components/controls/controls.component';
 import { BoardComponent } from './components/board/board.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     GameComponent,
     BoardComponent,
+    CardComponent,
     SplashSceneComponent,
     ScoreComponent,
     ControlsComponent,

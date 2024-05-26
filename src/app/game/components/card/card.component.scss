@@ -1,4 +1,6 @@
-.card {
+/* Component CSS */
+app-card,
+:host {
   position: relative;
   width: 133px;
   height: 166px;
@@ -13,7 +15,10 @@
   transform-style: preserve-3d;
 }
 
-.card.active .card-inner {
+app-card.is-flipped .card-inner,
+:host(.is-flipped) .card-inner,
+:host(.active) .card-inner {
+  border: 3px solid #000;
   transform: rotateY(-180deg);
 }
 
