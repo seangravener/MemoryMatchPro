@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { StatsService } from '../../stats.service';
-import { GameStateService } from '../../state.service';
-import { GameState } from '../../state.model';
+import { StatsService } from '../../core/stats.service';
+import { GameStateService } from '../../core/state.service';
+import { GameState } from '../../core/state.model';
 
 @Component({
   selector: 'app-score',

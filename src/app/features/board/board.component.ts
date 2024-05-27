@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { GameService } from '../../game.service';
-import { Card } from '../../state.model';
+import { GameService } from '../../scenes/game-play/game.service';
+import { Card } from '../../core/state.model';
 
 @Component({
   selector: 'app-board',

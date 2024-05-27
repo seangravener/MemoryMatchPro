@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
-import { emojiSet } from './constants/emojiSet';
-import { Card, GameState } from './state.model';
-import { GameStateService } from './state.service';
+import { emojiSet } from '../../core/constants/emojiSet';
+import { Card, GameState } from '../../core/state.model';
+import { GameStateService } from '../../core/state.service';
 
 @Injectable({
   providedIn: 'root',

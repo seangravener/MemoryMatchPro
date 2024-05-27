@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SplashSceneComponent } from './game/scenes/splash/splash-scene.component';
+import { SplashSceneComponent } from './scenes/splash/splash-screen.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'game',
-    loadChildren: () => import('./game/game.module').then((m) => m.GameModule),
+    loadChildren: () => import('./scenes/game-play/game.module').then((m) => m.GameModule),
   },
 ];
 

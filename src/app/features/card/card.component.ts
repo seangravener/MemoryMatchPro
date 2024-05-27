@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewEncapsulation } from '@angular/core';
-import { Card } from '../../state.model';
+import { Card } from '../../core/state.model';
 import { Observable } from 'rxjs';
 
 @Component({
