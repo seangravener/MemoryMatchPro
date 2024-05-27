@@ -1,35 +1,6 @@
 <ng-container *ngIf="cards$ | async as cards">
-
   <div style="display: flex; gap: 22px; flex-wrap: wrap;">
     <app-card *ngFor="let card of cards; trackBy: trackByCardId" [card]="card"
       (onFlip)="handleCardFlip(card.id)"></app-card>
   </div>
-
-  <div>
-    <code>{{ cards | json }}</code>
-  </div>
-
-  <div *ngFor="let card of cards" (click)="handleCardFlip(card.id)" class="card" [ngClass]="{'flipped': card.flipped}"
-    style="margin: 20px; padding: 20px; border: 1px solid #ccc; width: 100px; height: 125px; float: left;">
-    <div *ngIf="card.flipped; else showUnflipped">
-      FACE UP
-      <div>ID: {{ card.id }}</div>
-      <div class="text-large text-center">{{card.imageContent}}</div>
-    </div>
-    <ng-template #showUnflipped>
-      FACE DOWN
-      <div>ID: {{ card.id }}</div>
-      <div class="text-large text-center">X</div>
-    </ng-template>
-  </div>
 </ng-container>
-
-<style>
-  .text-center {
-    text-align: center;
-  }
-
-  .text-large {
-    font-size: 44px;
-  }
-</style>
