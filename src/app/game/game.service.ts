@@ -72,7 +72,7 @@ export class GameService {
 
   private flipCard(cards: Card[], cardId: number): Card[] {
     return cards.map((card) =>
-      card.id === cardId ? { ...card, flipped: !card.flipped } : card
+      card.id === cardId && !card.flipped ? { ...card, flipped: true } : card
     );
   }
 
