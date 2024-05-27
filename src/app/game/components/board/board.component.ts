@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { GameService } from '../../game.service';
+import { Card } from '../../state.model';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
+  // encapsulation: ViewEncapsulation.None
 })
 export class BoardComponent {
   cards$ = this.gameService.cards$;
@@ -16,5 +18,9 @@ export class BoardComponent {
 
   ngOnInit(): void {
     this.gameService.initGame();
+  }
+
+  trackByCardId(index: number, card: Card): any {
+    return card.id;
   }
 }

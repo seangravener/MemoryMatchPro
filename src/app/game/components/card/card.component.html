@@ -1,10 +1,12 @@
-<!-- <div class="card" [ngClass]="{ 'is-flipped': card.flipped }" (click)="handleFlip()"> -->
-  <div class="card-inner" (click)="handleFlip()">
-    <div class="card-front">
-      {{ card | json }}
-    </div>
-    <div class="card-back">
-      back
-    </div>
+<div class="flip-card-inner">
+  <div class="flip-card-front">
+    FACE UP
+    <div>ID: {{ card.id }}</div>
+    <div class="text-large text-center">{{card.imageContent}}</div>
   </div>
-<!-- </div> -->
+  <div class="flip-card-back">
+    FACE DOWN
+    <div>ID: {{ card.id }}</div>
+    <div class="text-large text-center">X</div>
+  </div>
+</div>

@@ -1,25 +1,26 @@
-import { Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Card } from '../../state.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  // encapsulation: ViewEncapsulation.None  // Apply styles globally
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
   @Input() card: Card = {} as Card;
   @Output() onFlip = new EventEmitter<void>();
+  @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
   // Ensure the toggle is controlled by the input state
   @HostBinding('class.is-flipped') get isFlipped() {
     return this.card.flipped;
   }
 
-  constructor() {}
-
-  handleFlip(): void {
+  @HostListener('click') handleFlip() {
     this.onFlip.emit();
   }
+
+  constructor() {}
 }
