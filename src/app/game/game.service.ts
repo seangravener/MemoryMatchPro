@@ -58,7 +58,7 @@ export class GameService {
 
     const { cards } = this.gameState.currentState;
     const updatedCards = this.flipCard(cards, cardId);
-    const flippedCards = this.getFlippedCards(updatedCards);
+    const flippedCards = this.findFlippedCards(updatedCards);
 
     if (flippedCards.length === 2) {
       this.processFlippedCards(flippedCards, updatedCards);
@@ -76,7 +76,7 @@ export class GameService {
     );
   }
 
-  private getFlippedCards(cards: Card[]): Card[] {
+  private findFlippedCards(cards: Card[]): Card[] {
     return cards.filter((card) => card.flipped && !card.matched);
   }
 
