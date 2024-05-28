@@ -4,6 +4,7 @@
 
 .text-large {
   font-size: 44px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 // Card Flip Source
@@ -11,11 +12,11 @@
 
 .flip-card,
 :host(.flip-card) {
+  font-family: Courier, monospace;
   background-color: transparent;
-  width: 100px;
+  width: 133px;
   height: 133px;
   perspective: 1000px;
-  font-family: sans-serif;
 }
 
 .flip-card-inner {
@@ -32,6 +33,21 @@
   transform: rotateY(180deg);
 }
 
+:host {
+  --border-color: #ff4500; /* orangeRed */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --background-color-1: #ffffff; /* white */
+  --background-color-2: #87cefa; /* light sky blue */
+  --background-color-3: #87cefa; /* light sky blue */
+  --background-color-4: #ffffff; /* white */
+  --text-color: rgba(0, 0, 0, 1); /* semi-transparent black */
+  --back-background-color-1: #ffeb3b; /* yellow */
+  --back-background-color-2: #ffcc80; /* light orange */
+  --back-background-color-3: #ffb74d; /* darker orange */
+  --back-background-color-4: rgba(255, 165, 0, 0.6);
+  --back-text-color: rgba(0, 0, 0, 1); /* black */
+}
+
 .flip-card-front,
 .flip-card-back {
   position: absolute;
@@ -43,30 +59,30 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 
-  border: 1px solid coral;
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 14px 0 var(--shadow-color);
 }
 
 .flip-card-front {
   background: linear-gradient(
     120deg,
-    bisque 60%,
-    rgb(255, 231, 222) 88%,
-    rgb(255, 211, 195) 40%,
-    rgba(255, 127, 80, 0.603) 48%
+    var(--background-color-1) 0%,
+    var(--background-color-2) 100%
   );
-  color: coral;
+  color: var(--text-color);
   transform: rotateY(180deg);
+  cursor: not-allowed;
 }
 
 .flip-card-back {
   background: linear-gradient(
     120deg,
-    rgb(255, 174, 145) 30%,
-    coral 88%,
-    bisque 40%,
-    rgb(255, 185, 160) 78%
+    var(--back-background-color-1) 60%,
+    var(--back-background-color-2) 88%,
+    var(--back-background-color-3) 40%,
+    var(--back-background-color-4) 48%
   );
-  color: white;
+  color: var(--back-text-color);
+  cursor: pointer;
 }
