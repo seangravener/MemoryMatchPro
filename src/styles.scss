@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Machine Gunk";
+  src: url("./assets/fonts/MachineGunk.woff2") format("woff2"),
+    url("./assets/fonts/MachineGunk.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-mg {
+  font-size: 64px;
+  font-family: "Machine Gunk";
+}
