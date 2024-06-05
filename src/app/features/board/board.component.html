@@ -1,6 +1,4 @@
-<!-- <ng-container > -->
-<div *ngIf="cards$ | async as cards" class="cards grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-6">
+<div *ngIf="cards$ | async as cards" class="cards grid justify-items-center grid-cols-4 gap-8 sm:grid-cols-4 lg:grid-cols-6">
   <app-card *ngFor="let card of cards; trackBy: trackByCardId" [card]="card"
     (onFlip)="handleCardFlip(card.id)"></app-card>
 </div>
-<!-- </ng-container> -->
