@@ -1,15 +1,3 @@
-.text-center {
-  text-align: center;
-}
-
-.text-large {
-  font-size: 44px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
-}
-
-// Card Flip Source
-// https://uiverse.io/joe-watson-sbf/little-goat-24
-
 .flip-card,
 :host(.flip-card) {
   font-family: Courier, monospace;
@@ -31,22 +19,6 @@
 :host(.flip-card.is-flipped .flip-card-inner),
 .flip-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
-}
-
-:host {
-  --border-color: #ff4500;
-  --shadow-color: rgba(0, 0, 0, 0.2);
-  --background-color-1: #ffffff; /* white */
-  --background-color-2: #87cefa; /* light sky blue */
-  --background-color-3: #87cefa; /* light sky blue */
-  --background-color-4: #ffffff; /* white */
-  --text-color: rgba(0, 0, 0, 1); /* semi-transparent black */
-  --back-border-color: #555;
-  --back-background-color-1: #ffeb3b; /* yellow */
-  --back-background-color-2: #ffcc80; /* light orange */
-  --back-background-color-3: #ffb74d; /* darker orange */
-  --back-background-color-4: rgba(255, 165, 0, 0.6);
-  --back-text-color: rgba(0, 0, 0, 1); /* black */
 }
 
 .flip-card-front,

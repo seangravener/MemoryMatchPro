@@ -16,35 +16,77 @@
   font-family: "Machine Gunk";
 }
 
-:root {
+body.theme-beach {
   --background-gradient-start: #f0e68c; /* Light sandy color */
   --background-gradient-middle: #87cefa; /* Sky blue color */
   --background-gradient-end: #4682b4; /* Deeper sky blue */
-  --card-front-start: #ffecd2;
-  --card-front-end: #fcb69f;
-  --card-back-start: #d1c4e9;
-  --card-back-end: #b39ddb;
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --contrast-color: #e74c3c; /* Pop of contrast: bright red */
+  --border-color: #ffa07a; /* light salmon */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --background-color-1: #ffecd2; /* light peach */
+  --background-color-2: #fcb69f; /* peach */
+  --background-color-3: #fcb69f; /* peach */
+  --background-color-4: #ffecd2; /* light peach */
+  --text-color: rgba(0, 0, 0, 1); /* black */
+  --back-border-color: #4682b4; /* steel blue */
+  --back-background-color-1: #ffeb3b; /* yellow */
+  --back-background-color-2: #ffd700; /* gold */
+  --back-background-color-3: #ffa500; /* orange */
+  --back-background-color-4: rgba(255, 140, 0, 0.6); /* dark orange */
+  --back-text-color: rgba(0, 0, 0, 1); /* black */
+  background: linear-gradient(
+    to bottom right,
+    var(--background-gradient-start),
+    var(--background-gradient-middle),
+    var(--background-gradient-end)
+  );
 }
 
-.theme-beach {
-  --background-gradient-start: #f0e68c; /* Light sandy color */
-  --background-gradient-middle: #87cefa; /* Sky blue color */
-  --background-gradient-end: #4682b4; /* Deeper sky blue */
-  --card-front-start: #ffecd2;
-  --card-front-end: #fcb69f;
-  --card-back-start: #d1c4e9;
-  --card-back-end: #b39ddb;
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --contrast-color: #e74c3c; /* Pop of contrast: bright red */
+body.theme-midnight-purple {
+  --background-gradient-start: #2e003e; /* Deep purple */
+  --background-gradient-middle: #3d006e; /* Mid purple */
+  --background-gradient-end: #55008f; /* Lighter purple */
+  --border-color: #9370db; /* medium purple */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --background-color-1: #4b0082; /* indigo */
+  --background-color-2: #8a2be2; /* blue violet */
+  --background-color-3: #8a2be2; /* blue violet */
+  --background-color-4: #4b0082; /* indigo */
+  --text-color: rgba(255, 255, 255, 1); /* white */
+  --back-border-color: #2e003e; /* deep purple */
+  --back-background-color-1: #9370db; /* medium purple */
+  --back-background-color-2: #ba55d3; /* orchid */
+  --back-background-color-3: #da70d6; /* plum */
+  --back-background-color-4: rgba(186, 85, 211, 0.6); /* orchid */
+  --back-text-color: rgba(255, 255, 255, 1); /* white */
+  background: linear-gradient(
+    to bottom right,
+    var(--background-gradient-start),
+    var(--background-gradient-middle),
+    var(--background-gradient-end)
+  );
 }
 
-body {
-  background: linear-gradient(to bottom right, var(--background-gradient-start), var(--background-gradient-middle), var(--background-gradient-end));
-  transition: background 0.5s ease;
-  position: relative;
-  min-height: 100vh;
-  margin: 0;
-  overflow-x: hidden;
+body.theme-moonlight {
+  --background-gradient-start: #2c3e50; /* Dark grey */
+  --background-gradient-middle: #4c5c68; /* Mid grey */
+  --background-gradient-end: #bdc3c7; /* Light grey */
+  --border-color: #2c3e50; /* dark grey */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --background-color-1: #95a5a6; /* grey */
+  --background-color-2: #bdc3c7; /* light grey */
+  --background-color-3: #bdc3c7; /* light grey */
+  --background-color-4: #95a5a6; /* grey */
+  --text-color: rgba(0, 0, 0, 1); /* black */
+  --back-border-color: #34495e; /* midnight blue */
+  --back-background-color-1: #ecf0f1; /* light grey */
+  --back-background-color-2: #bdc3c7; /* light grey */
+  --back-background-color-3: #7f8c8d; /* grey */
+  --back-background-color-4: rgba(127, 140, 141, 0.6); /* grey */
+  --back-text-color: rgba(0, 0, 0, 1); /* black */
+  background: linear-gradient(
+    to bottom right,
+    var(--background-gradient-start),
+    var(--background-gradient-middle),
+    var(--background-gradient-end)
+  );
 }

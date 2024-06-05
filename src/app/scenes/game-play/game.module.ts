@@ -10,6 +10,7 @@ import { ScoreComponent } from '../../features/score/score.component';
 import { ControlsComponent } from '../../features/controls/controls.component';
 import { BoardComponent } from '../../features/board/board.component';
 import { CardComponent } from '../../features/card/card.component';
+import { ThemeService } from '../../core/theme.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { CardComponent } from '../../features/card/card.component';
     ControlsComponent,
   ],
   imports: [CommonModule, GameRoutingModule],
-  providers: [GameService, StatsService],
+  providers: [GameService, StatsService, ThemeService],
   exports: [GamePlayComponent],
 })
 export class GameModule {}
