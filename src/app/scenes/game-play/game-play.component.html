@@ -1,13 +1,19 @@
-<div class="min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
+<h1 class="font-mg text-center p-4">Memory Game</h1>
 
-  <h1 class="font-mg text-center p-4">Memory Game</h1>
-
-  <div class="max-w-3xl mx-auto">
-    <app-score></app-score>
-    <app-controls></app-controls>
-  </div>
-
-  <div class="max-w-3xl m-auto mt-8">
-    <app-board></app-board>
-  </div>
+<div class="mb-8 mx-auto w-fit">
+  <label class="mr-4">
+    <input type="radio" name="theme" value="beach" checked onclick="changeTheme('theme-beach')"> Beach
+  </label>
+  <label class="mr-4">
+    <input type="radio" name="theme" value="midnight-purple" onclick="changeTheme('theme-midnight-purple')"> Midnight
+    Purple
+  </label>
+  <label>
+    <input type="radio" name="theme" value="moonlight" onclick="changeTheme('theme-moonlight')"> Moonlight
+  </label>
+</div>
+<div class="game-board max-w-4xl bg-white p-8 mb-16 rounded-xl shadow-lg relative overflow-hidden">
+  <app-score></app-score>
+  <app-controls></app-controls>
+  <app-board></app-board>
 </div>
