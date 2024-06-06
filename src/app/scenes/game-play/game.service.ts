@@ -108,12 +108,29 @@ export class GameService {
     currentCards: Card[],
     flippedCards: Card[]
   ): Card[] {
-    return currentCards.map((card) => {
-      if (flippedCards.some((flippedCard) => flippedCard.id === card.id)) {
-        return { ...card, matched: true };
+    const isFlippedCard = (card: Card) =>
+      flippedCards.some((flippedCard) => flippedCard.id === card.id);
+    const updateCardProperties = (card: Card, props: Partial<Card>): Card => {
+      if (isFlippedCard(card)) {
+        return { ...card, ...props };
       }
       return card;
-    });
+    };
+
+    // Initially set matched to false for flipped cards
+    const updatedCards = currentCards.map((card) =>
+      updateCardProperties(card, { matched: false })
+    );
+
+    setTimeout(() => {
+      this.gameState.updateGameState({
+        cards: updatedCards.map((card) =>
+          updateCardProperties(card, { matched: true })
+        ),
+      });
+    }, 400); // Delay slightly longer than the flip animation duration
+
+    return updatedCards;
   }
 
   private resetFlippedCardsAfterDelay(

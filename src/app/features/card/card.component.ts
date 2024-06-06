@@ -17,6 +17,10 @@ export class CardComponent {
     return this.card.flipped;
   }
 
+  @HostBinding('class.is-matched') get isMatched() {
+    return this.card.matched;
+  }
+
   @HostListener('click') handleFlip() {
     this.onFlip.emit();
   }
