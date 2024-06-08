@@ -1,6 +1,5 @@
 <div *ngIf="gameState$ | async as gameState"
   class="score-board bg-gradient-to-r from-pink-300 via-purple-300 to-purple-400 py-2 px-4 rounded-xl shadow-md flex justify-center mb-8 text-white font-bold">
-  <!-- {{ gameState.stats | json }} -->
   <div class="score-item mx-4 text-xl">Moves: {{ gameState.stats.moves }}</div>
   <div class="score-item mx-4 text-xl">Matches: {{ gameState.stats.matches }}/16</div>
   <div class="score-item mx-4 text-xl" id="timer">Time: 00:00</div>

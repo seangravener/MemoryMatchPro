@@ -1,19 +1,26 @@
-<h1 class="font-mg text-center p-4">Memory Game</h1>
+<div class="grid grid-flow-col auto-cols-max">
+  <div>
+    <div class="game-board max-w-4xl bg-white p-4 lg:p-8 m-4 lg:m-8 rounded-xl shadow-lg relative overflow-hidden">
+      <app-score></app-score>
+      <app-board></app-board>
+    </div>
 
-<div class="mb-8 mx-auto w-fit">
-  <label class="mr-4">
-    <input type="radio" name="theme" value="theme-beach" checked (click)="changeTheme('theme-beach')"> Beach
-  </label>
-  <label class="mr-4">
-    <input type="radio" name="theme" value="theme-midnight-purple" (click)="changeTheme('theme-midnight-purple')">
-    Midnight Purple
-  </label>
-  <label>
-    <input type="radio" name="theme" value="theme-moonlight" (click)="changeTheme('theme-moonlight')"> Moonlight
-  </label>
-</div>
-<div class="game-board max-w-4xl bg-white p-8 mb-16 rounded-xl shadow-lg relative overflow-hidden">
-  <app-score></app-score>
-  <app-controls></app-controls>
-  <app-board></app-board>
+  </div>
+  <div>
+    <h1 class="font-mg text-center p-4">Memory Game</h1>
+    <div class="mb-8 mx-auto w-fit">
+      <label class="mr-4">
+        <input type="radio" name="theme" value="theme-beach" checked (click)="changeTheme('theme-beach')"> Beach
+      </label>
+      <label class="mr-4">
+        <input type="radio" name="theme" value="theme-midnight-purple" (click)="changeTheme('theme-midnight-purple')">
+        Midnight Purple
+      </label>
+      <label>
+        <input type="radio" name="theme" value="theme-moonlight" (click)="changeTheme('theme-moonlight')"> Moonlight
+      </label>
+    </div>
+    <app-controls></app-controls>
+
+  </div>
 </div>

@@ -2,8 +2,8 @@
 :host(.flip-card) {
   font-family: Courier, monospace;
   background-color: transparent;
-  width: 112px;
-  height: 112px;
+  // width: 112px;
+  // height: 112px;
   perspective: 1000px;
 }
 
@@ -80,7 +80,7 @@
   }
 }
 
-:host(.flip-card.matched),
-:host(.flip-card .matched) {
+:host(.is-flipped.is-matched),
+:host(.is-flipped .is-matched) {
   animation: celebrate 0.5s ease-in-out;
 }
