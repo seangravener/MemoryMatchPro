@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../../core/theme.service';
+import { Theme, ThemeService } from '../../core/theme.service';
 
 @Component({
   selector: 'app-game-play',
@@ -7,7 +7,12 @@ import { ThemeService } from '../../core/theme.service';
   styleUrl: './game-play.component.scss',
 })
 export class GamePlayComponent implements OnInit {
-  get currentTheme(){
+  themes = Object.keys(Theme).map((key) => ({
+    key,
+    value: Theme[key as keyof typeof Theme],
+  }));
+
+  get currentTheme() {
     return this.themeService.currentTheme;
   }
 
@@ -15,17 +20,11 @@ export class GamePlayComponent implements OnInit {
 
   ngOnInit() {
     this.themeService.currentTheme$.subscribe((currentTheme) => {
-      this.applyTheme();
+      this.themeService.setTheme(currentTheme);
     });
   }
 
-  changeTheme(theme: string) {
+  changeTheme(theme: Theme) {
     this.themeService.setTheme(theme);
-  }
-
-  applyTheme() {
-    const body = document.body;
-    body.classList.remove('theme-beach', 'theme-midnight-purple', 'theme-moonlight');
-    body.classList.add(this.currentTheme);
   }
 }
