@@ -151,4 +151,8 @@ export class GameService {
   checkForMatch(card1: Card, card2: Card) {
     return card1.imageContent === card2.imageContent;
   }
+
+  resetGame() {
+    this.gameState.resetGameState();
+  }
 }
