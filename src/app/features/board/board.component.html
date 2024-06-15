@@ -1,5 +1,4 @@
 <div *ngIf="cards$ | async as cards" class="cards grid justify-items-center gap-4 grid-cols-4 md:grid-cols-8">
-  <!-- <app-card class="h-[72px] sm:h-[112px] lg:h-[112px] w-[72px] sm:w-[112px] lg:w-[112px]" -->
-    <app-card class="h-[72px] w-full max-w-[124px]"
-    *ngFor="let card of cards; trackBy: trackByCardId" [card]="card" (onFlip)="handleCardFlip(card.id)"></app-card>
+  <app-card class="h-[72px] w-full max-w-[124px]" *ngFor="let card of cards; trackBy: trackByCardId" [card]="card"
+    (onFlip)="handleCardFlip(card.id)"></app-card>
 </div>
