@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 export enum Theme {
   Beach = 'theme-beach',
@@ -12,7 +12,7 @@ export enum Theme {
 })
 export class ThemeService {
   private themeSubject = new BehaviorSubject<Theme>(Theme.Beach);
-  currentTheme$ = this.themeSubject.asObservable();
+  currentTheme$ = this.themeSubject.asObservable().pipe(distinctUntilChanged());
 
   get currentTheme() {
     return this.themeSubject.getValue();
