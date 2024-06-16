@@ -6,13 +6,14 @@ export interface Card {
 }
 
 export enum GameStatId {
+  UNDEFINED = '',
   MOVES = 'moves',
   MATCHES = 'matches',
   SCORE = 'score',
 }
 
 export interface GameStat {
-  id: GameStatId | '';
+  id: GameStatId;
   label: string;
   value: number;
 }

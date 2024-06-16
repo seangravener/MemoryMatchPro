@@ -1,10 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-} from '@angular/core';
-import { GameStat } from '../../../core/state.model';
+import { Component, HostBinding, Input } from '@angular/core';
+import { GameStat, GameStatId } from '../../../core/state.model';
 
 @Component({
   selector: 'stat-item',
@@ -12,7 +7,7 @@ import { GameStat } from '../../../core/state.model';
   styleUrls: ['./stat-item.component.css'],
 })
 export class StatItemComponent {
-  private _stat: GameStat = { id: '', label: '', value: 0 };
+  private _stat: GameStat = { id: GameStatId.UNDEFINED, label: '', value: 0 };
   @Input() set stat(stat: GameStat) {
     this._stat = stat;
   }
