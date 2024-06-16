@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { GameStateService } from './state.service';
-import { GameState, GameStat, GameStatId } from './state.model';
+import { GameStat, GameStatId } from './state.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,17 +20,26 @@ export class GameStatsService {
 
   // 100 points per match, minus 10 points per move
   private calculateStats(stats: GameStat[]): GameStat[] {
+    const moves = this.getStat(GameStatId.MOVES);
+    const matches = this.getStat(GameStatId.MATCHES);
+
     return stats.map((stat) => {
       if (stat.id === GameStatId.SCORE) {
-        stat.value = stat.value * 100 - stat.value * 10;
+        stat.value = matches.value * 100 - moves.value * 10;
       }
 
       return stat;
     });
   }
 
+  getStat(statId: GameStatId): GameStat {
+    const stat = this.currentStats.find((stat) => stat.id === statId);
+    const defaultStat = { id: statId, label: '', value: 0 };
+
+    return stat ? stat : defaultStat;
+  }
+
   incrementMove() {
-    console.log(this.currentStats);
     this.gameStateService.updateGameState({
       stats: this.currentStats.map((stat) => {
         if (stat.id === GameStatId.MOVES) {
