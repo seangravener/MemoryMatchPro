@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { emojiSet } from '../../core/constants/emojiSet';
 import { Card, GameState } from '../../core/state.model';
 import { GameStateService } from '../../core/state.service';
+import { GameStatsService } from '../../core/stats.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class GameService {
     map((state: GameState) => state.cards)
   );
 
-  constructor(private gameState: GameStateService) {}
+  constructor(
+    private gameState: GameStateService,
+    private gameStats: GameStatsService
+  ) {}
 
   initGame() {
     this.gameState.updateGameState({
@@ -95,13 +99,13 @@ export class GameService {
         cards: this.markFlippedAsMatched(currentCards, flippedCards),
         isProcessing: false,
       });
-      this.gameState.incrementMatches();
+      this.gameStats.incrementMatches();
     } else {
       this.resetFlippedCardsAfterDelay(flippedCards, currentCards);
       this.gameState.updateGameState({ cards: currentCards });
     }
 
-    this.gameState.incrementMove();
+    this.gameStats.incrementMove();
   }
 
   private markFlippedAsMatched(

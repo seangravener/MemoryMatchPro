@@ -2,27 +2,55 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { GameStateService } from './state.service';
-import { GameStats, GameState } from './state.model';
+import { GameState, GameStat, GameStatId } from './state.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StatsService {
-  currentStats$: Observable<GameStats>;
+export class GameStatsService {
+  currentStats$: Observable<GameStat[]> = this.gameStateService.gameState$.pipe(
+    map(({ stats }) => this.calculateStats(stats))
+  );
 
-  constructor(private gameStateService: GameStateService) {
-    this.currentStats$ = this.gameStateService.gameState$.pipe(
-      map((state) => this.calculateStats(state))
-    );
+  get currentStats() {
+    return this.gameStateService.currentState.stats;
   }
 
-  private calculateStats(state: GameState): GameStats {
-    // 100 points per match, minus 10 points per move
-    const score = state.stats.matches * 100 - state.stats.moves * 10;
+  constructor(private gameStateService: GameStateService) {}
 
-    return {
-      ...state.stats,
-      score: score,
-    };
+  // 100 points per match, minus 10 points per move
+  private calculateStats(stats: GameStat[]): GameStat[] {
+    return stats.map((stat) => {
+      if (stat.id === GameStatId.SCORE) {
+        stat.value = stat.value * 100 - stat.value * 10;
+      }
+
+      return stat;
+    });
+  }
+
+  incrementMove() {
+    console.log(this.currentStats);
+    this.gameStateService.updateGameState({
+      stats: this.currentStats.map((stat) => {
+        if (stat.id === GameStatId.MOVES) {
+          stat.value = stat.value + 1;
+        }
+
+        return stat;
+      }),
+    });
+  }
+
+  incrementMatches() {
+    this.gameStateService.updateGameState({
+      stats: this.currentStats.map((stat) => {
+        if (stat.id === GameStatId.MATCHES) {
+          stat.value = stat.value + 1;
+        }
+
+        return stat;
+      }),
+    });
   }
 }

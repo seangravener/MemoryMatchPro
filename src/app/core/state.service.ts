@@ -25,20 +25,4 @@ export class GameStateService {
     this.gameState = { ...initialState };
     this.gameStateSubject.next(this.gameState);
   }
-
-  incrementMove() {
-    const updatedStats = {
-      ...this.gameState.stats,
-      moves: this.gameState.stats.moves + 1,
-    };
-    this.updateGameState({ stats: updatedStats });
-  }
-
-  incrementMatches() {
-    const updatedStats = {
-      ...this.gameState.stats,
-      matches: this.gameState.stats.matches + 1,
-    };
-    this.updateGameState({ stats: updatedStats });
-  }
 }
