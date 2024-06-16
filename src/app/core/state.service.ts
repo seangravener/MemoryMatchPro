@@ -6,23 +6,22 @@ import { GameState, initialState } from './state.model';
   providedIn: 'root',
 })
 export class GameStateService {
-  private gameState: GameState = { ...initialState };
-  private gameStateSubject = new BehaviorSubject<GameState>(this.gameState);
+  private gameStateSubject = new BehaviorSubject<GameState>({
+    ...initialState,
+  });
   gameState$ = this.gameStateSubject.asObservable();
 
   get currentState() {
-    return this.gameState;
+    return this.gameStateSubject.getValue();
   }
 
   constructor() {}
 
   updateGameState(newState: Partial<GameState>) {
-    this.gameState = { ...this.gameState, ...newState };
-    this.gameStateSubject.next(this.gameState);
+    this.gameStateSubject.next({ ...this.currentState, ...newState });
   }
 
   resetGameState() {
-    this.gameState = { ...initialState };
-    this.gameStateSubject.next(this.gameState);
+    this.gameStateSubject.next({ ...this.currentState });
   }
 }
