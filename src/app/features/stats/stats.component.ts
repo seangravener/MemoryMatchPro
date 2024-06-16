@@ -5,12 +5,12 @@ import { GameState } from '../../core/state.model';
 import { map, toArray } from 'rxjs';
 
 @Component({
-  selector: 'app-score',
-  templateUrl: './score.component.html',
-  styleUrls: ['./score.component.css'],
+  selector: 'app-stats',
+  templateUrl: './stats.component.html',
+  styleUrls: ['./stats.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScoreComponent {
+export class GameStatsComponent {
   currentStats$ = this.statsService.currentStats$;
 
   constructor(private statsService: GameStatsService) {}

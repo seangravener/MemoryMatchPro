@@ -1,6 +1,5 @@
 <div *ngIf="currentStats$ | async as currentStats"
   class="score-board bg-gradient-to-r flex-grow flex-wrap from-pink-300 via-purple-300 to-purple-400 py-2 px-4 rounded-xl shadow-md flex justify-center mb-8 text-white font-bold">
-  <ng-container *ngFor="let item of currentStats">
-    <score-item [label]="item.label" [value]="item.value"></score-item>
-  </ng-container>
+  <stat-item *ngFor="let stat of currentStats" [stat]="stat"></stat-item>
+
 </div>

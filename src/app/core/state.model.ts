@@ -12,7 +12,7 @@ export enum GameStatId {
 }
 
 export interface GameStat {
-  id: GameStatId;
+  id: GameStatId | '';
   label: string;
   value: number;
 }
