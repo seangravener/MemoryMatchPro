@@ -14,6 +14,7 @@ import {
 import { Card } from '../../../../core/state.model';
 import { ConfettiService } from '../../../../core/confetti.service';
 import { GameEffectsService } from '../../../../core/game-effects.service';
+import { GameService } from '../../game.service';
 
 @Component({
   selector: 'app-card',
@@ -34,6 +35,10 @@ export class CardComponent implements OnChanges {
     return this._card;
   }
 
+  get isCheatModeEnabled() {
+    return this.gameService.currentState.isCheatModeEnabled;
+  }
+
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
   @HostBinding('class.is-flipped') get isFlipped() {
@@ -52,6 +57,7 @@ export class CardComponent implements OnChanges {
 
   constructor(
     private gameEffectsService: GameEffectsService,
+    private gameService: GameService
   ) {}
 
   setGameEffect(element: HTMLElement, options?: object) {

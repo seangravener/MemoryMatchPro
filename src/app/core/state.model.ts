@@ -21,8 +21,9 @@ export interface GameStat {
 export interface GameState {
   cards: Card[];
   gameStarted: boolean;
-  isProcessing: boolean;
   stats: GameStat[];
+  isProcessing: boolean;
+  isCheatModeEnabled: boolean;
 }
 
 

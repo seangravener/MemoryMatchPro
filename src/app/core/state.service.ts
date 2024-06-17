@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GameState } from './state.model';
-import { initialGameState } from "../config/initialGameState";
+import { initialGameState } from '../config/initialGameState';
 
 const createInitialState = (): GameState => {
   return {
@@ -28,6 +28,11 @@ export class GameStateService {
 
   updateGameState(newState: Partial<GameState>) {
     this.gameStateSubject.next({ ...this.currentState, ...newState });
+  }
+
+  toggleCheatMode() {
+    const { isCheatModeEnabled: cheatMode } = this.currentState;
+    this.updateGameState({ isCheatModeEnabled: !cheatMode });
   }
 
   resetGameState() {

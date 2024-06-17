@@ -14,6 +14,14 @@ export class GameService {
     map((state: GameState) => state.cards)
   );
 
+  get currentState() {
+    return this.gameState.currentState;
+  }
+
+  get currentStats() {
+    return this.gameState.currentState.stats;
+  }
+
   constructor(
     private gameState: GameStateService,
     private gameStats: GameStatsService
@@ -24,6 +32,10 @@ export class GameService {
       gameStarted: true,
       cards: this.shuffleCards(this.createCards()),
     });
+  }
+
+  toggleCheatMode() {
+    this.gameState.toggleCheatMode();
   }
 
   createCards() {
