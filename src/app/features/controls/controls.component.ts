@@ -7,18 +7,20 @@ import { GameService } from '../../scenes/game-play/game.service';
   styleUrls: ['./controls.component.css'],
 })
 export class ControlsComponent implements OnInit {
+  // get isTimerStarted() {
+  //   return this.gameService.isTimerStarted();
+  // }
+
   constructor(private gameService: GameService) {}
 
   ngOnInit() {}
 
   resetGame() {
-    console.log('reset game');
     this.gameService.resetGame();
     this.gameService.initGame();
   }
 
   startGame() {
-    console.log('start game');
-    this.gameService.initGame();
+    // this.gameService.initGame();
   }
 }
