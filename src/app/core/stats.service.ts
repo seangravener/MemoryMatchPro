@@ -41,25 +41,19 @@ export class GameStatsService {
 
   incrementMove() {
     this.gameStateService.updateGameState({
-      stats: this.currentStats.map((stat) => {
-        if (stat.id === GameStatId.MOVES) {
-          stat.value = stat.value + 1;
-        }
-
-        return stat;
-      }),
+      stats: this.currentStats.map((stat) =>
+        stat.id === GameStatId.MOVES ? { ...stat, value: stat.value + 1 } : stat
+      ),
     });
   }
 
   incrementMatches() {
     this.gameStateService.updateGameState({
-      stats: this.currentStats.map((stat) => {
-        if (stat.id === GameStatId.MATCHES) {
-          stat.value = stat.value + 1;
-        }
-
-        return stat;
-      }),
+      stats: this.currentStats.map((stat) =>
+        stat.id === GameStatId.MATCHES
+          ? { ...stat, value: stat.value + 1 }
+          : stat
+      ),
     });
   }
 }
