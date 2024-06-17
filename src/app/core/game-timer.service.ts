@@ -17,7 +17,7 @@ export class GameTimerService {
 
   startTimer(): void {
     if (this.isRunning) {
-      return; // Prevent multiple timers
+      return;
     }
 
     this.isRunning = true;
@@ -25,15 +25,15 @@ export class GameTimerService {
     this.timer$ = timer(0, 1000).pipe(
       map(() => Math.floor((Date.now() - this.startTime) / 1000)),
       tap((time) => this.currentTimeSubject.next(time)),
-      takeWhile(() => this.isRunning) // Continue emitting until stopped
+      takeWhile(() => this.isRunning)
     );
 
     this.timer$.subscribe();
   }
 
   stopTimer(): void {
-    this.isRunning = false; // This will terminate the timer$ observable
-    this.currentTimeSubject.next(0); // Reset the current time
+    this.isRunning = false;
+    this.currentTimeSubject.next(0);
   }
 
   resetTimer(): void {

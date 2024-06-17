@@ -5,6 +5,7 @@ import { emojiSet } from '../../config/emojiSet';
 import { Card, GameState } from '../../core/state.model';
 import { GameStateService } from '../../core/state.service';
 import { GameStatsService } from '../../core/stats.service';
+import { GameTimerService } from '../../core/game-timer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,8 @@ export class GameService {
 
   constructor(
     private gameState: GameStateService,
-    private gameStats: GameStatsService
+    private gameStats: GameStatsService,
+    private gameTimer: GameTimerService
   ) {}
 
   initGame() {
@@ -173,6 +175,7 @@ export class GameService {
   }
 
   resetGame() {
+    this.gameTimer.resetTimer();
     this.gameState.resetGameState();
   }
 }
