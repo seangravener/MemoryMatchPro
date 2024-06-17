@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Theme, ThemeService } from '../../core/theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -7,6 +8,7 @@ import { Theme, ThemeService } from '../../core/theme.service';
   styleUrl: './game.component.scss',
 })
 export class GameComponent implements OnInit {
+  subs: Subscription | undefined;
   themes = Object.keys(Theme).map((key) => ({
     key,
     value: Theme[key as keyof typeof Theme],
@@ -19,12 +21,16 @@ export class GameComponent implements OnInit {
   constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
-    this.themeService.currentTheme$.subscribe((currentTheme) => {
+    this.subs = this.themeService.currentTheme$.subscribe((currentTheme) => {
       this.themeService.setTheme(currentTheme);
     });
   }
 
   changeTheme(theme: Theme) {
     this.themeService.setTheme(theme);
+  }
+
+  ngOnDestroy() {
+    this.subs?.unsubscribe();
   }
 }
