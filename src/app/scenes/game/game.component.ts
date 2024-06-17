@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './game.component.scss',
 })
 export class GameComponent implements OnInit {
-  subs: Subscription | undefined;
+  subs: Subscription = new Subscription();
   themes = Object.keys(Theme).map((key) => ({
     key,
     value: Theme[key as keyof typeof Theme],
@@ -21,9 +21,11 @@ export class GameComponent implements OnInit {
   constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
-    this.subs = this.themeService.currentTheme$.subscribe((currentTheme) => {
-      this.themeService.setTheme(currentTheme);
-    });
+    this.subs.add(
+      this.themeService.currentTheme$.subscribe((currentTheme) => {
+        this.themeService.setTheme(currentTheme);
+      })
+    );
   }
 
   changeTheme(theme: Theme) {
