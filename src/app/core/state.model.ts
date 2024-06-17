@@ -10,6 +10,7 @@ export enum GameStatId {
   MOVES = 'moves',
   MATCHES = 'matches',
   SCORE = 'score',
+  TIME = 'time',
 }
 
 export interface GameStat {
