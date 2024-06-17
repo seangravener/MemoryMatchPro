@@ -17,4 +17,19 @@ export class ConfettiService {
       ...options,
     });
   }
+
+  launchConfettiFromElement(element: HTMLElement, options?: object) {
+    const rect = element.getBoundingClientRect();
+    const origin = {
+      x: (rect.left + rect.right) / 2 / window.innerWidth,
+      y: (rect.top + rect.bottom) / 2 / window.innerHeight,
+    };
+
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: origin,
+      ...options,
+    });
+  }
 }

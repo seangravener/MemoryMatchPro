@@ -1,5 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Card } from '../../core/state.model';
+import { ConfettiService } from '../../core/confetti.service';
 
 @Component({
   selector: 'app-card',
@@ -7,9 +19,18 @@ import { Card } from '../../core/state.model';
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardComponent {
-  @Input() card: Card = {} as Card;
+export class CardComponent implements OnChanges {
   @Output() onFlip = new EventEmitter<void>();
+
+  private _card: Card = {} as Card;
+  @Input() set card(card: Card) {
+    this._card = card;
+  }
+
+  get card() {
+    return this._card;
+  }
+
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
   // Ensure the toggle is controlled by the input state
@@ -25,5 +46,17 @@ export class CardComponent {
     this.onFlip.emit();
   }
 
-  constructor() {}
+  @ViewChild('flipCard') flipCard!: ElementRef<HTMLDivElement>;
+
+  constructor(private confettiService: ConfettiService) {}
+
+  ngOnChanges() {
+    if (this.card.matched) {
+      setTimeout(() => {
+        this.confettiService.launchConfettiFromElement(
+          this.flipCard.nativeElement
+        );
+      }, 500);
+    }
+  }
 }
