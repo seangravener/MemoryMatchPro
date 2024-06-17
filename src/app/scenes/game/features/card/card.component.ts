@@ -11,8 +11,8 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { Card } from '../../core/state.model';
-import { ConfettiService } from '../../core/confetti.service';
+import { Card } from '../../../../core/state.model';
+import { ConfettiService } from '../../../../core/confetti.service';
 
 @Component({
   selector: 'app-card',

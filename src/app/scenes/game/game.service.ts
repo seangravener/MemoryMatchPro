@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
-import { emojiSet } from '../../core/constants/emojiSet';
+import { emojiSet } from '../../config/emojiSet';
 import { Card, GameState } from '../../core/state.model';
 import { GameStateService } from '../../core/state.service';
 import { GameStatsService } from '../../core/stats.service';

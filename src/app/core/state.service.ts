@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GameState, initialState } from './state.model';
+import { GameState } from './state.model';
+import { initialGameState } from "../config/initialGameState";
 
 const createInitialState = (): GameState => {
   return {
-    ...initialState,
+    ...initialGameState,
     // Deep copy to avoid mutations
-    stats: initialState.stats.map((stat) => ({ ...stat })),
+    stats: initialGameState.stats.map((stat) => ({ ...stat })),
   };
 };
 

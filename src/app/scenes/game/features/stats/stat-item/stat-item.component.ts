@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { GameStat, GameStatId } from '../../../core/state.model';
+import { GameStat, GameStatId } from '../../../../../core/state.model';
 
 @Component({
   selector: 'stat-item',

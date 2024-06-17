@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'game',
-    loadChildren: () => import('./scenes/game-play/game.module').then((m) => m.GameModule),
+    loadChildren: () => import('./scenes/game/game.module').then((m) => m.GameModule),
   },
 ];
 
