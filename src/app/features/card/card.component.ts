@@ -10,6 +10,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+
 import { Card } from '../../core/state.model';
 import { ConfettiService } from '../../core/confetti.service';
 
@@ -21,6 +22,7 @@ import { ConfettiService } from '../../core/confetti.service';
 })
 export class CardComponent implements OnChanges {
   @Output() onFlip = new EventEmitter<void>();
+  @Output() onMatch = new EventEmitter<void>();
 
   private _card: Card = {} as Card;
   @Input() set card(card: Card) {
@@ -33,7 +35,6 @@ export class CardComponent implements OnChanges {
 
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
-  // Ensure the toggle is controlled by the input state
   @HostBinding('class.is-flipped') get isFlipped() {
     return this.card.flipped;
   }
@@ -50,13 +51,17 @@ export class CardComponent implements OnChanges {
 
   constructor(private confettiService: ConfettiService) {}
 
+  // @todo -- move to VisualEffects service
+  queEffect(element: HTMLElement, options?: object) {
+    setTimeout(() => {
+      this.confettiService.launchConfettiFromElement(element, options);
+    }, 500);
+  }
+
   ngOnChanges() {
     if (this.card.matched) {
-      setTimeout(() => {
-        this.confettiService.launchConfettiFromElement(
-          this.flipCard.nativeElement
-        );
-      }, 500);
+      this.onMatch.emit();
+      this.queEffect(this.flipCard.nativeElement);
     }
   }
 }
