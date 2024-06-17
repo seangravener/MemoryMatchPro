@@ -1,7 +1,14 @@
-// src/app/services/confetti.service.ts
 import { Injectable } from '@angular/core';
 
 declare var confetti: any;
+
+export interface ConfettiOptions {
+  particleCount?: number;
+  spread?: number;
+  origin?: { x: number; y: number };
+}
+
+const createDefaultGameOptions = () => ({ particleCount: 100, spread: 70 });
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +16,10 @@ declare var confetti: any;
 export class ConfettiService {
   constructor() {}
 
-  launchConfetti(options?: object) {
+  launchConfetti(overrides?: ConfettiOptions) {
     confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-      ...options,
+      ...createDefaultGameOptions(),
+      ...overrides,
     });
   }
 
@@ -25,11 +30,9 @@ export class ConfettiService {
       y: (rect.top + rect.bottom) / 2 / window.innerHeight,
     };
 
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: origin,
+    this.launchConfetti({
+      origin,
       ...options,
-    });
+    } as ConfettiOptions);
   }
 }

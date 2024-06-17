@@ -13,6 +13,7 @@ import {
 
 import { Card } from '../../../../core/state.model';
 import { ConfettiService } from '../../../../core/confetti.service';
+import { GameEffectsService } from '../../../../core/game-effects.service';
 
 @Component({
   selector: 'app-card',
@@ -49,19 +50,18 @@ export class CardComponent implements OnChanges {
 
   @ViewChild('flipCard') flipCard!: ElementRef<HTMLDivElement>;
 
-  constructor(private confettiService: ConfettiService) {}
+  constructor(
+    private gameEffectsService: GameEffectsService,
+  ) {}
 
-  // @todo -- move to VisualEffects service
-  queEffect(element: HTMLElement, options?: object) {
-    setTimeout(() => {
-      this.confettiService.launchConfettiFromElement(element, options);
-    }, 500);
+  setGameEffect(element: HTMLElement, options?: object) {
+    this.gameEffectsService.launchConfetti({ element, options, delay: 500 });
   }
 
   ngOnChanges() {
     if (this.card.matched) {
       this.onMatch.emit();
-      this.queEffect(this.flipCard.nativeElement);
+      this.setGameEffect(this.flipCard.nativeElement);
     }
   }
 }
