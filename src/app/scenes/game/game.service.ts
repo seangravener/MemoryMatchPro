@@ -14,6 +14,10 @@ export class GameService {
     map((state: GameState) => state.cards)
   );
 
+  get currentState$() {
+    return this.gameState.gameState$;
+  }
+
   get currentState() {
     return this.gameState.currentState;
   }

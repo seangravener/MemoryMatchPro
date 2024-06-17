@@ -31,8 +31,8 @@ export class GameStateService {
   }
 
   toggleCheatMode() {
-    const { isCheatModeEnabled: cheatMode } = this.currentState;
-    this.updateGameState({ isCheatModeEnabled: !cheatMode });
+    const { isCheatModeEnabled } = this.currentState;
+    this.updateGameState({ isCheatModeEnabled: !isCheatModeEnabled });
   }
 
   resetGameState() {

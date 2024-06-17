@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Theme, ThemeService } from '../../core/theme.service';
 import { Subscription } from 'rxjs';
+import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
 
 @Component({
   selector: 'app-game',
@@ -18,9 +19,14 @@ export class GameComponent implements OnInit {
     return this.themeService.currentTheme;
   }
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private cheatCodeListenerService: CheatCodeListenerService
+  ) {}
 
   ngOnInit() {
+    this.cheatCodeListenerService.init();
+
     this.subs.add(
       this.themeService.currentTheme$.subscribe((currentTheme) => {
         this.themeService.setTheme(currentTheme);

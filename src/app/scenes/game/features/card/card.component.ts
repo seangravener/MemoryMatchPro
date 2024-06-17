@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 
 import { Card } from '../../../../core/state.model';
-import { ConfettiService } from '../../../../core/confetti.service';
 import { GameEffectsService } from '../../../../core/game-effects.service';
 import { GameService } from '../../game.service';
 
@@ -20,11 +19,11 @@ import { GameService } from '../../game.service';
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnChanges {
   @Output() onFlip = new EventEmitter<void>();
-  @Output() onMatch = new EventEmitter<void>();
+  @Output() onMatch = new EventEmitter<HTMLElement>();
 
   private _card: Card = {} as Card;
   @Input() set card(card: Card) {
@@ -66,7 +65,9 @@ export class CardComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.card.matched) {
-      this.onMatch.emit();
+      this.onMatch.emit(this.flipCard.nativeElement);
+
+      // @todo Move to GameService
       this.setGameEffect(this.flipCard.nativeElement);
     }
   }
