@@ -56,7 +56,7 @@ export class GameService {
   }
 
   startGame() {
-    this.initGame();
+    this.resetGame();
     this.peekCards({ duration: 2000, delay: 500 });
     this.gameState.updateGameState({ isGameStarted: true });
     this.gameTimer.startTimer();
@@ -239,5 +239,6 @@ export class GameService {
   resetGame() {
     this.gameTimer.resetTimer();
     this.gameState.resetGameState();
+    this.initGame();
   }
 }
