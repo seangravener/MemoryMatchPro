@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SplashSceneComponent } from './scenes/splash/splash-screen.component';
+import { SplashSceneComponent } from './scenes/splash/splash-scene.component';
 
 export const routes: Routes = [
   {
