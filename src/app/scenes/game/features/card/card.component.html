@@ -1,9 +1,9 @@
 <div #flipCard class="flip-card-inner">
   <div class="flip-card-front">
-    <div class="text-2xl md:text-4xl text-center">{{ card.imageContent }}</div>
+    <div class="text-3xl md:text-4xl text-center">{{ card.imageContent }}</div>
   </div>
   <div class="flip-card-back">
-    <div class="text-2xl md:text-4xl text-center" [ngClass]="{ 'opacity-40': isCheatModeEnabled }">
+    <div class="text-3xl md:text-4xl text-center" [ngClass]="{ 'opacity-40': isCheatModeEnabled }">
       {{ isCheatModeEnabled ? card.imageContent : '?' }}</div>
   </div>
 </div>

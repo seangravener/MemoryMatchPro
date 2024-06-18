@@ -3,8 +3,6 @@ import { Theme, ThemeService } from '../../core/theme.service';
 import { Subscription } from 'rxjs';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
 import { GameService } from './game.service';
-import { GameStatId } from '../../core/state.model';
-import { GameTimerService } from '../../core/game-timer.service';
 
 @Component({
   selector: 'app-game',
@@ -23,7 +21,6 @@ export class GameComponent implements OnInit {
   }
 
   get isGameStarted() {
-    console.log(this.gameService.isGameStarted )
     return this.gameService.isGameStarted;
   }
 
