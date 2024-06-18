@@ -12,8 +12,6 @@ export class BoardComponent {
   cards$ = this.gameService.cards$;
   handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService);
 
-  demoCard = { flipped: false };
-
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
