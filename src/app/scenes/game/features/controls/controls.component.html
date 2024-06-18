@@ -1,10 +1,10 @@
 <div class="flex justify-center gap-4">
   <ng-container *ngIf="!isGameStarted">
-    <button class="bg-gray-200 text-black py-2 px-4 rounded-md shadow-lg">Show Leaderboard</button>
+    <button class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button">Show Leaderboard</button>
   </ng-container>
 
   <button *ngIf="!isGameStarted" (click)="startGame()"
-    class="bg-green-500 text-white py-2 px-4 rounded-md shadow-lg">Start Game</button>
-  <button *ngIf="isGameStarted" (click)="endGame()" class="bg-green-500 text-white py-2 px-4 rounded-md shadow-lg">
+    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button">Start Game</button>
+  <button *ngIf="isGameStarted" (click)="endGame()" class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button">
     End Game</button>
 </div>
