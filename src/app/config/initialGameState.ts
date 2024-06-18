@@ -3,7 +3,7 @@ import { GameState, GameStatId } from "../core/state.model";
 
 export const initialGameState: GameState = {
   cards: [],
-  gameStarted: false,
+  isGameStarted: false,
   isProcessing: false,
   isCheatModeEnabled: false,
   stats: [

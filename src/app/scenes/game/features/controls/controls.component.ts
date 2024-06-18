@@ -7,9 +7,9 @@ import { GameService } from '../../game.service';
   styleUrls: ['./controls.component.css'],
 })
 export class ControlsComponent implements OnInit {
-  // get isTimerStarted() {
-  //   return this.gameService.isTimerStarted();
-  // }
+  get isGameStarted() {
+    return this.gameService.isGameStarted;
+  }
 
   constructor(private gameService: GameService) {}
 
@@ -21,6 +21,10 @@ export class ControlsComponent implements OnInit {
   }
 
   startGame() {
-    // this.gameService.initGame();
+    this.gameService.startGame();
+  }
+
+  endGame() {
+    this.gameService.endGame();
   }
 }

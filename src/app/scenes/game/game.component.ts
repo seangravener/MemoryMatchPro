@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Theme, ThemeService } from '../../core/theme.service';
 import { Subscription } from 'rxjs';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
+import { GameService } from './game.service';
+import { GameStatId } from '../../core/state.model';
+import { GameTimerService } from '../../core/game-timer.service';
 
 @Component({
   selector: 'app-game',
@@ -19,8 +22,14 @@ export class GameComponent implements OnInit {
     return this.themeService.currentTheme;
   }
 
+  get isGameStarted() {
+    console.log(this.gameService.isGameStarted )
+    return this.gameService.isGameStarted;
+  }
+
   constructor(
     private themeService: ThemeService,
+    private gameService: GameService,
     private cheatCodeListenerService: CheatCodeListenerService
   ) {}
 

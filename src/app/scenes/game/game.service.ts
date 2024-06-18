@@ -27,6 +27,14 @@ export class GameService {
     return this.gameState.currentState.stats;
   }
 
+  get currentTime() {
+    return this.gameTimer.currentTime;
+  }
+
+  get isGameStarted() {
+    return this.gameState.currentState.isGameStarted;
+  }
+
   constructor(
     private gameState: GameStateService,
     private gameStats: GameStatsService,
@@ -35,9 +43,20 @@ export class GameService {
 
   initGame() {
     this.gameState.updateGameState({
-      gameStarted: true,
+      isGameStarted: false,
       cards: this.shuffleCards(this.createCards()),
     });
+  }
+
+  startGame() {
+    this.gameState.updateGameState({ isGameStarted: true });
+    this.gameTimer.startTimer();
+  }
+
+  endGame() {
+    this.gameState.updateGameState({ isGameStarted: false });
+    this.gameTimer.stopTimer();
+    // create score snapshot for leaderboard
   }
 
   toggleCheatMode() {
@@ -68,13 +87,13 @@ export class GameService {
   }
 
   isGameAvailable(): boolean {
-    const { gameStarted, isProcessing } = this.gameState.currentState;
+    const { isGameStarted: gameStarted, isProcessing } =
+      this.gameState.currentState;
     return !gameStarted || isProcessing;
   }
 
   handleCardFlip(cardId: number): void {
     if (this.isGameAvailable()) {
-      console.log('Game has not started or is processing');
       return;
     }
 
