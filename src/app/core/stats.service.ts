@@ -13,7 +13,7 @@ export class GameStatsService {
     this.gameTimerService.currentTime$,
   ]).pipe(
     map(([state, currentTime]) => {
-      return this.calculateStats(state.stats).concat({
+      return this.calculateStats(state.stats, currentTime).concat({
         id: GameStatId.TIME,
         label: 'Timer',
         value: currentTime,
@@ -28,18 +28,19 @@ export class GameStatsService {
   constructor(
     private gameStateService: GameStateService,
     private gameTimerService: GameTimerService
-  ) {
-    this.gameTimerService.startTimer();
-  }
+  ) {}
 
   // 100 points per match, minus 10 points per move
-  private calculateStats(stats: GameStat[]): GameStat[] {
+  // Time-dependent scoring: earlier matches are worth more
+  private calculateStats(stats: GameStat[], currentTime: number): GameStat[] {
     const moves = this.getStat(GameStatId.MOVES);
     const matches = this.getStat(GameStatId.MATCHES);
+    const timeFactor = Math.max(0, 100 - currentTime); // Reduce score benefit over time
 
     return stats.map((stat) => {
       if (stat.id === GameStatId.SCORE) {
-        stat.value = matches.value * 100 - moves.value * 10;
+        const newScore = matches.value * (100 + timeFactor) - moves.value * 10;
+        stat.value = Math.max(newScore, stat.value);
       }
 
       return stat;
