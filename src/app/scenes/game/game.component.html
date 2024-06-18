@@ -20,10 +20,10 @@
       </div>
     </div>
   </div>
-  {{ isGameStarted | json}}
-  <!-- <div -->
+
   <div
-    class="game-board bg-white dark:bg-gray-700 p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden">
+    class="game-board bg-white dark:bg-gray-700 p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden"
+    [class.opacity-25]="!isGameStarted">
     <app-stats></app-stats>
     <app-board></app-board>
   </div>

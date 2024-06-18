@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, timer } from 'rxjs';
 
 import { emojiSet } from '../../config/emojiSet';
 import { Card, GameState } from '../../core/state.model';
 import { GameStateService } from '../../core/state.service';
 import { GameStatsService } from '../../core/stats.service';
 import { GameTimerService } from '../../core/game-timer.service';
+
+interface PeekCardsOptions {
+  duration?: number;
+  delay?: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +54,8 @@ export class GameService {
   }
 
   startGame() {
+    this.initGame();
+    this.peekCards({ duration: 2000, delay: 500 });
     this.gameState.updateGameState({ isGameStarted: true });
     this.gameTimer.startTimer();
   }
@@ -57,6 +64,26 @@ export class GameService {
     this.gameState.updateGameState({ isGameStarted: false });
     this.gameTimer.stopTimer();
     // create score snapshot for leaderboard
+  }
+
+  flipAllCards({ flipped }: { flipped?: boolean } = {}) {
+    const { cards } = this.gameState.currentState;
+    this.gameState.updateGameState({
+      cards: cards.map((card) => ({
+        ...card,
+        flipped: flipped || !card.flipped,
+      })),
+    });
+  }
+
+  peekCards({ duration = 1000, delay = 0 }: PeekCardsOptions) {
+    timer(delay).subscribe(() => {
+      this.flipAllCards({ flipped: true });
+
+      timer(duration).subscribe(() => {
+        this.flipAllCards();
+      });
+    });
   }
 
   toggleCheatMode() {
