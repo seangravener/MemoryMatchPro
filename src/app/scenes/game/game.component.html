@@ -4,8 +4,9 @@
     <app-controls class="ml-auto mr-16"></app-controls>
   </div>
 
-  <div
-    class="game-board bg-white dark:bg-gray-700 p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden">
+  <div class="game-board p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden"
+    style="background: linear-gradient(to top, var(--background-gradient-start), var(--background-gradient-middle), var(--background-gradient-end));">
+
     <div *ngIf="!isGameStarted" class="absolute inset-0 bg-black flex items-center bg-opacity-60 justify-center z-10">
       <div class="text-center p-8 bg-gray-200 rounded-lg">
         <h2 class="text-2xl font-semibold text-gray-900">Memory Game</h2>
@@ -27,6 +28,9 @@
     <app-stats></app-stats>
     <app-board></app-board>
   </div>
+
+
+
 
   <div class="flex mx-auto">
     <div class="flex items-center">
