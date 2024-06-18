@@ -6,6 +6,7 @@ import { Card, GameState } from '../../core/state.model';
 import { GameStateService } from '../../core/state.service';
 import { GameStatsService } from '../../core/stats.service';
 import { GameTimerService } from '../../core/game-timer.service';
+import { numberOfCardsOptions } from '../../config/initialGameState';
 
 interface PeekCardsOptions {
   duration?: number;
@@ -46,10 +47,11 @@ export class GameService {
     private gameTimer: GameTimerService
   ) {}
 
-  initGame() {
+  // @todo move numberOfCards value to configuration service
+  initGame({ numberOfCards = numberOfCardsOptions[2] }: { numberOfCards?: number } = {}) {
     this.gameState.updateGameState({
       isGameStarted: false,
-      cards: this.shuffleCards(this.createCards()),
+      cards: this.shuffleCards(this.createCards(numberOfCards)),
     });
   }
 
@@ -90,10 +92,24 @@ export class GameService {
     this.gameState.toggleCheatMode();
   }
 
-  createCards() {
+  createCards(numberOfCards: number): Card[] {
+    const getRandomSample = (array: any[], n: number) => {
+      const sampled = [];
+      const currentArray = [...array];
+
+      for (let i = 0; i < n; i++) {
+        const randomIndex = Math.floor(Math.random() * currentArray.length);
+        sampled.push(currentArray[randomIndex]);
+        currentArray.splice(randomIndex, 1);
+      }
+
+      return sampled;
+    };
+
     const cardsWithEmojis: Card[] = [];
     const initCard = { flipped: false, matched: false };
-    emojiSet.concat(emojiSet).forEach((emoji, index) => {
+    const emojiSetSample = getRandomSample(emojiSet, numberOfCards / 2);
+    emojiSetSample.concat(emojiSetSample).forEach((emoji, index) => {
       cardsWithEmojis.push({ ...initCard, id: index, imageContent: emoji });
     });
 
