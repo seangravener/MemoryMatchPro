@@ -16,6 +16,14 @@
   font-family: "Machine Gunk";
 }
 
+button {
+  transition: transform 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
 body.theme-beach {
   --background-gradient-start: #f0e68c; /* Light sandy color */
   --background-gradient-middle: #87cefa; /* Sky blue color */
@@ -33,6 +41,29 @@ body.theme-beach {
   --back-background-color-3: #ffa500; /* orange */
   --back-background-color-4: rgba(255, 140, 0, 0.6); /* dark orange */
   --back-text-color: rgba(0, 0, 0, 1); /* black */
+
+  /* Button values */
+  --component-background: #e5e7eb; /* gray-200 */
+  --component-text: #000000; /* black */
+  --button-background: #ffa07a; /* light salmon */
+  --button-text: #000000; /* black */
+  --gradient-from: #fbcfe8; /* pink-300 */
+  --gradient-via: #d8b4fe; /* purple-300 */
+  --gradient-to: #c084fc; /* purple-400 */
+
+  /* Title gradient colors */
+  --title-color-1: #fcb69f; /* light peach */
+  --title-color-2: #ffecd2; /* peach */
+  --title-color-3: #87cefa; /* sky blue */
+  --title-color-4: #4682b4; /* steel blue */
+  --title-color-5: #ffd700; /* gold */
+  --title-color-6: #ffa500; /* orange */
+  --title-color-7: #ff4500; /* orange red */
+  --title-color-8: #32cd32; /* lime green */
+  --title-color-9: #1e90ff; /* dodger blue */
+  --title-color-10: #ff69b4; /* hot pink */
+  --title-color-11: #f4a460; /* sandy brown */
+
   background: linear-gradient(
     to bottom right,
     var(--background-gradient-start),
@@ -58,6 +89,29 @@ body.theme-midnight-purple {
   --back-background-color-3: #da70d6; /* plum */
   --back-background-color-4: rgba(186, 85, 211, 0.6); /* orchid */
   --back-text-color: rgba(255, 255, 255, 1); /* white */
+
+  /* Button values */
+  --component-background: #e5e7eb; /* gray-200 */
+  --component-text: #000000; /* black */
+  --button-background: #9370db; /* medium purple */
+  --button-text: #ffffff; /* white */
+  --gradient-from: #fbcfe8; /* pink-300 */
+  --gradient-via: #d8b4fe; /* purple-300 */
+  --gradient-to: #c084fc; /* purple-400 */
+
+  /* Title gradient colors */
+  --title-color-1: linear-gradient(135deg, #4b0082, #8a2be2);
+  --title-color-2: linear-gradient(45deg, #8a2be2, #4b0082);
+  --title-color-3: linear-gradient(135deg, #9370db, #ba55d3);
+  --title-color-4: linear-gradient(45deg, #ba55d3, #9370db);
+  --title-color-5: linear-gradient(135deg, #da70d6, #ff69b4);
+  --title-color-6: linear-gradient(45deg, #ff69b4, #da70d6);
+  --title-color-7: linear-gradient(135deg, #ff4500, #db7093);
+  --title-color-8: linear-gradient(45deg, #db7093, #ff4500);
+  --title-color-9: linear-gradient(135deg, #32cd32, #1e90ff);
+  --title-color-10: linear-gradient(45deg, #1e90ff, #32cd32);
+  --title-color-11: linear-gradient(135deg, #f4a460, #9370db);
+
   background: linear-gradient(
     to bottom right,
     var(--background-gradient-start),
@@ -83,6 +137,29 @@ body.theme-moonlight {
   --back-background-color-3: #7f8c8d; /* grey */
   --back-background-color-4: rgba(127, 140, 141, 0.6); /* grey */
   --back-text-color: rgba(0, 0, 0, 1); /* black */
+
+  /* Button values */
+  --component-background: #e5e7eb; /* gray-200 */
+  --component-text: #000000; /* black */
+  --button-background: #2c3e50; /* dark grey */
+  --button-text: #ffffff; /* white */
+  --gradient-from: #fbcfe8; /* pink-300 */
+  --gradient-via: #d8b4fe; /* purple-300 */
+  --gradient-to: #c084fc; /* purple-400 */
+
+  /* Title gradient colors */
+  --title-color-1: linear-gradient(135deg, #95a5a6, #bdc3c7);
+  --title-color-2: linear-gradient(45deg, #bdc3c7, #95a5a6);
+  --title-color-3: linear-gradient(135deg, #2c3e50, #34495e);
+  --title-color-4: linear-gradient(45deg, #34495e, #2c3e50);
+  --title-color-5: linear-gradient(135deg, #7f8c8d, #bdc3c7);
+  --title-color-6: linear-gradient(45deg, #bdc3c7, #7f8c8d);
+  --title-color-7: linear-gradient(135deg, #ff4500, #db7093);
+  --title-color-8: linear-gradient(45deg, #db7093, #ff4500);
+  --title-color-9: linear-gradient(135deg, #32cd32, #1e90ff);
+  --title-color-10: linear-gradient(45deg, #1e90ff, #32cd32);
+  --title-color-11: linear-gradient(135deg, #f4a460, #95a5a6);
+
   background: linear-gradient(
     to bottom right,
     var(--background-gradient-start),

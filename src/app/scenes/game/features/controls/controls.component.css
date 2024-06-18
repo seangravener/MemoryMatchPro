@@ -1,0 +1,7 @@
+.bounce-button {
+  transition: transform 0.2s ease;
+}
+
+.bounce-button:active {
+  transform: scale(0.95);
+}
