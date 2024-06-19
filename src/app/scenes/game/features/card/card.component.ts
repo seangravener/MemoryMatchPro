@@ -13,7 +13,7 @@ import {
 
 import { Card } from '../../../../core/state.model';
 import { GameEffectsService } from '../../../../core/game-effects.service';
-import { GameService } from '../../game.service';
+import { GameStateService } from '../../../../core/game-state.service';
 
 @Component({
   selector: 'app-card',
@@ -35,7 +35,7 @@ export class CardComponent implements OnChanges {
   }
 
   get isCheatModeEnabled() {
-    return this.gameService.currentState.isCheatModeEnabled;
+    return this.gameStateService.currentState.isCheatModeEnabled;
   }
 
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
@@ -56,7 +56,7 @@ export class CardComponent implements OnChanges {
 
   constructor(
     private gameEffectsService: GameEffectsService,
-    private gameService: GameService
+    private gameStateService: GameStateService
   ) {}
 
   setGameEffect(element: HTMLElement, options?: object) {

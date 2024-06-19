@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
-import { GameStateService } from './state.service';
 import { GameStat, GameStatId } from './state.model';
-import { GameTimerService } from './game-timer.service';
+import { TimerService } from './game-timer.service';
+import { GameStateService } from './game-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GameStatsService {
+export class StatsService {
   currentStats$: Observable<GameStat[]> = combineLatest([
-    this.gameStateService.gameState$,
+    this.gameStateService.currentState$,
     this.gameTimerService.currentTime$,
   ]).pipe(
     map(([state, currentTime]) => {
@@ -27,7 +27,7 @@ export class GameStatsService {
 
   constructor(
     private gameStateService: GameStateService,
-    private gameTimerService: GameTimerService
+    private gameTimerService: TimerService
   ) {}
 
   // 100 points per match, minus 10 points per move

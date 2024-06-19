@@ -1,41 +1,53 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { GameStateService } from './game-state.service';
+import { StatsService } from './stats.service';
+import { TimerService } from './game-timer.service';
 import { GameState } from './state.model';
-import { initialGameState } from '../config/initialGameState';
-
-const createInitialState = (): GameState => {
-  return {
-    ...initialGameState,
-    // Deep copy to avoid mutations
-    stats: initialGameState.stats.map((stat) => ({ ...stat })),
-  };
-};
 
 @Injectable({
   providedIn: 'root',
 })
-export class GameStateService {
-  private gameStateSubject = new BehaviorSubject<GameState>(
-    createInitialState()
-  );
-  gameState$ = this.gameStateSubject.asObservable();
+export class StateService {
+  constructor(
+    private gameStateService: GameStateService,
+    private gameStatsService: StatsService,
+    private gameTimerService: TimerService
+  ) {}
 
-  get currentState() {
-    return this.gameStateSubject.getValue();
+  get currentState$() {
+    return this.gameStateService.currentState$;
   }
 
-  constructor() {}
+  get currentState() {
+    return this.gameStateService.currentState;
+  }
 
-  updateGameState(newState: Partial<GameState>) {
-    this.gameStateSubject.next({ ...this.currentState, ...newState });
+  get currentStats$() {
+    return this.gameStatsService.currentStats$;
+  }
+
+  get currentStats() {
+    return this.gameStateService.currentState.stats;
+  }
+
+  get currentTime() {
+    return this.gameTimerService.currentTime;
+  }
+
+  get isGameStarted() {
+    return this.gameStateService.currentState.isGameStarted;
   }
 
   toggleCheatMode() {
-    const { isCheatModeEnabled } = this.currentState;
-    this.updateGameState({ isCheatModeEnabled: !isCheatModeEnabled });
+    const { isCheatModeEnabled } = this.gameStateService.currentState;
+    this.gameStateService.updateGameState({ isCheatModeEnabled: !isCheatModeEnabled });
+  }
+
+  updateGameState(newState: Partial<GameState>) {
+    this.gameStateService.updateGameState(newState);
   }
 
   resetGameState() {
-    this.gameStateSubject.next(createInitialState());
+    this.gameStateService.resetGameState();
   }
 }

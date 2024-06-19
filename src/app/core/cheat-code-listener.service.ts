@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GameService } from '../scenes/game/game.service';
 import { environment } from '../../environments/environment';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class CheatCodeListenerService {
   private currentInput: string[] = [];
   private isInitialized = false;
 
-  constructor(private gameService: GameService) {}
+  constructor(private stateService: StateService) {}
 
   init(): void {
     if (this.isInitialized) {
@@ -22,7 +22,7 @@ export class CheatCodeListenerService {
   }
 
   private listenForKeyPresses(): void {
-    const { isCheatModeEnabled } = this.gameService.currentState;
+    const { isCheatModeEnabled } = this.stateService.currentState;
     if (isCheatModeEnabled) {
       return;
     }
@@ -33,7 +33,7 @@ export class CheatCodeListenerService {
   }
 
   private handleKeyPress(event: KeyboardEvent): void {
-    const { isCheatModeEnabled } = this.gameService.currentState;
+    const { isCheatModeEnabled } = this.stateService.currentState;
     const key = event.key.toLowerCase();
 
     if (key === 'escape' && isCheatModeEnabled) {
@@ -57,7 +57,7 @@ export class CheatCodeListenerService {
   }
 
   private toggleCheatModeAndResetInput(): void {
-    this.gameService.toggleCheatMode();
+    this.stateService.toggleCheatMode();
     this.currentInput = [];
   }
 }

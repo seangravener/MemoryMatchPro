@@ -5,7 +5,7 @@ import { map, takeWhile, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class GameTimerService {
+export class TimerService {
   private isRunning: boolean = false;
   private startTime: number = 0;
   private subs = new Subscription();

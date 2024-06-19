@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { GameRoutingModule } from './game.routing';
 import { GameService } from './game.service';
-import { GameStatsService } from '../../core/stats.service';
+import { StatsService } from '../../core/stats.service';
 
 import { GameComponent } from './game.component';
 import { GameStatsComponent } from './features/stats/stats.component';
@@ -23,7 +23,7 @@ import { StatItemComponent } from './features/stats/stat-item/stat-item.componen
     ControlsComponent,
   ],
   imports: [CommonModule, GameRoutingModule],
-  providers: [GameService, GameStatsService, ThemeService],
+  providers: [GameService, StatsService, ThemeService],
   exports: [GameComponent],
 })
 export class GameModule {}

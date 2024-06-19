@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
 import { GameService } from './game.service';
 import { Card } from '../../core/state.model';
+import { GameStateService } from '../../core/game-state.service';
+import { CardsService } from '../../core/cards.service';
+import { StatsService } from '../../core/stats.service';
 
 @Component({
   selector: 'app-game',
@@ -19,11 +22,11 @@ export class GameComponent implements OnInit {
   }));
 
   get currentStats$() {
-    return this.gameService.currentStats$;
+    return this.gameStatsService.currentStats$;
   }
 
   get currentCards$() {
-    return this.gameService.cards$;
+    return this.gameStateService.currentCards$;
   }
 
   get currentTheme() {
@@ -31,12 +34,15 @@ export class GameComponent implements OnInit {
   }
 
   get isGameStarted() {
-    return this.gameService.isGameStarted;
+    return this.gameStateService.currentState.isGameStarted;
   }
 
   constructor(
     private themeService: ThemeService,
+    private gameStateService: GameStateService,
+    private gameStatsService: StatsService,
     private gameService: GameService,
+    private cardsService: CardsService,
     private cheatCodeListenerService: CheatCodeListenerService
   ) {}
 
