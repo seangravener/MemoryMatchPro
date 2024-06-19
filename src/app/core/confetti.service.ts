@@ -14,8 +14,6 @@ const createDefaultGameOptions = () => ({ particleCount: 100, spread: 70 });
   providedIn: 'root',
 })
 export class ConfettiService {
-  constructor() {}
-
   launchConfetti(overrides?: ConfettiOptions) {
     confetti({
       ...createDefaultGameOptions(),

@@ -8,7 +8,7 @@ import { GameStateService } from './game-state.service';
   providedIn: 'root',
 })
 export class CardsService {
-  constructor(private gameState: GameStateService) {}
+  constructor(private gameStateService: GameStateService) {}
 
   createCards(numberOfCards: number): Card[] {
     const getRandomSample = (array: any[], n: number) => {
@@ -47,8 +47,8 @@ export class CardsService {
   }
 
   flipAllCards(flipped: boolean) {
-    const { cards } = this.gameState.currentState;
-    this.gameState.updateGameState({
+    const { cards } = this.gameStateService.currentState;
+    this.gameStateService.updateGameState({
       cards: cards.map((card: Card) => ({
         ...card,
         flipped: flipped || !card.flipped,
@@ -93,7 +93,7 @@ export class CardsService {
     );
 
     setTimeout(() => {
-      this.gameState.updateGameState({
+      this.gameStateService.updateGameState({
         cards: updatedCards.map((card) =>
           updateCardProperties(card, { matched: true })
         ),
@@ -111,7 +111,7 @@ export class CardsService {
           : card
       );
 
-      this.gameState.updateGameState({ cards, isProcessing: false });
+      this.gameStateService.updateGameState({ cards, isProcessing: false });
     }, delay);
   }
 

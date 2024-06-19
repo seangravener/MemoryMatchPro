@@ -84,7 +84,7 @@ describe('StateService', () => {
 
   it('should update game state', () => {
     const newState: Partial<GameState> = { isGameStarted: true };
-    service.updateGameState(newState);
+    service.updateState(newState);
     expect(gameStateServiceMock.updateGameState).toHaveBeenCalledWith(newState);
   });
 

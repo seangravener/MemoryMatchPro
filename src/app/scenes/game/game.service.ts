@@ -21,7 +21,7 @@ export class GameService {
     numberOfCards = numberOfCardsOptions[2],
   }: { numberOfCards?: number } = {}) {
     const cards = this.cardsService.createCards(numberOfCards);
-    this.stateService.updateGameState({
+    this.stateService.updateState({
       isGameStarted: false,
       cards: this.cardsService.shuffleCards(cards),
     });
@@ -29,14 +29,14 @@ export class GameService {
 
   startGame() {
     this.resetGame();
-    this.stateService.updateGameState({ isGameStarted: true });
+    this.stateService.updateState({ isGameStarted: true });
     this.cardsService.peekCards(2000, 500, () => {
       this.timerService.startTimer();
     });
   }
 
   endGame() {
-    this.stateService.updateGameState({ isGameStarted: false });
+    this.stateService.updateState({ isGameStarted: false });
     this.timerService.stopTimer();
   }
 
@@ -58,7 +58,7 @@ export class GameService {
     if (flippedCards.length === 2) {
       this.processFlippedCards(flippedCards, updatedCards);
     } else {
-      this.stateService.updateGameState({
+      this.stateService.updateState({
         cards: updatedCards,
         isProcessing: false,
       });
@@ -70,10 +70,10 @@ export class GameService {
       return;
     }
 
-    this.stateService.updateGameState({ isProcessing: true });
+    this.stateService.updateState({ isProcessing: true });
 
     if (this.cardsService.checkForMatch(flippedCards[0], flippedCards[1])) {
-      this.stateService.updateGameState({
+      this.stateService.updateState({
         cards: this.cardsService.markFlippedAsMatched(
           currentCards,
           flippedCards
@@ -83,15 +83,14 @@ export class GameService {
       this.statsService.incrementMatches();
     } else {
       this.cardsService.resetFlippedCardsAfterDelay(flippedCards, currentCards);
-      this.stateService.updateGameState({ cards: currentCards });
+      this.stateService.updateState({ cards: currentCards });
     }
 
     this.statsService.incrementMove();
   }
 
   isGameAvailable(): boolean {
-    const { isGameStarted: gameStarted, isProcessing } =
-      this.stateService.currentState;
-    return !gameStarted || isProcessing;
+    const { isGameStarted, isProcessing } = this.stateService.currentState;
+    return !isGameStarted || isProcessing;
   }
 }

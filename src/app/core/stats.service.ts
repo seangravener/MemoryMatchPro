@@ -9,8 +9,8 @@ import { GameStateService } from './game-state.service';
 })
 export class StatsService {
   currentStats$: Observable<GameStat[]> = combineLatest([
-    this.gameStateService.currentState$,
-    this.gameTimerService.currentTime$,
+    this.stateService.currentState$,
+    this.timerService.currentTime$,
   ]).pipe(
     map(([state, currentTime]) => {
       return this.calculateStats(state.stats, currentTime).concat({
@@ -22,12 +22,12 @@ export class StatsService {
   );
 
   get currentStats() {
-    return this.gameStateService.currentState.stats;
+    return this.stateService.currentState.stats;
   }
 
   constructor(
-    private gameStateService: GameStateService,
-    private gameTimerService: TimerService
+    private stateService: GameStateService,
+    private timerService: TimerService
   ) {}
 
   // 100 points per match, minus 10 points per move
@@ -55,7 +55,7 @@ export class StatsService {
   }
 
   incrementMove() {
-    this.gameStateService.updateGameState({
+    this.stateService.updateGameState({
       stats: this.currentStats.map((stat) =>
         stat.id === GameStatId.MOVES ? { ...stat, value: stat.value + 1 } : stat
       ),
@@ -63,7 +63,7 @@ export class StatsService {
   }
 
   incrementMatches() {
-    this.gameStateService.updateGameState({
+    this.stateService.updateGameState({
       stats: this.currentStats.map((stat) =>
         stat.id === GameStatId.MATCHES
           ? { ...stat, value: stat.value + 1 }

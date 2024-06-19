@@ -10,8 +10,8 @@ import { GameState } from './state.model';
 export class StateService {
   constructor(
     private gameStateService: GameStateService,
-    private gameStatsService: StatsService,
-    private gameTimerService: TimerService
+    private statsService: StatsService,
+    private timerService: TimerService
   ) {}
 
   get currentState$() {
@@ -23,7 +23,7 @@ export class StateService {
   }
 
   get currentStats$() {
-    return this.gameStatsService.currentStats$;
+    return this.statsService.currentStats$;
   }
 
   get currentStats() {
@@ -31,7 +31,7 @@ export class StateService {
   }
 
   get currentTime() {
-    return this.gameTimerService.currentTime;
+    return this.timerService.currentTime;
   }
 
   get isGameStarted() {
@@ -40,10 +40,10 @@ export class StateService {
 
   toggleCheatMode() {
     const { isCheatModeEnabled } = this.gameStateService.currentState;
-    this.gameStateService.updateGameState({ isCheatModeEnabled: !isCheatModeEnabled });
+    this.updateState({ isCheatModeEnabled: !isCheatModeEnabled });
   }
 
-  updateGameState(newState: Partial<GameState>) {
+  updateState(newState: Partial<GameState>) {
     this.gameStateService.updateGameState(newState);
   }
 

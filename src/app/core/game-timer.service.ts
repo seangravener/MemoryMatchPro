@@ -13,11 +13,11 @@ export class TimerService {
   private currentTimeSubject = new BehaviorSubject<number>(0);
   public currentTime$ = this.currentTimeSubject.asObservable();
 
-  timer$ = timer(0, 1000).pipe(
+  timeInPlay$ = timer(0, 1000).pipe(
     takeWhile(() => this.isRunning),
     map(() => Math.floor((Date.now() - this.startTime) / 1000)),
     map((time) => time.toString()),
-    tap((time) => this.currentTimeSubject.next(parseInt(time, 10))),
+    tap((time) => this.currentTimeSubject.next(parseInt(time, 10)))
   );
 
   get currentTime() {
@@ -28,8 +28,6 @@ export class TimerService {
     return this.isRunning;
   }
 
-  constructor() {}
-
   startTimer(): void {
     if (this.isRunning) {
       return;
@@ -37,7 +35,7 @@ export class TimerService {
 
     this.isRunning = true;
     this.startTime = Date.now();
-    this.subs.add(this.timer$.subscribe());
+    this.subs.add(this.timeInPlay$.subscribe());
   }
 
   stopTimer(): void {
