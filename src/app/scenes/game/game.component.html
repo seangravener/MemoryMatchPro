@@ -1,7 +1,8 @@
 <div class="container mx-auto px-4 lg:h-screen flex flex-col justify-center">
   <div class="flex flex-col lg:flex-row justify-start items-end my-4 lg:my-8">
     <h1 class="font-mg text-left sm:text-5xl lg:text-left ml-8 lg:ml-16 mr-8 mb-4 lg:mb-0">Memory Game</h1>
-    <app-controls class="ml-auto mr-16"></app-controls>
+    <app-controls class="ml-auto mr-16" [isGameStarted]="isGameStarted" (onEndGame)="endGame()"
+      (onStartGame)="startGame()" (onResetGame)="resetGame()"></app-controls>
   </div>
 
   <div class="game-board p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden"
@@ -21,16 +22,15 @@
           </ul>
         </div>
 
-        <app-controls></app-controls>
+        <app-controls [isGameStarted]="isGameStarted" (onEndGame)="endGame()" (onStartGame)="startGame()"
+          (onResetGame)="resetGame()"></app-controls>
       </div>
     </div>
 
-    <app-stats></app-stats>
-    <app-board></app-board>
+    <app-stats [currentStats$]="currentStats$"></app-stats>
+    <app-board [currentCards$]="currentCards$" (onInitGameBoard)="initGame()"
+      (onFlip)="handleOnFlip($event)"></app-board>
   </div>
-
-
-
 
   <div class="flex mx-auto">
     <div class="flex items-center">

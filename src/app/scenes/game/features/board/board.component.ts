@@ -1,21 +1,30 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { GameService } from '../../game.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Card } from '../../../../core/state.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
-  // encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
-  cards$ = this.gameService.cards$;
-  handleCardFlip = this.gameService.handleCardFlip.bind(this.gameService);
-
-  constructor(private gameService: GameService) {}
+  @Input() currentCards$: Observable<Card[]> | undefined;
+  @Output() onFlip = new EventEmitter<Card>();
+  @Output() onInitGameBoard = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.gameService.initGame();
+    this.onInitGameBoard.emit();
+  }
+
+  handleCardFlip(card: Card): void {
+    this.onFlip.emit(card);
   }
 
   trackByCardId(index: number, card: Card): any {

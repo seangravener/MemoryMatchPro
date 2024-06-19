@@ -1,30 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../game.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ControlsComponent implements OnInit {
-  get isGameStarted() {
-    return this.gameService.isGameStarted;
-  }
-
-  constructor(private gameService: GameService) {}
-
-  ngOnInit() {}
+export class ControlsComponent {
+  @Input() isGameStarted: boolean | undefined;
+  @Output() onStartGame = new EventEmitter<void>();
+  @Output() onEndGame = new EventEmitter<void>();
+  @Output() onResetGame = new EventEmitter<void>();
 
   resetGame() {
-    this.gameService.resetGame();
-    this.gameService.initGame();
+    this.onResetGame.emit();
   }
 
   startGame() {
-    this.gameService.startGame();
+    this.onStartGame.emit();
   }
 
   endGame() {
-    this.gameService.endGame();
+    this.onEndGame.emit();
   }
 }

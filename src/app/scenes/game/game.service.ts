@@ -29,6 +29,10 @@ export class GameService {
     return this.gameState.currentState;
   }
 
+  get currentStats$() {
+    return this.gameStats.currentStats$;
+  }
+
   get currentStats() {
     return this.gameState.currentState.stats;
   }
@@ -48,7 +52,9 @@ export class GameService {
   ) {}
 
   // @todo move numberOfCards value to configuration service
-  initGame({ numberOfCards = numberOfCardsOptions[2] }: { numberOfCards?: number } = {}) {
+  initGame({
+    numberOfCards = numberOfCardsOptions[2],
+  }: { numberOfCards?: number } = {}) {
     this.gameState.updateGameState({
       isGameStarted: false,
       cards: this.shuffleCards(this.createCards(numberOfCards)),
@@ -57,9 +63,10 @@ export class GameService {
 
   startGame() {
     this.resetGame();
-    this.peekCards({ duration: 2000, delay: 500 });
     this.gameState.updateGameState({ isGameStarted: true });
-    this.gameTimer.startTimer();
+    this.peekCards({ duration: 2000, delay: 500 }, () => {
+      this.gameTimer.startTimer();
+    });
   }
 
   endGame() {
@@ -78,12 +85,19 @@ export class GameService {
     });
   }
 
-  peekCards({ duration = 1000, delay = 0 }: PeekCardsOptions) {
+  peekCards(
+    { duration = 1000, delay = 0 }: PeekCardsOptions,
+    callback?: () => void
+  ) {
     timer(delay).subscribe(() => {
       this.flipAllCards({ flipped: true });
 
       timer(duration).subscribe(() => {
         this.flipAllCards();
+
+        if (typeof callback === 'function') {
+          callback.bind(this)();
+        }
       });
     });
   }
