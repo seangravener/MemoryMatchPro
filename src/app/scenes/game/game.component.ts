@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme, ThemeService } from '../../core/theme.service';
+import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { Subscription } from 'rxjs';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
 import { GameService } from './game.service';
@@ -15,7 +15,7 @@ export class GameComponent implements OnInit {
 
   themes = Object.keys(Theme).map((key) => ({
     key,
-    value: Theme[key as keyof typeof Theme],
+    value: Theme[key as ThemeKey],
   }));
 
   get currentStats$() {

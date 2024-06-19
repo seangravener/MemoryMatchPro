@@ -7,6 +7,8 @@ export enum Theme {
   Moonlight = 'theme-moonlight',
 }
 
+export type ThemeKey = keyof typeof Theme;
+
 @Injectable({
   providedIn: 'root',
 })
