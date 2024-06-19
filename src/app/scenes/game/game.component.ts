@@ -21,6 +21,10 @@ export class GameComponent implements OnInit {
     value: Theme[key as ThemeKey],
   }));
 
+  get isCheatModeEnabled() {
+    return this.gameStateService.currentState.isCheatModeEnabled;
+  }
+
   get currentStats$() {
     return this.gameStatsService.currentStats$;
   }

@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class BoardComponent {
   @Input() currentCards$: Observable<Card[]> | undefined;
+  @Input() isCheatModeEnabled = false;
   @Output() onFlip = new EventEmitter<Card>();
   @Output() onInitGameBoard = new EventEmitter<void>();
 

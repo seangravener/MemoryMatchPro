@@ -28,7 +28,7 @@
     </div>
 
     <app-stats [currentStats$]="currentStats$"></app-stats>
-    <app-board [currentCards$]="currentCards$" (onInitGameBoard)="initGame()"
+    <app-board [currentCards$]="currentCards$" [isCheatModeEnabled]="isCheatModeEnabled" (onInitGameBoard)="initGame()"
       (onFlip)="handleOnFlip($event)"></app-board>
   </div>
 

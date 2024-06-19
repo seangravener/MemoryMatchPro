@@ -19,24 +19,13 @@ import { GameStateService } from '../../../../core/game-state.service';
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnChanges {
+  @Input() card: Card = {} as Card;
+  @Input() isCheatModeEnabled: boolean = false;
   @Output() onFlip = new EventEmitter<void>();
   @Output() onMatch = new EventEmitter<HTMLElement>();
-
-  private _card: Card = {} as Card;
-  @Input() set card(card: Card) {
-    this._card = card;
-  }
-
-  get card() {
-    return this._card;
-  }
-
-  get isCheatModeEnabled() {
-    return this.gameStateService.currentState.isCheatModeEnabled;
-  }
 
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
@@ -64,10 +53,11 @@ export class CardComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    if (this.card.matched) {
+    // @todo Move to GameService
+    // @todo narrow down the scope of the effect
+    if (this.card.matched && this.card.flipped && !this.isCheatModeEnabled) {
       this.onMatch.emit(this.flipCard.nativeElement);
 
-      // @todo Move to GameService
       this.setGameEffect(this.flipCard.nativeElement);
     }
   }
