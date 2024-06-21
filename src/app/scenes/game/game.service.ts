@@ -65,6 +65,8 @@ export class GameService {
     }
 
     const { cards } = this.stateService.currentState;
+
+    // @todo move card operations to exported funcs
     const updatedCards = this.cardsService.flipCard(cards, cardId);
     const flippedCards = this.cardsService.findFlippedCards(updatedCards);
 
@@ -87,6 +89,7 @@ export class GameService {
 
     if (this.cardsService.checkForMatch(flippedCards[0], flippedCards[1])) {
       this.stateService.updateState({
+        // @todo move to exported func
         cards: this.cardsService.markFlippedAsMatched(
           currentCards,
           flippedCards

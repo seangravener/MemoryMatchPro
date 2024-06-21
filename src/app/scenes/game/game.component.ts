@@ -3,11 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { BoardOverlay, Card } from '../../core/state.model';
 import { GameService } from './game.service';
-import { CardsService } from '../../core/cards.service';
+import { GameStateService } from '../../core/game-state.service';
 import { StatsService } from '../../core/stats.service';
 import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
-import { GameStateService } from '../../core/game-state.service';
 
 @Component({
   selector: 'app-game',
@@ -55,7 +54,6 @@ export class GameComponent implements OnInit {
     private gameStateService: GameStateService,
     private gameStatsService: StatsService,
     private gameService: GameService,
-    private cardsService: CardsService,
     private cheatCodeListenerService: CheatCodeListenerService
   ) {}
 
