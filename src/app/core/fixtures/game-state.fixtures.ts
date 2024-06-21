@@ -1,11 +1,12 @@
 import { GameState } from '../state.model';
 
 export const gameStateFixture: GameState = {
-  isGameStarted: false,
   stats: [],
   cards: [],
+  isGameStarted: false,
   isProcessing: false,
   isCheatModeEnabled: false,
+  highScores: [],
 } as GameState;
 
 export const cardFixture = {

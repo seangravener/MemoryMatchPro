@@ -1,27 +1,37 @@
 import { Injectable } from '@angular/core';
+
 import { numberOfCardsOptions } from '../../config/initialGameState';
-import { StateService } from '../../core/state.service';
-import { CardsService } from '../../core/cards.service';
 import { Card } from '../../core/state.model';
+import { CardsService } from '../../core/cards.service';
+import { LocalStorageService } from '../../core/local-storage.service';
 import { TimerService } from '../../core/game-timer.service';
+import { StateService } from '../../core/state.service';
 import { StatsService } from '../../core/stats.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  get currentState() {
+    return this.stateService.currentState;
+  }
+
   constructor(
     private stateService: StateService,
     private cardsService: CardsService,
     private statsService: StatsService,
-    private timerService: TimerService
+    private timerService: TimerService,
+    private localStorageService: LocalStorageService
   ) {}
 
   initGame({
     numberOfCards = numberOfCardsOptions[2],
   }: { numberOfCards?: number } = {}) {
     const cards = this.cardsService.createCards(numberOfCards);
+    const highScores = this.localStorageService.getHighScores() || [];
+
     this.stateService.updateState({
+      highScores,
       isGameStarted: false,
       cards: this.cardsService.shuffleCards(cards),
     });
@@ -37,6 +47,7 @@ export class GameService {
 
   endGame() {
     this.stateService.updateState({ isGameStarted: false });
+    this.localStorageService.saveHighScore(this.currentState);
     this.timerService.stopTimer();
   }
 

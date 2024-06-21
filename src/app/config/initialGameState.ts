@@ -5,6 +5,7 @@ export const initialGameState: GameState = {
   isGameStarted: false,
   isProcessing: false,
   isCheatModeEnabled: false,
+  highScores: [],
   stats: [
     { id: GameStatId.MOVES, label: 'Moves', value: 0 },
     { id: GameStatId.MATCHES, label: 'Matches', value: 0 },

@@ -51,7 +51,7 @@ export class StatsService {
     const stat = this.currentStats.find((stat) => stat.id === statId);
     const defaultStat = { id: statId, label: '', value: 0 };
 
-    return stat ? stat : defaultStat;
+    return stat || defaultStat;
   }
 
   incrementMove() {

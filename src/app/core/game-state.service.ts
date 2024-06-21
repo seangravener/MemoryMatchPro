@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, of } from 'rxjs';
 import { GameState } from './state.model';
 import { initialGameState } from '../config/initialGameState';
+import { LocalStorageService } from './local-storage.service';
 
 const createInitialState = (): GameState => {
   return {
@@ -18,7 +19,15 @@ export class GameStateService {
   private gameStateSubject = new BehaviorSubject<GameState>(
     createInitialState()
   );
-  currentState$ = this.gameStateSubject.asObservable();
+  private localState$ = this.localStorageService.getState();
+  currentState$ = combineLatest([
+    of(this.localState$),
+    this.gameStateSubject.asObservable(),
+  ]).pipe(
+    map(([state, localState]) => {
+      return { ...state, ...localState };
+    })
+  );
 
   get currentState() {
     return this.gameStateSubject.getValue();
@@ -27,6 +36,8 @@ export class GameStateService {
   get currentCards$() {
     return this.currentState$.pipe(map((state) => state.cards));
   }
+
+  constructor(private localStorageService: LocalStorageService) {}
 
   updateGameState(newState: Partial<GameState>) {
     this.gameStateSubject.next({ ...this.currentState, ...newState });
