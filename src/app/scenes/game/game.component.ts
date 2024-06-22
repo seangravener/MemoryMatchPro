@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { Subscription } from 'rxjs';
-import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
+
+import { BoardOverlay, Card } from '../../core/state.model';
 import { GameService } from './game.service';
-import { Card } from '../../core/state.model';
-import { GameStateService } from '../../core/game-state.service';
 import { CardsService } from '../../core/cards.service';
 import { StatsService } from '../../core/stats.service';
+import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
+import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
+import { GameStateService } from '../../core/game-state.service';
 
 @Component({
   selector: 'app-game',
@@ -15,7 +16,7 @@ import { StatsService } from '../../core/stats.service';
 })
 export class GameComponent implements OnInit {
   subs: Subscription = new Subscription();
-
+  activeOverlay: 'highScores' | 'instructions' | undefined = 'instructions';
   themes = Object.keys(Theme).map((key) => ({
     key,
     value: Theme[key as ThemeKey],
@@ -25,12 +26,20 @@ export class GameComponent implements OnInit {
     return this.gameStateService.currentState.isCheatModeEnabled;
   }
 
-  get currentStats$() {
-    return this.gameStatsService.currentStats$;
+  get highScores() {
+    return this.gameStateService.currentState.highScores;
+  }
+
+  get currentState$() {
+    return this.gameStateService.currentState$;
   }
 
   get currentCards$() {
     return this.gameStateService.currentCards$;
+  }
+
+  get currentStats$() {
+    return this.gameStatsService.currentStats$;
   }
 
   get currentTheme() {
@@ -81,6 +90,18 @@ export class GameComponent implements OnInit {
 
   changeTheme(theme: Theme) {
     this.themeService.setTheme(theme);
+  }
+
+  toggleHighScores() {
+    const { boardOverlay } = this.gameStateService.currentState;
+    const show = !boardOverlay.show;
+
+    this.toggleBoardOverlay({ ...boardOverlay, type: 'highScores', show });
+  }
+
+  toggleBoardOverlay(boardOverlay: BoardOverlay) {
+    console.log('overlay', boardOverlay);
+    this.gameStateService.updateGameState({ boardOverlay });
   }
 
   ngOnDestroy() {

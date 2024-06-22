@@ -1,3 +1,5 @@
+import { Theme } from './theme.service';
+
 export interface Card {
   id: number;
   flipped: boolean;
@@ -29,13 +31,18 @@ export interface HighScore {
   stats: GameStat[];
 }
 
+export interface BoardOverlay {
+  show: boolean;
+  type: 'instructions' | 'highScores' | undefined;
+}
+
 export interface GameState {
   cards: Card[];
-  stats: GameStat[];
   isGameStarted: boolean;
   isProcessing: boolean;
   isCheatModeEnabled: boolean;
+  theme: Theme;
   highScores: HighScore[];
+  stats: GameStat[];
+  boardOverlay: BoardOverlay;
 }
-
-

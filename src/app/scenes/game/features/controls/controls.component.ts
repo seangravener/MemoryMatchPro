@@ -5,6 +5,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GameState } from '../../../../core/state.model';
 
 @Component({
   selector: 'app-controls',
@@ -14,16 +16,22 @@ import {
 })
 export class ControlsComponent {
   @Input() isGameStarted: boolean | undefined;
+  @Input() currentState$: Observable<GameState> | undefined;
   @Output() onStartGame = new EventEmitter<void>();
   @Output() onEndGame = new EventEmitter<void>();
   @Output() onResetGame = new EventEmitter<void>();
+  @Output() onToggleHighScores = new EventEmitter<void>();
+
+  startGame() {
+    this.onStartGame.emit();
+  }
 
   resetGame() {
     this.onResetGame.emit();
   }
 
-  startGame() {
-    this.onStartGame.emit();
+  toggleHighScores() {
+    this.onToggleHighScores.emit();
   }
 
   endGame() {

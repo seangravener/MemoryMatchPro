@@ -16,7 +16,7 @@ export class LocalStorageService {
       player: { name: 'Player 1' },
       stats: state.stats,
     });
-    this.saveToLocalStorage(currentHighScores);
+    this.saveToLocalStorage({ highScores: currentHighScores });
   }
 
   getHighScores(): HighScore[] {
@@ -24,12 +24,16 @@ export class LocalStorageService {
     return savedState ? JSON.parse(savedState).highScores : [];
   }
 
-  getState(): Partial<GameState> {
+  clearHighScores(): void {
+    this.saveToLocalStorage({ highScores: [] });
+  }
+
+  getLocalStorageState(): Partial<GameState> {
     const savedState = localStorage.getItem(this.storageKey);
     return savedState ? JSON.parse(savedState) : null;
   }
 
-  private saveToLocalStorage(highScores: HighScore[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify({ highScores }));
+  private saveToLocalStorage(state: Partial<GameState>): void {
+    localStorage.setItem(this.storageKey, JSON.stringify({ ...state }));
   }
 }

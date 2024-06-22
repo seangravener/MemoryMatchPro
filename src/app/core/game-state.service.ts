@@ -19,7 +19,7 @@ export class GameStateService {
   private gameStateSubject = new BehaviorSubject<GameState>(
     createInitialState()
   );
-  private localState$ = this.localStorageService.getState();
+  private localState$ = this.localStorageService.getLocalStorageState();
   currentState$ = combineLatest([
     of(this.localState$),
     this.gameStateSubject.asObservable(),

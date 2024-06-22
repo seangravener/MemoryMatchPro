@@ -30,6 +30,8 @@ export class GameService {
     const cards = this.cardsService.createCards(numberOfCards);
     const highScores = this.localStorageService.getHighScores() || [];
 
+    console.log(highScores, 'highScores')
+
     this.stateService.updateState({
       highScores,
       isGameStarted: false,
