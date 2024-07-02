@@ -24,13 +24,15 @@ export class GameService {
     private localStorageService: LocalStorageService
   ) {}
 
+  // @TODO: move to state service
+  // @TODO: create ConfigService to get, set, update number of cards
   initGame({
     numberOfCards = numberOfCardsOptions[2],
   }: { numberOfCards?: number } = {}) {
     const cards = this.cardsService.createCards(numberOfCards);
     const highScores = this.localStorageService.getHighScores() || [];
 
-    console.log(highScores, 'highScores')
+    // console.log(highScores, 'highScores')
 
     this.stateService.updateState({
       highScores,
@@ -60,15 +62,13 @@ export class GameService {
   }
 
   handleCardFlip(cardId: number) {
+    const { cards } = this.stateService.currentState;
+    const updatedCards = this.cardsService.flipCard(cards, cardId);
+    const flippedCards = this.cardsService.findFlippedCards(updatedCards);
+
     if (this.isGameAvailable()) {
       return;
     }
-
-    const { cards } = this.stateService.currentState;
-
-    // @todo move card operations to exported pure funcs
-    const updatedCards = this.cardsService.flipCard(cards, cardId);
-    const flippedCards = this.cardsService.findFlippedCards(updatedCards);
 
     if (flippedCards.length === 2) {
       this.processFlippedCards(flippedCards, updatedCards);
@@ -89,7 +89,6 @@ export class GameService {
 
     if (this.cardsService.checkForMatch(flippedCards[0], flippedCards[1])) {
       this.stateService.updateState({
-        // @todo move to exported func
         cards: this.cardsService.markFlippedAsMatched(
           currentCards,
           flippedCards
