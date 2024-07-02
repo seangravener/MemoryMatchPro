@@ -5,8 +5,6 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { GameState } from '../../../../core/state.model';
 
 @Component({
   selector: 'app-controls',
@@ -16,7 +14,7 @@ import { GameState } from '../../../../core/state.model';
 })
 export class ControlsComponent {
   @Input() isGameStarted: boolean | undefined;
-  @Input() currentState$: Observable<GameState> | undefined;
+  @Input() boardOverlayShow: boolean | undefined;
   @Input() showHighScoresButton: boolean | undefined;
   @Input() showInstructionsButton: boolean | undefined;
   @Output() onStartGame = new EventEmitter<void>();
