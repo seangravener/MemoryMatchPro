@@ -17,6 +17,8 @@ import { GameState } from '../../../../core/state.model';
 export class ControlsComponent {
   @Input() isGameStarted: boolean | undefined;
   @Input() currentState$: Observable<GameState> | undefined;
+  @Input() showHighScoresButton: boolean | undefined;
+  @Input() showInstructionsButton: boolean | undefined;
   @Output() onStartGame = new EventEmitter<void>();
   @Output() onEndGame = new EventEmitter<void>();
   @Output() onResetGame = new EventEmitter<void>();

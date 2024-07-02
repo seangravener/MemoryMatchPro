@@ -1,8 +1,8 @@
 <div *ngIf="currentState$ | async as currentState" class="flex justify-center gap-4">
-  <button *ngIf="!currentState.isGameStarted"
+  <button *ngIf="!currentState.isGameStarted && showHighScoresButton"
     class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
     (click)="toggleHighScores()">{{ currentState ? 'Close High Scores' : 'Show High Scores' }}</button>
-  <button *ngIf="!currentState.isGameStarted"
+  <button *ngIf="!currentState.isGameStarted && showInstructionsButton"
     class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
     (click)="toggleInstructions()">{{ currentState.boardOverlay.show ? 'Close Instructions' : 'Show Instructions' }}</button>
 

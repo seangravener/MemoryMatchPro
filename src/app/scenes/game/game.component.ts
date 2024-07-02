@@ -7,6 +7,7 @@ import { GameStateService } from '../../core/game-state.service';
 import { StatsService } from '../../core/stats.service';
 import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
+import { FeatureFlagService } from '../../core/feature-flag.service';
 
 @Component({
   selector: 'app-game',
@@ -49,11 +50,16 @@ export class GameComponent implements OnInit {
     return this.gameStateService.currentState.isGameStarted;
   }
 
+  get featureFlags$() {
+    return this.featureFlagService.featureFlags$;
+  }
+
   constructor(
     private themeService: ThemeService,
     private gameStateService: GameStateService,
     private gameStatsService: StatsService,
     private gameService: GameService,
+    private featureFlagService: FeatureFlagService,
     private cheatCodeListenerService: CheatCodeListenerService
   ) {}
 
@@ -77,6 +83,7 @@ export class GameComponent implements OnInit {
 
   endGame() {
     this.gameService.endGame();
+    this.toggleBoardOverlay({ type: 'instructions', show: true });
   }
 
   resetGame() {
