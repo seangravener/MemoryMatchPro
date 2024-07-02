@@ -68,6 +68,7 @@ export class GameComponent implements OnInit {
   initGame() {
     this.cheatCodeListenerService.init();
     this.gameService.initGame();
+    this.toggleBoardOverlay({ type: 'instructions', show: true })
   }
 
   startGame() {
@@ -95,6 +96,13 @@ export class GameComponent implements OnInit {
     const show = !boardOverlay.show;
 
     this.toggleBoardOverlay({ ...boardOverlay, type: 'highScores', show });
+  }
+
+  toggleInstructions() {
+    const { boardOverlay } = this.gameStateService.currentState;
+    const show = !boardOverlay.show;
+
+    this.toggleBoardOverlay({ ...boardOverlay, type: 'instructions', show });
   }
 
   toggleBoardOverlay(boardOverlay: BoardOverlay) {

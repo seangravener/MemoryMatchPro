@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameComponent } from './game.component';
-import { ControlsComponent } from './features/controls/controls.component';
-import { GameStatsComponent } from './features/stats/stats.component';
-import { BoardComponent } from './features/board/board.component';
-import { StatItemComponent } from './features/stats/stat-item/stat-item.component';
-import { CardComponent } from './features/card/card.component';
+import { ControlsComponent } from './components/controls/controls.component';
+import { GameStatsComponent } from './components/stats/stats.component';
+import { BoardComponent } from './components/board/board.component';
+import { StatItemComponent } from './components/stats/stat-item/stat-item.component';
+import { CardComponent } from './components/card/card.component';
 
 describe('GameComponent', () => {
   let component: GameComponent;

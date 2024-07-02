@@ -21,6 +21,7 @@ export class ControlsComponent {
   @Output() onEndGame = new EventEmitter<void>();
   @Output() onResetGame = new EventEmitter<void>();
   @Output() onToggleHighScores = new EventEmitter<void>();
+  @Output() onToggleInstructions = new EventEmitter<void>();
 
   startGame() {
     this.onStartGame.emit();
@@ -32,6 +33,10 @@ export class ControlsComponent {
 
   toggleHighScores() {
     this.onToggleHighScores.emit();
+  }
+
+  toggleInstructions() {
+    this.onToggleInstructions.emit();
   }
 
   endGame() {

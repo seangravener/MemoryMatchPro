@@ -6,12 +6,12 @@ import { GameService } from './game.service';
 import { StatsService } from '../../core/stats.service';
 
 import { GameComponent } from './game.component';
-import { GameStatsComponent } from './features/stats/stats.component';
-import { ControlsComponent } from './features/controls/controls.component';
-import { BoardComponent } from './features/board/board.component';
-import { CardComponent } from './features/card/card.component';
+import { GameStatsComponent } from './components/stats/stats.component';
+import { ControlsComponent } from './components/controls/controls.component';
+import { BoardComponent } from './components/board/board.component';
+import { CardComponent } from './components/card/card.component';
 import { ThemeService } from '../../core/theme.service';
-import { StatItemComponent } from './features/stats/stat-item/stat-item.component';
+import { StatItemComponent } from './components/stats/stat-item/stat-item.component';
 
 @NgModule({
   declarations: [
