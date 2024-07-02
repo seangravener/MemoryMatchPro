@@ -42,7 +42,7 @@ export class GameService {
   startGame() {
     this.resetGame();
     this.stateService.updateState({ isGameStarted: true });
-    this.cardsService.peekCards(2000, 500, () => {
+    this.cardsService.peekCards(2000, 250, () => {
       this.timerService.startTimer();
     });
   }
@@ -66,7 +66,7 @@ export class GameService {
 
     const { cards } = this.stateService.currentState;
 
-    // @todo move card operations to exported funcs
+    // @todo move card operations to exported pure funcs
     const updatedCards = this.cardsService.flipCard(cards, cardId);
     const flippedCards = this.cardsService.findFlippedCards(updatedCards);
 
