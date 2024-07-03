@@ -13,7 +13,6 @@ import {
 
 import { Card } from '../../../../core/state.model';
 import { GameEffectsService } from '../../../../core/game-effects.service';
-import { GameStateService } from '../../../../core/game-state.service';
 
 @Component({
   selector: 'app-card',
@@ -43,10 +42,7 @@ export class CardComponent implements OnChanges {
 
   @ViewChild('flipCard') flipCard!: ElementRef<HTMLDivElement>;
 
-  constructor(
-    private gameEffectsService: GameEffectsService,
-    private gameStateService: GameStateService,
-  ) {}
+  constructor(private gameEffectsService: GameEffectsService) {}
 
   setGameEffect(element: HTMLElement, options?: object) {
     this.gameEffectsService.launchConfetti({ element, options, delay: 500 });
@@ -57,7 +53,6 @@ export class CardComponent implements OnChanges {
     // @todo narrow down the scope of the effect
     if (this.card.matched && this.card.flipped && !this.isCheatModeEnabled) {
       this.onMatch.emit(this.flipCard.nativeElement);
-
       this.setGameEffect(this.flipCard.nativeElement);
     }
   }
