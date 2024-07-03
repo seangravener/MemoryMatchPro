@@ -1,4 +1,5 @@
 import { GameState } from '../state.model';
+import { Theme } from '../theme.service';
 
 export const gameStateFixture: GameState = {
   stats: [],
@@ -7,6 +8,8 @@ export const gameStateFixture: GameState = {
   isProcessing: false,
   isCheatModeEnabled: false,
   highScores: [],
+  theme: Theme.Beach,
+  boardOverlay: { show: false, type: 'instructions' },
 } as GameState;
 
 export const cardFixture = {

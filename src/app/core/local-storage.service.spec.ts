@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { LocalStorageService } from './local-storage.service';
 import { GameStatId, GameState } from './state.model';
+import { Theme } from './theme.service';
 
 describe('LocalStorageService', () => {
   let service: LocalStorageService;
@@ -21,6 +22,8 @@ describe('LocalStorageService', () => {
       isGameStarted: false,
       isProcessing: false,
       isCheatModeEnabled: false,
+      theme: Theme.Beach,
+      boardOverlay: { show: false, type: 'instructions' },
       highScores: [
         {
           player: { name: '' },
