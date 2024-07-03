@@ -103,7 +103,7 @@
               name="theme"
               class="w-4 h-4 text-blue-600 focus:ring-blue-500 focus:ring-2"
               [value]="theme.value"
-              [checked]="currentTheme === theme.value"
+              [checked]="(currentTheme$ | async) === theme.value"
               (change)="changeTheme(theme.value)"
             />
             <label

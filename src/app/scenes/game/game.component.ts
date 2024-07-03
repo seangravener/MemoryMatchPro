@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { BoardOverlay, Card } from '../../core/state.model';
@@ -14,7 +14,7 @@ import { FeatureFlagService } from '../../core/feature-flag.service';
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   subs: Subscription = new Subscription();
   activeOverlay: 'highScores' | 'instructions' | undefined = 'instructions';
   themes = Object.keys(Theme).map(key => ({
@@ -42,6 +42,10 @@ export class GameComponent implements OnInit {
     return this.gameStatsService.currentStats$;
   }
 
+  get currentTheme$() {
+    return this.themeService.currentTheme$;
+  }
+
   get currentTheme() {
     return this.themeService.currentTheme;
   }
@@ -64,11 +68,7 @@ export class GameComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.subs.add(
-      this.themeService.currentTheme$.subscribe(currentTheme => {
-        this.themeService.setTheme(currentTheme);
-      }),
-    );
+    this.themeService.setTheme(this.currentTheme);
   }
 
   initGame() {
