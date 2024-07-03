@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { GameStat } from '../../../../core/state.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stats',
@@ -9,5 +8,5 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameStatsComponent {
-  @Input() currentStats$: Observable<GameStat[]> | undefined;
+  @Input() stats: GameStat[] | undefined | null = [];
 }

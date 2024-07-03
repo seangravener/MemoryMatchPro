@@ -1,4 +1,4 @@
-<div *ngIf="currentStats$ | async as currentStats"
+<div
   class="score-board bg-gradient-to-r flex flex-grow flex-wrap from-[var(--background-gradient-end)] via-[var(--background-gradient-middle)] to-[var(--background-gradient-start)] py-2 px-4 rounded-xl shadow-md  justify-center mb-8 text-[var(--component-text)] font-bold">
-  <stat-item *ngFor="let stat of currentStats" [stat]="stat"></stat-item>
+  <stat-item *ngFor="let stat of stats" [stat]="stat"></stat-item>
 </div>

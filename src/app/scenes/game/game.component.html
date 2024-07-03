@@ -40,8 +40,8 @@
         </div>
       </div>
     </div>
-    <app-stats [currentStats$]="currentStats$"></app-stats>
-    <app-board [currentCards$]="currentCards$" [isCheatModeEnabled]="currentState.isCheatModeEnabled"
+    <app-stats [stats]="currentStats$ | async"></app-stats>
+    <app-board [cards]="currentCards$ | async" [isCheatModeEnabled]="currentState.isCheatModeEnabled"
       (onInitGameBoard)="initGame()" (onFlip)="handleOnFlip($event)"></app-board>
   </div>
   <div class="flex mx-auto">

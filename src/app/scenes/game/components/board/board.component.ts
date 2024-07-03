@@ -6,7 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { Card } from '../../../../core/state.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -15,7 +14,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
-  @Input() currentCards$: Observable<Card[]> | undefined;
+  @Input() cards: Card[] | undefined | null = [];
   @Input() isCheatModeEnabled = false;
   @Output() onFlip = new EventEmitter<Card>();
   @Output() onInitGameBoard = new EventEmitter<void>();
