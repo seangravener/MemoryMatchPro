@@ -6,7 +6,7 @@ import { FeatureFlagService } from './feature-flag.service';
 describe('Service: FeatureFlag', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FeatureFlagService]
+      providers: [FeatureFlagService],
     });
   });
 

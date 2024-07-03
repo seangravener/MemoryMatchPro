@@ -21,14 +21,12 @@ export class GameService {
     private cardsService: CardsService,
     private statsService: StatsService,
     private timerService: TimerService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
   ) {}
 
   // @TODO: move to state service
   // @TODO: create ConfigService to get, set, update number of cards
-  initGame({
-    numberOfCards = numberOfCardsOptions[2],
-  }: { numberOfCards?: number } = {}) {
+  initGame({ numberOfCards = numberOfCardsOptions[2] }: { numberOfCards?: number } = {}) {
     const cards = this.cardsService.createCards(numberOfCards);
     const highScores = this.localStorageService.getHighScores() || [];
 
@@ -89,10 +87,7 @@ export class GameService {
 
     if (this.cardsService.checkForMatch(flippedCards[0], flippedCards[1])) {
       this.stateService.updateState({
-        cards: this.cardsService.markFlippedAsMatched(
-          currentCards,
-          flippedCards
-        ),
+        cards: this.cardsService.markFlippedAsMatched(currentCards, flippedCards),
         isProcessing: false,
       });
       this.statsService.incrementMatches();

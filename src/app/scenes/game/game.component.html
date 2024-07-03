@@ -1,39 +1,82 @@
-<div *ngIf="currentState$ | async as currentState"
-  class="container mx-auto px-4 lg:h-screen flex flex-col justify-center">
+<div
+  *ngIf="currentState$ | async as currentState"
+  class="container mx-auto px-4 lg:h-screen flex flex-col justify-center"
+>
   <div class="flex flex-col lg:flex-row justify-start items-end my-4 lg:my-8">
-    <h1 class="font-mg text-left sm:text-5xl lg:text-left ml-8 lg:ml-16 mr-8 mb-4 lg:mb-0">Memory Game</h1>
-    <app-controls *ngIf="featureFlags$ | async as flags" class="ml-auto mr-16"
-      [isGameStarted]="currentState.isGameStarted" [boardOverlayShow]="currentState.boardOverlay.show"
-      [showHighScoresButton]="flags.showHighScores" [showInstructionsButton]="flags.showInstructions"
-      (onEndGame)="endGame()" (onStartGame)="startGame()" (onResetGame)="resetGame()"
-      (onToggleHighScores)="toggleHighScores()" (onToggleInstructions)="toggleInstructions()">
+    <h1
+      class="font-mg text-left sm:text-5xl lg:text-left ml-8 lg:ml-16 mr-8 mb-4 lg:mb-0"
+      >Memory Game</h1
+    >
+    <app-controls
+      *ngIf="featureFlags$ | async as flags"
+      class="ml-auto mr-16"
+      [isGameStarted]="currentState.isGameStarted"
+      [boardOverlayShow]="currentState.boardOverlay.show"
+      [showHighScoresButton]="flags.showHighScores"
+      [showInstructionsButton]="flags.showInstructions"
+      (onEndGame)="endGame()"
+      (onStartGame)="startGame()"
+      (onResetGame)="resetGame()"
+      (onToggleHighScores)="toggleHighScores()"
+      (onToggleInstructions)="toggleInstructions()"
+    >
     </app-controls>
   </div>
-  <div class="game-board p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden"
-    style="background: linear-gradient(to top, var(--background-gradient-start), var(--background-gradient-middle), var(--background-gradient-end));">
-    <div #boardOverlay *ngIf="!currentState.isGameStarted && currentState.boardOverlay.show"
-      class="absolute inset-0  bg-black flex items-top md:items-center bg-opacity-60 justify-center z-10">
-      <div #boardOverlayInstructions *ngIf="currentState.boardOverlay.type === 'instructions'"
-        class="text-center p-8 bg-gray-200 rounded-lg">
+  <div
+    class="game-board p-4 lg:p-8 m-4 lg:m-8 lg:mt-0 mt-0 rounded-xl shadow-lg relative overflow-hidden"
+    style="
+      background: linear-gradient(
+        to top,
+        var(--background-gradient-start),
+        var(--background-gradient-middle),
+        var(--background-gradient-end)
+      );
+    "
+  >
+    <div
+      #boardOverlay
+      *ngIf="!currentState.isGameStarted && currentState.boardOverlay.show"
+      class="absolute inset-0 bg-black flex items-top md:items-center bg-opacity-60 justify-center z-10"
+    >
+      <div
+        #boardOverlayInstructions
+        *ngIf="currentState.boardOverlay.type === 'instructions'"
+        class="text-center p-8 bg-gray-200 rounded-lg"
+      >
         <h2 class="text-2xl font-semibold text-gray-900">Memory Game</h2>
-        <p class="text-gray-900 mb-4">Click "Start Game" and test your memory</p>
-        <div class="game-instructions text-left text-gray-900 border-gray-400 border-t pt-4">
+        <p class="text-gray-900 mb-4"
+          >Click "Start Game" and test your memory</p
+        >
+        <div
+          class="game-instructions text-left text-gray-900 border-gray-400 border-t pt-4"
+        >
           <h3 class="font-semibold mb-4">How to Play:</h3>
           <ul class="list-disc ml-4 mb-4">
             <li>Click on a card to reveal its symbol.</li>
             <li>Try to find the matching card with the same symbol.</li>
             <li>Match all cards to win the game.</li>
           </ul>
-          <app-controls *ngIf="featureFlags$ | async as flags" class="m-auto"
-            [isGameStarted]="currentState.isGameStarted" [boardOverlayShow]="currentState.boardOverlay.show"
-            [showHighScoresButton]="flags.showHighScores" [showInstructionsButton]="flags.showInstructions"
-            (onEndGame)="endGame()" (onStartGame)="startGame()" (onResetGame)="resetGame()"
-            (onToggleHighScores)="toggleHighScores()" (onToggleInstructions)="toggleInstructions()">
+          <app-controls
+            *ngIf="featureFlags$ | async as flags"
+            class="m-auto"
+            [isGameStarted]="currentState.isGameStarted"
+            [boardOverlayShow]="currentState.boardOverlay.show"
+            [showHighScoresButton]="flags.showHighScores"
+            [showInstructionsButton]="flags.showInstructions"
+            (onEndGame)="endGame()"
+            (onStartGame)="startGame()"
+            (onResetGame)="resetGame()"
+            (onToggleHighScores)="toggleHighScores()"
+            (onToggleInstructions)="toggleInstructions()"
+          >
           </app-controls>
         </div>
       </div>
-      <div #boardOverlayHighScores *ngIf="currentState.boardOverlay.type === 'highScores'"
-        class="text-center p-8 bg-gray-200 rounded-lg m-4">
+      <div
+        #boardOverlayHighScores
+        *ngIf="currentState.boardOverlay.type === 'highScores'"
+        class="text-center p-8 bg-gray-200 rounded-lg m-4"
+      >
         <h3 class="font-semibold">High Scores:</h3>
         <div class="max-h-40 max-w-4xl overflow-y-scroll">
           {{ currentState.highScores | json }}
@@ -41,8 +84,12 @@
       </div>
     </div>
     <app-stats [stats]="currentStats$ | async"></app-stats>
-    <app-board [cards]="currentCards$ | async" [isCheatModeEnabled]="currentState.isCheatModeEnabled"
-      (onInitGameBoard)="initGame()" (onFlip)="handleOnFlip($event)"></app-board>
+    <app-board
+      [cards]="currentCards$ | async"
+      [isCheatModeEnabled]="currentState.isCheatModeEnabled"
+      (onInitGameBoard)="initGame()"
+      (onFlip)="handleOnFlip($event)"
+    ></app-board>
   </div>
   <div class="flex mx-auto">
     <div class="flex items-center">
@@ -50,10 +97,19 @@
       <ul class="flex items-center w-full text-sm font-medium text-gray-900">
         <li *ngFor="let theme of themes" class="lg:flex-grow ml-4">
           <div class="flex items-center">
-            <input type="radio" id="{{theme.value}}" name="theme"
-              class="w-4 h-4 text-blue-600 focus:ring-blue-500 focus:ring-2" [value]="theme.value"
-              [checked]="currentTheme === theme.value" (change)="changeTheme(theme.value)">
-            <label for="{{theme.value}}" class="py-3 ml-2 cursor-pointer text-sm font-medium text-gray-900">
+            <input
+              type="radio"
+              id="{{ theme.value }}"
+              name="theme"
+              class="w-4 h-4 text-blue-600 focus:ring-blue-500 focus:ring-2"
+              [value]="theme.value"
+              [checked]="currentTheme === theme.value"
+              (change)="changeTheme(theme.value)"
+            />
+            <label
+              for="{{ theme.value }}"
+              class="py-3 ml-2 cursor-pointer text-sm font-medium text-gray-900"
+            >
               {{ theme.key | titlecase }}
             </label>
           </div>

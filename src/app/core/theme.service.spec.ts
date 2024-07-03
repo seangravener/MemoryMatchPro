@@ -20,8 +20,8 @@ describe('ThemeService', () => {
     expect(service.currentTheme).toBe(Theme.Beach);
   });
 
-  it('should return the current theme as observable', (done) => {
-    service.currentTheme$.subscribe((theme) => {
+  it('should return the current theme as observable', done => {
+    service.currentTheme$.subscribe(theme => {
       expect(theme).toBe(Theme.Beach);
       done();
     });
@@ -34,9 +34,7 @@ describe('ThemeService', () => {
     service.setTheme(Theme.Moonlight);
 
     expect(service.currentTheme).toBe(Theme.Moonlight);
-    expect(document.body.classList.remove).toHaveBeenCalledWith(
-      ...Object.values(Theme)
-    );
+    expect(document.body.classList.remove).toHaveBeenCalledWith(...Object.values(Theme));
     expect(document.body.classList.add).toHaveBeenCalledWith(Theme.Moonlight);
   });
 
@@ -46,11 +44,7 @@ describe('ThemeService', () => {
 
     service.setTheme(Theme.MidnightPurple);
 
-    expect(document.body.classList.remove).toHaveBeenCalledWith(
-      ...Object.values(Theme)
-    );
-    expect(document.body.classList.add).toHaveBeenCalledWith(
-      Theme.MidnightPurple
-    );
+    expect(document.body.classList.remove).toHaveBeenCalledWith(...Object.values(Theme));
+    expect(document.body.classList.add).toHaveBeenCalledWith(Theme.MidnightPurple);
   });
 });

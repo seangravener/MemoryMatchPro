@@ -45,7 +45,7 @@ export class CardComponent implements OnChanges {
 
   constructor(
     private gameEffectsService: GameEffectsService,
-    private gameStateService: GameStateService
+    private gameStateService: GameStateService,
   ) {}
 
   setGameEffect(element: HTMLElement, options?: object) {

@@ -18,7 +18,7 @@ describe('StateService', () => {
       currentState$: of(gameStateFixture),
       currentState: gameStateFixture,
       updateGameState: jasmine.createSpy('updateGameState'),
-      resetGameState: jasmine.createSpy('resetGameState')
+      resetGameState: jasmine.createSpy('resetGameState'),
     };
 
     gameStatsServiceMock = {
@@ -45,8 +45,8 @@ describe('StateService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return current state observable', (done) => {
-    service.currentState$.subscribe((state) => {
+  it('should return current state observable', done => {
+    service.currentState$.subscribe(state => {
       expect(state.isGameStarted).toBe(false);
       done();
     });
@@ -56,8 +56,8 @@ describe('StateService', () => {
     expect(service.currentState.isGameStarted).toBe(false);
   });
 
-  it('should return current stats observable', (done) => {
-    service.currentStats$.subscribe((stats) => {
+  it('should return current stats observable', done => {
+    service.currentStats$.subscribe(stats => {
       expect(stats).toEqual([]);
       done();
     });

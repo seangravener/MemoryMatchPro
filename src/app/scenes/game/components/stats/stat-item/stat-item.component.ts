@@ -24,6 +24,5 @@ export class StatItemComponent {
     return this.stat.label;
   }
 
-  @HostBinding('class') class =
-    'score-item px-4 text-xl text-center w-full md:w-1/4';
+  @HostBinding('class') class = 'score-item px-4 text-xl text-center w-full md:w-1/4';
 }

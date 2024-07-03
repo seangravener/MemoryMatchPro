@@ -20,7 +20,7 @@ describe('GameStateService', () => {
   it('should initialize with the correct state', () => {
     expect(service.currentState).toEqual({
       ...initialGameState,
-      stats: initialGameState.stats.map((stat) => ({ ...stat })),
+      stats: initialGameState.stats.map(stat => ({ ...stat })),
     });
   });
 
@@ -38,25 +38,25 @@ describe('GameStateService', () => {
     service.resetGameState();
     expect(service.currentState).toEqual({
       ...initialGameState,
-      stats: initialGameState.stats.map((stat) => ({ ...stat })),
+      stats: initialGameState.stats.map(stat => ({ ...stat })),
     });
   });
 
-  it('should provide current state as observable', (done) => {
-    service.currentState$.subscribe((state) => {
+  it('should provide current state as observable', done => {
+    service.currentState$.subscribe(state => {
       expect(state).toEqual({
         ...initialGameState,
-        stats: initialGameState.stats.map((stat) => ({ ...stat })),
+        stats: initialGameState.stats.map(stat => ({ ...stat })),
       });
       done();
     });
   });
 
-  it('should provide current cards as observable', (done) => {
+  it('should provide current cards as observable', done => {
     const mockCards = [{ id: 1, flipped: false, matched: false }] as Card[];
     service.updateGameState({ cards: mockCards });
 
-    service.currentCards$.subscribe((cards) => {
+    service.currentCards$.subscribe(cards => {
       expect(cards).toEqual(mockCards);
       done();
     });

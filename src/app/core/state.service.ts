@@ -11,7 +11,7 @@ export class StateService {
   constructor(
     private gameStateService: GameStateService,
     private statsService: StatsService,
-    private timerService: TimerService
+    private timerService: TimerService,
   ) {}
 
   get currentState$() {

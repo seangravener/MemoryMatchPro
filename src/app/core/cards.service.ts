@@ -38,10 +38,7 @@ export class CardsService {
     let shuffledCards = [...cards];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledCards[i], shuffledCards[j]] = [
-        shuffledCards[j],
-        shuffledCards[i],
-      ];
+      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
     return shuffledCards;
   }
@@ -69,18 +66,18 @@ export class CardsService {
   }
 
   flipCard(cards: Card[], cardId: number): Card[] {
-    return cards.map((card) =>
-      card.id === cardId && !card.flipped ? { ...card, flipped: true } : card
+    return cards.map(card =>
+      card.id === cardId && !card.flipped ? { ...card, flipped: true } : card,
     );
   }
 
   findFlippedCards(cards: Card[]): Card[] {
-    return cards.filter((card) => card.flipped && !card.matched);
+    return cards.filter(card => card.flipped && !card.matched);
   }
 
   markFlippedAsMatched(currentCards: Card[], flippedCards: Card[]): Card[] {
     const isFlippedCard = (card: Card) =>
-      flippedCards.some((flippedCard) => flippedCard.id === card.id);
+      flippedCards.some(flippedCard => flippedCard.id === card.id);
     const updateCardProperties = (card: Card, props: Partial<Card>): Card => {
       if (isFlippedCard(card)) {
         return { ...card, ...props };
@@ -88,15 +85,11 @@ export class CardsService {
       return card;
     };
 
-    const updatedCards = currentCards.map((card) =>
-      updateCardProperties(card, { matched: false })
-    );
+    const updatedCards = currentCards.map(card => updateCardProperties(card, { matched: false }));
 
     setTimeout(() => {
       this.gameStateService.updateGameState({
-        cards: updatedCards.map((card) =>
-          updateCardProperties(card, { matched: true })
-        ),
+        cards: updatedCards.map(card => updateCardProperties(card, { matched: true })),
       });
     }, 400);
 
@@ -105,10 +98,8 @@ export class CardsService {
 
   resetFlippedCardsAfterDelay(flippedCards: Card[], updatedCards: Card[], delay = 1000) {
     setTimeout(() => {
-      const cards = updatedCards.map((card) =>
-        flippedCards.find((fc) => fc.id === card.id)
-          ? { ...card, flipped: false }
-          : card
+      const cards = updatedCards.map(card =>
+        flippedCards.find(fc => fc.id === card.id) ? { ...card, flipped: false } : card,
       );
 
       this.gameStateService.updateGameState({ cards, isProcessing: false });

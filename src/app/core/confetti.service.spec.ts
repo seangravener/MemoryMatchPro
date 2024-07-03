@@ -6,7 +6,7 @@ import { ConfettiService } from './confetti.service';
 describe('Service: Confetti', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConfettiService]
+      providers: [ConfettiService],
     });
   });
 

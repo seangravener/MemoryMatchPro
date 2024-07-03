@@ -39,11 +39,7 @@
 }
 
 .flip-card-front {
-  background: linear-gradient(
-    120deg,
-    var(--background-color-1) 0%,
-    var(--background-color-2) 100%
-  );
+  background: linear-gradient(120deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
   color: var(--text-color);
   border: 1px solid var(--back-border-color);
   transform: rotateY(180deg);

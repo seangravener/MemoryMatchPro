@@ -6,7 +6,7 @@ import { TimerService } from './game-timer.service';
 describe('Service: GameTimer', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TimerService]
+      providers: [TimerService],
     });
   });
 

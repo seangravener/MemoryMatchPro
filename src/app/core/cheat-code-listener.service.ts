@@ -27,9 +27,7 @@ export class CheatCodeListenerService {
       return;
     }
 
-    document.addEventListener('keydown', (event: KeyboardEvent) =>
-      this.handleKeyPress(event)
-    );
+    document.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyPress(event));
   }
 
   private handleKeyPress(event: KeyboardEvent): void {
@@ -51,9 +49,7 @@ export class CheatCodeListenerService {
   }
 
   private isCheatCodeEntered(): boolean {
-    return this.currentInput
-      .toString()
-      .includes(this.currentComboCode.toString());
+    return this.currentInput.toString().includes(this.currentComboCode.toString());
   }
 
   private toggleCheatModeAndResetInput(): void {

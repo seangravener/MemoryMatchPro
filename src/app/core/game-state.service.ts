@@ -8,7 +8,7 @@ const createInitialState = (): GameState => {
   return {
     ...initialGameState,
     // Deep copy to avoid mutations
-    stats: initialGameState.stats.map((stat) => ({ ...stat })),
+    stats: initialGameState.stats.map(stat => ({ ...stat })),
   };
 };
 
@@ -16,17 +16,12 @@ const createInitialState = (): GameState => {
   providedIn: 'root',
 })
 export class GameStateService {
-  private gameStateSubject = new BehaviorSubject<GameState>(
-    createInitialState()
-  );
+  private gameStateSubject = new BehaviorSubject<GameState>(createInitialState());
   private localState$ = this.localStorageService.getLocalStorageState();
-  currentState$ = combineLatest([
-    of(this.localState$),
-    this.gameStateSubject.asObservable(),
-  ]).pipe(
+  currentState$ = combineLatest([of(this.localState$), this.gameStateSubject.asObservable()]).pipe(
     map(([state, localState]) => {
       return { ...state, ...localState };
-    })
+    }),
   );
 
   get currentState() {
@@ -34,7 +29,7 @@ export class GameStateService {
   }
 
   get currentCards$() {
-    return this.currentState$.pipe(map((state) => state.cards));
+    return this.currentState$.pipe(map(state => state.cards));
   }
 
   constructor(private localStorageService: LocalStorageService) {}

@@ -6,7 +6,7 @@ import { CheatCodeListenerService } from './cheat-code-listener.service';
 describe('Service: CheatCodeListener', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CheatCodeListenerService]
+      providers: [CheatCodeListenerService],
     });
   });
 

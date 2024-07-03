@@ -17,7 +17,7 @@ import { FeatureFlagService } from '../../core/feature-flag.service';
 export class GameComponent implements OnInit {
   subs: Subscription = new Subscription();
   activeOverlay: 'highScores' | 'instructions' | undefined = 'instructions';
-  themes = Object.keys(Theme).map((key) => ({
+  themes = Object.keys(Theme).map(key => ({
     key,
     value: Theme[key as ThemeKey],
   }));
@@ -60,21 +60,21 @@ export class GameComponent implements OnInit {
     private gameStatsService: StatsService,
     private gameService: GameService,
     private featureFlagService: FeatureFlagService,
-    private cheatCodeListenerService: CheatCodeListenerService
+    private cheatCodeListenerService: CheatCodeListenerService,
   ) {}
 
   ngOnInit() {
     this.subs.add(
-      this.themeService.currentTheme$.subscribe((currentTheme) => {
+      this.themeService.currentTheme$.subscribe(currentTheme => {
         this.themeService.setTheme(currentTheme);
-      })
+      }),
     );
   }
 
   initGame() {
     this.cheatCodeListenerService.init();
     this.gameService.initGame();
-    this.toggleBoardOverlay({ type: 'instructions', show: true })
+    this.toggleBoardOverlay({ type: 'instructions', show: true });
   }
 
   startGame() {

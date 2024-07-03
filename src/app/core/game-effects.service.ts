@@ -18,17 +18,13 @@ interface GameEffectOptions {
 export class GameEffectsService {
   constructor(private confettiService: ConfettiService) {}
 
-  launchConfetti({
-    element,
-    delay = 0,
-    options = {},
-  }: GameEffectOptions): this {
+  launchConfetti({ element, delay = 0, options = {} }: GameEffectOptions): this {
     setTimeout(
       () =>
         element
           ? this.confettiService.launchConfettiFromElement(element, options)
           : this.confettiService.launchConfetti(options),
-      delay
+      delay,
     );
 
     return this;

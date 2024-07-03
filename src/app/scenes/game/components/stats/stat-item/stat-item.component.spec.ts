@@ -11,9 +11,8 @@ describe('ScoreItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatItemComponent ]
-    })
-    .compileComponents();
+      declarations: [StatItemComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

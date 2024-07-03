@@ -46,8 +46,8 @@ describe('GameStatsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return current stats observable', (done) => {
-    service.currentStats$.subscribe((stats) => {
+  it('should return current stats observable', done => {
+    service.currentStats$.subscribe(stats => {
       expect(stats).toEqual([
         { id: GameStatId.MOVES, label: 'Moves', value: 0 },
         { id: GameStatId.MATCHES, label: 'Matches', value: 0 },

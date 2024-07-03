@@ -16,8 +16,8 @@ export class TimerService {
   timeInPlay$ = timer(0, 1000).pipe(
     takeWhile(() => this.isRunning),
     map(() => Math.floor((Date.now() - this.startTime) / 1000)),
-    map((time) => time.toString()),
-    tap((time) => this.currentTimeSubject.next(parseInt(time, 10)))
+    map(time => time.toString()),
+    tap(time => this.currentTimeSubject.next(parseInt(time, 10))),
   );
 
   get currentTime() {
