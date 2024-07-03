@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-declare var confetti: any;
+declare let confetti: any;
 
 export interface ConfettiOptions {
   particleCount?: number;
