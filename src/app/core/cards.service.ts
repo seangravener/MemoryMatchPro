@@ -3,12 +3,16 @@ import { timer } from 'rxjs';
 import { Card } from './state.model';
 import { emojiSet } from '../config/emojiSet';
 import { GameStateService } from './game-state.service';
+import { GameEffectsService } from './game-effects.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardsService {
-  constructor(private gameStateService: GameStateService) {}
+  constructor(
+    private gameStateService: GameStateService,
+    private gameEffectsService: GameEffectsService,
+  ) {}
 
   createCards(numberOfCards: number): Card[] {
     const getRandomSample = (array: any[], n: number) => {
@@ -50,18 +54,6 @@ export class CardsService {
         ...card,
         flipped: flipped || !card.flipped,
       })),
-    });
-  }
-
-  peekCards(duration: number, delay: number, callback?: () => void) {
-    timer(delay).subscribe(() => {
-      this.flipAllCards(true);
-      timer(duration).subscribe(() => {
-        this.flipAllCards(false);
-        if (callback) {
-          callback();
-        }
-      });
     });
   }
 
@@ -108,5 +100,21 @@ export class CardsService {
 
   checkForMatch(card1: Card, card2: Card) {
     return card1.imageContent === card2.imageContent;
+  }
+
+  peekCards(duration: number, delay: number, callback?: () => void) {
+    timer(delay).subscribe(() => {
+      this.flipAllCards(true);
+      timer(duration).subscribe(() => {
+        this.flipAllCards(false);
+        if (callback) {
+          callback();
+        }
+      });
+    });
+  }
+
+  triggerGameEffect(element: HTMLElement, options?: object) {
+    this.gameEffectsService.launchConfetti({ element, options, delay: 500 });
   }
 }

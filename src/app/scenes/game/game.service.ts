@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 
 import { numberOfCardsOptions } from '../../config/initialGameState';
 import { Card } from '../../core/state.model';
@@ -81,6 +81,10 @@ export class GameService {
         isProcessing: false,
       });
     }
+  }
+
+  handleCardMatch({ card, element }: { card: Card; element: ElementRef<HTMLElement> }): void {
+    this.cardsService.triggerGameEffect(element.nativeElement);
   }
 
   private processFlippedCards(flippedCards: Card[], currentCards: Card[]) {

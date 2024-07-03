@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Card } from '../../../../core/state.model';
 
 @Component({
@@ -11,6 +18,7 @@ export class BoardComponent {
   @Input() cards: Card[] | undefined | null = [];
   @Input() isCheatModeEnabled = false;
   @Output() onFlip = new EventEmitter<Card>();
+  @Output() onMatch = new EventEmitter<{ card: Card; element: ElementRef<HTMLElement> }>();
   @Output() onInitGameBoard = new EventEmitter<void>();
 
   ngOnInit(): void {
@@ -18,10 +26,14 @@ export class BoardComponent {
   }
 
   handleCardFlip(card: Card): void {
-    this.onFlip.emit(card);
+    this.onFlip.emit({ ...card });
   }
 
-  trackByCardId(index: number, card: Card): any {
-    return card.id;
+  handleCardMatch({ ...args }: { card: Card; element: ElementRef<HTMLElement> }): void {
+    this.onMatch.emit({ ...args });
+  }
+
+  trackByCardId(index: number, card: Card) {
+    return card.id ? card.id : null;
   }
 }

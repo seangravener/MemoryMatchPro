@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { BoardOverlay, Card } from '../../core/state.model';
@@ -90,8 +90,12 @@ export class GameComponent {
     this.gameService.resetGame();
   }
 
-  handleOnFlip(card: Card) {
+  handleCardFlip(card: Card) {
     this.gameService.handleCardFlip(card.id);
+  }
+
+  handleCardMatch({ card, element }: { card: Card; element: ElementRef<HTMLElement> }): void {
+    this.gameService.handleCardMatch({ card, element });
   }
 
   changeTheme(theme: Theme) {

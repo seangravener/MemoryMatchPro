@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 
 import { Card } from '../../../../core/state.model';
-import { GameEffectsService } from '../../../../core/game-effects.service';
 
 @Component({
   selector: 'app-card',
@@ -24,7 +23,7 @@ export class CardComponent implements OnChanges {
   @Input() card: Card = {} as Card;
   @Input() isCheatModeEnabled: boolean = false;
   @Output() onFlip = new EventEmitter<void>();
-  @Output() onMatch = new EventEmitter<HTMLElement>();
+  @Output() onMatch = new EventEmitter<{ card: Card; element: ElementRef<HTMLElement> }>();
 
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
 
@@ -40,20 +39,11 @@ export class CardComponent implements OnChanges {
     this.onFlip.emit();
   }
 
-  @ViewChild('flipCard') flipCard!: ElementRef<HTMLDivElement>;
-
-  constructor(private gameEffectsService: GameEffectsService) {}
-
-  setGameEffect(element: HTMLElement, options?: object) {
-    this.gameEffectsService.launchConfetti({ element, options, delay: 500 });
-  }
+  @ViewChild('flipCard') flipCard!: ElementRef<HTMLElement>;
 
   ngOnChanges() {
-    // @todo Move to GameService
-    // @todo narrow down the scope of the effect
-    if (this.card.matched && this.card.flipped && !this.isCheatModeEnabled) {
-      this.onMatch.emit(this.flipCard.nativeElement);
-      this.setGameEffect(this.flipCard.nativeElement);
+    if (this.card && this.card.matched && this.card.flipped && !this.isCheatModeEnabled) {
+      this.onMatch.emit({ card: this.card, element: this.flipCard });
     }
   }
 }
