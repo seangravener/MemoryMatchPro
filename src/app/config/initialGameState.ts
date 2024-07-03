@@ -6,6 +6,7 @@ export const initialGameState: GameState = {
   isGameStarted: false,
   isProcessing: false,
   isCheatModeEnabled: false,
+  isGameWon: false,
   theme: Theme.Beach,
   highScores: [],
   stats: [

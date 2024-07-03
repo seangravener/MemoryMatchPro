@@ -47,6 +47,11 @@ export class GameService {
     });
   }
 
+  winGame() {
+    this.endGame();
+    this.stateService.updateState({ isGameWon: true });
+  }
+
   endGame() {
     this.stateService.updateState({ isGameStarted: false });
     this.localStorageService.saveHighScore(this.currentState);
