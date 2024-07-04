@@ -20,12 +20,14 @@ import { Card } from '../../../../core/state.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnChanges {
+  @ViewChild('cardElement') cardElement!: ElementRef<HTMLElement>;
   @Input() card: Card = {} as Card;
   @Input() isCheatModeEnabled: boolean = false;
   @Output() onFlip = new EventEmitter<void>();
   @Output() onMatch = new EventEmitter<{ card: Card; element: ElementRef<HTMLElement> }>();
 
   @HostBinding('class.flip-card') isFlipCard: boolean = true;
+  @HostBinding('class.card-element') isCardElement: boolean = true;
 
   @HostBinding('class.is-flipped') get isFlipped() {
     return this.card.flipped;

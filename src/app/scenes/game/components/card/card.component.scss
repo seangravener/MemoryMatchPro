@@ -1,9 +1,7 @@
-.flip-card,
-:host(.flip-card) {
+.card-element,
+:host(.card-element) {
   font-family: Courier, monospace;
   background-color: transparent;
-  // width: 112px;
-  // height: 112px;
   perspective: 1000px;
 }
 
@@ -17,8 +15,8 @@
   backface-visibility: hidden;
 }
 
-:host(.flip-card.is-flipped .flip-card-inner),
-.flip-card.is-flipped .flip-card-inner {
+:host(.card-element.is-flipped .flip-card-inner),
+.card-element.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
