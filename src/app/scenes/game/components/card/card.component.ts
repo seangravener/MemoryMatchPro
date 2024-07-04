@@ -13,6 +13,11 @@ import {
 
 import { Card } from '../../../../core/state.model';
 
+export type CardAction = {
+  card: Card;
+  element: ElementRef<HTMLElement>;
+};
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -24,9 +29,8 @@ export class CardComponent implements OnChanges {
   @Input() card: Card = {} as Card;
   @Input() isCheatModeEnabled: boolean = false;
   @Output() onFlip = new EventEmitter<void>();
-  @Output() onMatch = new EventEmitter<{ card: Card; element: ElementRef<HTMLElement> }>();
+  @Output() onMatch = new EventEmitter<CardAction>();
 
-  @HostBinding('class.flip-card') isFlipCard: boolean = true;
   @HostBinding('class.card-element') isCardElement: boolean = true;
 
   @HostBinding('class.is-flipped') get isFlipped() {
@@ -41,11 +45,9 @@ export class CardComponent implements OnChanges {
     this.onFlip.emit();
   }
 
-  @ViewChild('flipCard') flipCard!: ElementRef<HTMLElement>;
-
   ngOnChanges() {
     if (this.card && this.card.matched && this.card.flipped && !this.isCheatModeEnabled) {
-      this.onMatch.emit({ card: this.card, element: this.flipCard });
+      this.onMatch.emit({ card: this.card, element: this.cardElement });
     }
   }
 }

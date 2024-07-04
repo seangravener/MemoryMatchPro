@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../core/local-storage.service';
 import { TimerService } from '../../core/game-timer.service';
 import { StateService } from '../../core/state.service';
 import { StatsService } from '../../core/stats.service';
+import { CardAction } from './components/card/card.component';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,11 @@ import { StatsService } from '../../core/stats.service';
 export class GameService {
   get currentState() {
     return this.stateService.currentState;
+  }
+
+  get isGameWon() {
+    console.log(this.currentState.cards.filter(card => Boolean(card)).every(card => card.matched));
+    return this.currentState.cards.filter(card => Boolean(card)).every(card => card.matched);
   }
 
   constructor(
@@ -47,6 +53,7 @@ export class GameService {
     });
   }
 
+  // trigger winGame() when all cards are matched
   winGame() {
     this.endGame();
     this.stateService.updateState({ isGameWon: true });
@@ -83,7 +90,7 @@ export class GameService {
     }
   }
 
-  handleCardMatch({ card, element }: { card: Card; element: ElementRef<HTMLElement> }): void {
+  handleCardMatch({ element }: CardAction): void {
     this.cardsService.triggerGameEffect(element.nativeElement);
   }
 

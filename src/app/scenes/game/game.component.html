@@ -8,14 +8,24 @@
       >Memory Match Pro</h1>
 
       <div>
+
+        <ul>
+          <li>
+            isGameWon: {{ isGameWon | json }}
+          </li>
+          <li>
+            <!-- currentState.isGameWon: {{ currentState.isGameWon | json }} -->
+          </li>
+        </ul>
+      </div>
+
+      <div>
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 
         >
           {{ currentState.isCheatModeEnabled ? 'Disable' : 'Enable' }} Cheat Mode
         </button>
-
-        isGameWon: {{ currentState.isGameWon | json}}
       </div>
     <app-controls
       *ngIf="featureFlags$ | async as flags"

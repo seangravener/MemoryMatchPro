@@ -8,6 +8,7 @@ import { StatsService } from '../../core/stats.service';
 import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
 import { FeatureFlagService } from '../../core/feature-flag.service';
+import { CardAction } from './components/card/card.component';
 
 @Component({
   selector: 'app-game',
@@ -54,6 +55,11 @@ export class GameComponent {
     return this.gameStateService.currentState.isGameStarted;
   }
 
+  get isGameWon() {
+   console.log('isGameWon', this.gameService.isGameWon);
+    return this.gameService.isGameWon;
+  }
+
   get featureFlags$() {
     return this.featureFlagService.featureFlags$;
   }
@@ -94,7 +100,7 @@ export class GameComponent {
     this.gameService.handleCardFlip(card.id);
   }
 
-  handleCardMatch({ card, element }: { card: Card; element: ElementRef<HTMLElement> }): void {
+  handleCardMatch({ card, element }: CardAction): void {
     this.gameService.handleCardMatch({ card, element });
   }
 
