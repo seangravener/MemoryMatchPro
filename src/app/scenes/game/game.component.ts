@@ -27,6 +27,10 @@ export class GameComponent {
     return this.gameStateService.currentState.isCheatModeEnabled;
   }
 
+  set isCheatModeEnabled(isEnabled: boolean) {
+    this.gameStateService.updateGameState({ isCheatModeEnabled: isEnabled });
+  }
+
   get highScores() {
     return this.gameStateService.currentState.highScores;
   }
@@ -87,6 +91,7 @@ export class GameComponent {
   }
 
   winNow() {
+    this.isCheatModeEnabled = false;
     this.gameService.winGame();
   }
 
