@@ -56,10 +56,12 @@ export class GameService {
   winGame() {
     this.endGame();
 
-    // debug
-    this.cardsService.flipCardsAll(true);
     this.stateService.updateState({
-      cards: this.cardsService.currentCards.map(card => ({ ...card, matched: true })),
+      cards: this.cardsService.currentCards.map(card => ({
+        ...card,
+        flipped: true,
+        matched: true,
+      })),
     });
   }
 
