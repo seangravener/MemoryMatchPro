@@ -47,7 +47,7 @@ export class StateService {
     this.gameStateService.updateGameState(newState);
   }
 
-  resetGameState() {
+  resetState() {
     this.gameStateService.resetGameState();
   }
 }

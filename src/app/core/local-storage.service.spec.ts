@@ -22,7 +22,6 @@ describe('LocalStorageService', () => {
       isGameStarted: false,
       isProcessing: false,
       isCheatModeEnabled: false,
-      isGameWon: false,
       theme: Theme.Beach,
       boardOverlay: { show: false, type: 'instructions' },
       highScores: [

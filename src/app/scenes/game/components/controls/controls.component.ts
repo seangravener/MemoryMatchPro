@@ -8,11 +8,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class ControlsComponent {
   @Input() isGameStarted: boolean | undefined;
+  @Input() isGameWon: boolean | undefined;
   @Input() boardOverlayShow: boolean | undefined;
   @Input() showHighScoresButton: boolean | undefined;
   @Input() showInstructionsButton: boolean | undefined;
   @Output() onStartGame = new EventEmitter<void>();
-  @Output() onEndGame = new EventEmitter<void>();
+  @Output() onEndGame = new EventEmitter<{ options?: string }>();
   @Output() onResetGame = new EventEmitter<void>();
   @Output() onToggleHighScores = new EventEmitter<void>();
   @Output() onToggleInstructions = new EventEmitter<void>();
@@ -33,7 +34,7 @@ export class ControlsComponent {
     this.onToggleInstructions.emit();
   }
 
-  endGame() {
-    this.onEndGame.emit();
+  endGame(options: { options?: string } = {}) {
+    this.onEndGame.emit(options);
   }
 }

@@ -13,10 +13,16 @@
   >
 
   <button
-    *ngIf="!isGameStarted"
+    *ngIf="!isGameStarted && !isGameWon"
     (click)="startGame()"
     class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
     >Start Game</button
+  >
+  <button
+    *ngIf="isGameWon"
+    (click)="resetGame()"
+    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
+    >Reset Game</button
   >
   <button
     *ngIf="isGameStarted"

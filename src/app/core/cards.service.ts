@@ -9,6 +9,10 @@ import { GameEffectsService } from './game-effects.service';
   providedIn: 'root',
 })
 export class CardsService {
+  get currentCards(): Card[] {
+    return this.gameStateService.currentState.cards;
+  }
+
   constructor(
     private gameStateService: GameStateService,
     private gameEffectsService: GameEffectsService,
@@ -47,7 +51,7 @@ export class CardsService {
     return shuffledCards;
   }
 
-  flipAllCards(flipped: boolean) {
+  flipCardsAll(flipped: boolean) {
     const { cards } = this.gameStateService.currentState;
     this.gameStateService.updateGameState({
       cards: cards.map((card: Card) => ({
@@ -65,6 +69,16 @@ export class CardsService {
 
   findFlippedCards(cards: Card[]): Card[] {
     return cards.filter(card => card.flipped && !card.matched);
+  }
+
+  resetFlippedCardsAfterDelay(flippedCards: Card[], updatedCards: Card[], delay = 1000) {
+    setTimeout(() => {
+      const cards = updatedCards.map(card =>
+        flippedCards.find(fc => fc.id === card.id) ? { ...card, flipped: false } : card,
+      );
+
+      this.gameStateService.updateGameState({ cards, isProcessing: false });
+    }, delay);
   }
 
   markFlippedAsMatched(currentCards: Card[], flippedCards: Card[]): Card[] {
@@ -88,25 +102,15 @@ export class CardsService {
     return updatedCards;
   }
 
-  resetFlippedCardsAfterDelay(flippedCards: Card[], updatedCards: Card[], delay = 1000) {
-    setTimeout(() => {
-      const cards = updatedCards.map(card =>
-        flippedCards.find(fc => fc.id === card.id) ? { ...card, flipped: false } : card,
-      );
-
-      this.gameStateService.updateGameState({ cards, isProcessing: false });
-    }, delay);
-  }
-
   checkForMatch(card1: Card, card2: Card) {
     return card1.imageContent === card2.imageContent;
   }
 
   peekCards(duration: number, delay: number, callback?: () => void) {
     timer(delay).subscribe(() => {
-      this.flipAllCards(true);
+      this.flipCardsAll(true);
       timer(duration).subscribe(() => {
-        this.flipAllCards(false);
+        this.flipCardsAll(false);
         if (callback) {
           callback();
         }
@@ -115,6 +119,9 @@ export class CardsService {
   }
 
   triggerGameEffect(element: HTMLElement, options?: object) {
+    // keep a list of elements already triggered to prevent multiple triggers
+    // onGameWon, launch confetti for all cards (check status of isGameWon)
+
     this.gameEffectsService.launchConfetti({ element, options, delay: 500 });
   }
 }

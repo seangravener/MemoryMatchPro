@@ -41,7 +41,6 @@ export interface GameState {
   isGameStarted: boolean;
   isProcessing: boolean;
   isCheatModeEnabled: boolean;
-  isGameWon: boolean;
   theme: Theme;
   highScores: HighScore[];
   stats: GameStat[];

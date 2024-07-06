@@ -56,7 +56,6 @@ export class GameComponent {
   }
 
   get isGameWon() {
-   console.log('isGameWon', this.gameService.isGameWon);
     return this.gameService.isGameWon;
   }
 
@@ -85,6 +84,10 @@ export class GameComponent {
 
   startGame() {
     this.gameService.startGame();
+  }
+
+  winNow() {
+    this.gameService.winGame();
   }
 
   endGame() {

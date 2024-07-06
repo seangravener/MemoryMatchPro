@@ -18,7 +18,6 @@ export class GameService {
   }
 
   get isGameWon() {
-    console.log(this.currentState.cards.filter(card => Boolean(card)).every(card => card.matched));
     return this.currentState.cards.filter(card => Boolean(card)).every(card => card.matched);
   }
 
@@ -56,7 +55,12 @@ export class GameService {
   // trigger winGame() when all cards are matched
   winGame() {
     this.endGame();
-    this.stateService.updateState({ isGameWon: true });
+
+    // debug
+    this.cardsService.flipCardsAll(true);
+    this.stateService.updateState({
+      cards: this.cardsService.currentCards.map(card => ({ ...card, matched: true })),
+    });
   }
 
   endGame() {
@@ -67,7 +71,7 @@ export class GameService {
 
   resetGame() {
     this.timerService.resetTimer();
-    this.stateService.resetGameState();
+    this.stateService.resetState();
     this.initGame();
   }
 

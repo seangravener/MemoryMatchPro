@@ -89,7 +89,7 @@ describe('StateService', () => {
   });
 
   it('should reset game state', () => {
-    service.resetGameState();
+    service.resetState();
     expect(gameStateServiceMock.resetGameState).toHaveBeenCalled();
   });
 });
