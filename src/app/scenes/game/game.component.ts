@@ -97,6 +97,7 @@ export class GameComponent {
 
   resetGame() {
     this.gameService.resetGame();
+    this.toggleBoardOverlay({ type: 'instructions', show: true });
   }
 
   handleCardFlip(card: Card) {
