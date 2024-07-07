@@ -1,28 +1,47 @@
 <div class="flex justify-center items-stretch gap-4">
+  <div *ngIf="isCheatModeEnabled"> Debug: </div>
   <div *ngIf="isCheatModeEnabled">
-    Debug:
-  </div>
-  <div *ngIf="isCheatModeEnabled">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
       {{ isCheatModeEnabled ? 'Disable' : 'Enable' }} Cheat Mode
     </button>
-    <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" (click)="winNow()">
+    <button
+      class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+      (click)="winNow()"
+    >
       WinNow();
     </button>
   </div>
-  <button *ngIf="!isGameStarted && showHighScoresButton"
+  <button
+    *ngIf="!isGameStarted && showHighScoresButton"
     class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
-    (click)="toggleHighScores()">{{ boardOverlayShow ? 'Close High Scores' : 'Show High Scores' }}</button>
-  <button *ngIf="!isGameStarted && showInstructionsButton"
+    (click)="toggleHighScores()"
+    >{{ boardOverlayShow ? 'Close High Scores' : 'Show High Scores' }}</button
+  >
+  <button
+    *ngIf="!isGameStarted && showInstructionsButton"
     class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
-    (click)="toggleInstructions()">{{ boardOverlayShow ? 'Close Instructions' : 'Show Instructions' }}</button>
-  <button *ngIf="!isGameStarted && !isGameWon" (click)="startGame()"
-    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button">Start
-    Game</button>
-  <button *ngIf="isGameWon" (click)="resetGame()"
-    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button">Reset
-    Game</button>
-  <button *ngIf="isGameStarted" (click)="endGame()"
-    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button">
-    End Game</button>
+    (click)="toggleInstructions()"
+    >{{ boardOverlayShow ? 'Close Instructions' : 'Show Instructions' }}</button
+  >
+  <button
+    *ngIf="!isGameStarted && !isGameWon"
+    (click)="startGame()"
+    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
+    >Start Game</button
+  >
+  <button
+    *ngIf="isGameWon"
+    (click)="resetGame()"
+    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
+    >Reset Game</button
+  >
+  <button
+    *ngIf="isGameStarted"
+    (click)="endGame()"
+    class="bg-[var(--button-background)] text-[var(--button-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
+  >
+    End Game</button
+  >
 </div>

@@ -1,5 +1,10 @@
 <div class="cards grid justify-items-center gap-4 grid-cols-4 md:grid-cols-8">
-  <app-card class="h-[72px] w-full max-w-[124px]" *ngFor="let card of cards; trackBy: trackByCardId" [card]="card"
-    [isCheatModeEnabled]="isCheatModeEnabled" (onFlip)="handleCardFlip(card)"
-    (onMatch)="handleCardMatch($event)"></app-card>
+  <app-card
+    class="h-[72px] w-full max-w-[124px]"
+    *ngFor="let card of cards; trackBy: trackByCardId"
+    [card]="card"
+    [isCheatModeEnabled]="isCheatModeEnabled"
+    (onFlip)="handleCardFlip(card)"
+    (onMatch)="handleCardMatch($event)"
+  ></app-card>
 </div>

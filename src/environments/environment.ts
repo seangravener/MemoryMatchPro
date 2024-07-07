@@ -10,7 +10,7 @@ const konamiCode = [
   'ArrowRight',
   'b',
   'a',
-].map((key) => key.toLowerCase());
+].map(key => key.toLowerCase());
 
 export const environment = {
   production: false,
