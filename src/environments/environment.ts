@@ -10,9 +10,9 @@ const konamiCode = [
   'ArrowRight',
   'b',
   'a',
-];
+].map((key) => key.toLowerCase());
 
 export const environment = {
   production: false,
-  cheatCodeCombo: simpleComboCode,
+  cheatCodeCombo: konamiCode,
 };
