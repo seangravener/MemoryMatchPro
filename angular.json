@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-memory",
+            "outputPath": "dist/memory-match-pro",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -44,24 +44,65 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "web-ext-dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web-ext.dev.ts"
+                }
+              ]
+            },
+            "web-ext-prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web-ext.prod.ts"
+                }
+              ]
+            },
+            "web-dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web.dev.ts"
+                }
+              ]
+            },
+            "web-prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web.prod.ts"
+                }
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "web-prod"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "AngularMemory:build:production"
+            "web-prod": {
+              "buildTarget": "AngularMemory:build:web-prod"
             },
-            "development": {
-              "buildTarget": "AngularMemory:build:development"
+            "web-dev": {
+              "buildTarget": "AngularMemory:build:web-dev"
+            },
+            "web-ext-prod": {
+              "buildTarget": "AngularMemory:build:web-ext-prod"
+            },
+            "web-ext-dev": {
+              "buildTarget": "AngularMemory:build:web-ext-dev"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "web-dev"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

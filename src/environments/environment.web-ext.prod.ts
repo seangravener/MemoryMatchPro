@@ -1,5 +1,8 @@
 import { baseEnvironment } from "./environment.base";
 
 export const environment = {
-  ...baseEnvironment
+  ...baseEnvironment,
+
+  target: 'web-ext-prod',
+  production: true,
 };
