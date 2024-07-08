@@ -132,8 +132,11 @@ export class GameComponent {
   }
 
   toggleBoardOverlay(boardOverlay: BoardOverlay) {
-    console.log('overlay', boardOverlay);
     this.gameStateService.updateGameState({ boardOverlay });
+  }
+
+  toggleCheatMode() {
+    this.isCheatModeEnabled = !this.isCheatModeEnabled;
   }
 
   ngOnDestroy() {

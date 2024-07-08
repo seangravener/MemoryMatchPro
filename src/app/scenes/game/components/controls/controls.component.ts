@@ -19,6 +19,7 @@ export class ControlsComponent {
   @Output() onResetGame = new EventEmitter<void>();
   @Output() onToggleHighScores = new EventEmitter<void>();
   @Output() onToggleInstructions = new EventEmitter<void>();
+  @Output() onToggleCheatMode = new EventEmitter<void>();
 
   startGame() {
     this.onStartGame.emit();
@@ -38,6 +39,10 @@ export class ControlsComponent {
 
   toggleInstructions() {
     this.onToggleInstructions.emit();
+  }
+
+  toggleCheatMode() {
+    this.onToggleCheatMode.emit();
   }
 
   endGame(options: { options?: string } = {}) {
