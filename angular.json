@@ -23,7 +23,13 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json",
+              "src/content.js",
+              "src/background.js"
+            ],
             "styles": ["src/styles.scss"],
             "scripts": ["node_modules/canvas-confetti/dist/confetti.browser.js"]
           },
@@ -116,7 +122,13 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json",
+              "src/content.js",
+              "src/background.js"
+            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

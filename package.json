@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build-web-prod",
-    "build-web-prod": "ng build --configuration web-prod",
-    "build-web-dev": "ng build --configuration web-dev",
-    "build-web-ext-prod": "ng build --aot --prod --sourcemap=false --output-hashing=none",
-    "build-web-ext-dev": "ng build --aot --output-hashing=none",
+    "build": "ng build --configuration=web-prod",
+    "build-web-prod": "ng build --configuration=web-prod",
+    "build-web-dev": "ng build --configuration=web-dev",
+    "build-web-ext-prod": "ng build --aot --prod --sourcemap=false --output-hashing=none --configuration=web-ext-prod",
+    "build-web-ext-dev": "ng build --aot --output-hashing=none --configuration=web-ext-dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --browsers ChromeHeadless --watch=false",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss}\""

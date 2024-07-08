@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Machine Gunk';
+  font-family: 'Machine Gunk', sans-serif;
   src: url('./assets/fonts/MachineGunk.woff2') format('woff2'),
     url('./assets/fonts/MachineGunk.woff') format('woff');
   font-weight: normal;
@@ -13,7 +13,7 @@
 
 .font-mg {
   font-size: 64px;
-  font-family: 'Machine Gunk';
+  font-family: 'Machine Gunk', sans-serif;
 }
 
 button {
