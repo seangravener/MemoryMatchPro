@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 
 import { numberOfCardsOptions } from '../../config/initialGameState';
-import { Card } from '../../core/state.model';
+import { Card, GameStatId } from '../../core/state.model';
 import { CardsService } from '../../core/cards.service';
 import { LocalStorageService } from '../../core/local-storage.service';
 import { TimerService } from '../../core/game-timer.service';
@@ -54,15 +54,27 @@ export class GameService {
 
   // trigger winGame() when all cards are matched
   winGame() {
-    this.endGame();
+    const currentCards = this.stateService.currentState.cards;
 
-    this.stateService.updateState({
-      cards: this.cardsService.currentCards.map(card => ({
-        ...card,
-        flipped: true,
-        matched: true,
-      })),
-    });
+    const cards = currentCards.map(card => ({
+      ...card,
+      flipped: true,
+      matched: true,
+    }));
+
+    // @TODO calculateStats() in stats service
+    const stats = {
+      ...this.statsService.currentStats.map(stat => {
+        if (stat.id === GameStatId.MATCHES) {
+          stat.value = currentCards.length / 2;
+        }
+
+        return stat;
+      }),
+    };
+
+    this.endGame();
+    this.stateService.updateState({ cards, stats });
   }
 
   endGame() {

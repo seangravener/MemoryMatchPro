@@ -1,19 +1,24 @@
 <div class="flex justify-center items-stretch gap-4">
-  <div *ngIf="isCheatModeEnabled"> Debug: </div>
-  <div *ngIf="isCheatModeEnabled" class="flex justify-center items-stretch gap-4">
+  <!-- Extra Controls -->
+  <div
+    *ngIf="isCheatModeEnabled"
+    class="flex justify-center items-stretch gap-4"
+  >
     <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
       (click)="toggleCheatMode()"
     >
       {{ isCheatModeEnabled ? 'Disable' : 'Enable' }} Cheat Mode
     </button>
     <button
-      class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"
       (click)="winNow()"
     >
       WinNow();
     </button>
   </div>
+
+  <!-- Standard Controls -->
   <button
     *ngIf="!isGameStarted && showHighScoresButton"
     class="bg-[var(--component-background)] text-[var(--component-text)] py-2 px-4 rounded-md shadow-lg bounce-button"

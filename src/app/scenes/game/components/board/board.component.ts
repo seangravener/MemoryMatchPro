@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Card } from '../../../../core/state.model';
+import { CardAction } from '../card/card.component';
 
 @Component({
   selector: 'app-board',
@@ -18,7 +19,7 @@ export class BoardComponent {
   @Input() cards: Card[] | undefined | null = [];
   @Input() isCheatModeEnabled = false;
   @Output() onFlip = new EventEmitter<Card>();
-  @Output() onMatch = new EventEmitter<{ card: Card; element: ElementRef<HTMLElement> }>();
+  @Output() onMatch = new EventEmitter<CardAction>();
   @Output() onInitGameBoard = new EventEmitter<void>();
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class BoardComponent {
     this.onFlip.emit({ ...card });
   }
 
-  handleCardMatch({ ...args }: { card: Card; element: ElementRef<HTMLElement> }): void {
+  handleCardMatch({ ...args }: CardAction): void {
     this.onMatch.emit({ ...args });
   }
 
