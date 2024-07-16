@@ -26,7 +26,7 @@ describe('LocalStorageService', () => {
       boardOverlay: { show: false, type: 'instructions' },
       highScores: [
         {
-          player: { name: '' },
+          player: { name: 'Player' },
           date: new Date(),
           stats,
         },
