@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { CheatCodeListenerService } from './cheat-code-listener.service';
+import { KeyboardListenerService } from './keyboard-listener.service';
 
 describe('Service: CheatCodeListener', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CheatCodeListenerService],
+      providers: [KeyboardListenerService],
     });
   });
 
-  it('should ...', inject([CheatCodeListenerService], (service: CheatCodeListenerService) => {
+  it('should ...', inject([KeyboardListenerService], (service: KeyboardListenerService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -5,7 +5,7 @@ import { StateService } from './state.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CheatCodeListenerService {
+export class KeyboardListenerService {
   private currentComboCode: string[] = environment.cheatCodeCombo;
   private currentInput: string[] = [];
   private isInitialized = false;

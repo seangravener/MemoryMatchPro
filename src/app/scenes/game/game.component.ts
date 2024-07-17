@@ -6,7 +6,7 @@ import { GameService } from './game.service';
 import { GameStateService } from '../../core/game-state.service';
 import { StatsService } from '../../core/stats.service';
 import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
-import { CheatCodeListenerService } from '../../core/cheat-code-listener.service';
+import { KeyboardListenerService } from '../../core/keyboard-listener.service';
 import { FeatureFlagService } from '../../core/feature-flag.service';
 import { CardAction } from './components/card/card.component';
 
@@ -73,7 +73,7 @@ export class GameComponent {
     private gameStatsService: StatsService,
     private gameService: GameService,
     private featureFlagService: FeatureFlagService,
-    private cheatCodeListenerService: CheatCodeListenerService,
+    private keyboardListenerService: KeyboardListenerService,
   ) {}
 
   ngOnInit() {
@@ -81,7 +81,7 @@ export class GameComponent {
   }
 
   initGame() {
-    this.cheatCodeListenerService.init();
+    this.keyboardListenerService.init();
     this.gameService.initGame();
     this.toggleBoardOverlay({ type: 'instructions', show: true });
   }
