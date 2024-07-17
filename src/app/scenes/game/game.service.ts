@@ -1,13 +1,13 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { numberOfCardsOptions } from '../../config/initialGameState';
-import { Card, GameStatId } from '../../core/state.model';
+import { Card, GameState, GameStatId, NumberOfCardsOptions } from '../../core/state.model';
 import { CardsService } from '../../core/cards.service';
 import { LocalStorageService } from '../../core/local-storage.service';
 import { TimerService } from '../../core/game-timer.service';
 import { StateService } from '../../core/state.service';
 import { StatsService } from '../../core/stats.service';
 import { CardAction } from './components/card/card.component';
+import { numberOfCardsOptions } from '../../config/initialGameState';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,18 @@ import { CardAction } from './components/card/card.component';
 export class GameService {
   get currentState() {
     return this.stateService.currentState;
+  }
+
+  get currentNumberOfCards(): NumberOfCardsOptions {
+    return this.stateService.currentState.cards.length as NumberOfCardsOptions;
+  }
+
+  set currentNumberOfCards(value: NumberOfCardsOptions) {
+    this.initGame({ numberOfCards: value });
+  }
+
+  get numberOfCardsOptions() {
+    return numberOfCardsOptions;
   }
 
   get isGameWon() {
@@ -29,14 +41,12 @@ export class GameService {
     private localStorageService: LocalStorageService,
   ) {}
 
-  // @TODO: move to state service
-  // @TODO: create ConfigService to get, set, update number of cards
-  initGame({ numberOfCards = numberOfCardsOptions[2] }: { numberOfCards?: number } = {}) {
+  initGame(options: { numberOfCards?: NumberOfCardsOptions } = {}) {
+    const { numberOfCards = this.currentNumberOfCards } = options;
     const cards = this.cardsService.createCards(numberOfCards);
     const highScores = this.localStorageService.getHighScores() || [];
 
     // console.log(highScores, 'highScores')
-
     this.stateService.updateState({
       highScores,
       isGameStarted: false,
@@ -52,7 +62,6 @@ export class GameService {
     });
   }
 
-  // trigger winGame() when all cards are matched
   winGame() {
     const currentCards = this.stateService.currentState.cards;
 
@@ -83,10 +92,18 @@ export class GameService {
     this.timerService.stopTimer();
   }
 
-  resetGame() {
+  resetGame(options: { numberOfCards?: NumberOfCardsOptions } = {}) {
+    const { numberOfCards = this.currentNumberOfCards } = options;
+    const overlayState = { boardOverlay: { type: 'instructions', show: true } };
+
     this.timerService.resetTimer();
     this.stateService.resetState();
-    this.initGame();
+    this.stateService.updateState(overlayState as Partial<GameState>);
+    this.initGame({ numberOfCards });
+  }
+
+  setNumberOfCards(numberOfCards: NumberOfCardsOptions) {
+    this.resetGame({ numberOfCards });
   }
 
   handleCardFlip(cardId: number) {

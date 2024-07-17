@@ -8,6 +8,19 @@
     >
       Memory Match Pro
     </h1>
+    <div>
+      <select
+        class="ml-auto mr-16"
+        (change)="updateNumberOfCards($event)"
+      >
+        <option
+          *ngFor="let value of numberOfCardsOptions"
+          [value]="value"
+          [selected]="currentNumberOfCards === value"
+          >{{ value }}</option
+        >
+      </select>
+    </div>
     <app-controls
       *ngIf="featureFlags$ | async as flags"
       class="ml-auto mr-16"

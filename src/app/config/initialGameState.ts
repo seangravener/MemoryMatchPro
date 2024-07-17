@@ -1,8 +1,11 @@
-import { GameState, GameStatId } from '../core/state.model';
+import { GameState, GameStatId, NumberOfCardsOptions } from '../core/state.model';
 import { Theme } from '../core/theme.service';
 
+export const numberOfCards: NumberOfCardsOptions = 32;
+export const numberOfCardsOptions: NumberOfCardsOptions[] = [8, 16, 24, 32, 40];
 export const initialGameState: GameState = {
-  cards: new Array(16).fill(null),
+  cards: new Array(numberOfCards).fill(null),
+  numberOfCards,
   isGameStarted: false,
   isProcessing: false,
   isCheatModeEnabled: false,
@@ -18,6 +21,3 @@ export const initialGameState: GameState = {
     type: 'instructions',
   },
 };
-
-export const numberOfCardsOptions = [8, 16, 32, 64];
-export const numberOfCards = numberOfCardsOptions[2];

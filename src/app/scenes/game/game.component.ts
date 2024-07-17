@@ -1,7 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { BoardOverlay, Card } from '../../core/state.model';
+import { BoardOverlay, Card, NumberOfCardsOptions } from '../../core/state.model';
 import { GameService } from './game.service';
 import { GameStateService } from '../../core/game-state.service';
 import { StatsService } from '../../core/stats.service';
@@ -9,6 +9,7 @@ import { Theme, ThemeKey, ThemeService } from '../../core/theme.service';
 import { KeyboardListenerService } from '../../core/keyboard-listener.service';
 import { FeatureFlagService } from '../../core/feature-flag.service';
 import { CardAction } from './components/card/card.component';
+import { numberOfCards } from '../../config/initialGameState';
 
 @Component({
   selector: 'app-game',
@@ -65,6 +66,18 @@ export class GameComponent {
 
   get featureFlags$() {
     return this.featureFlagService.featureFlags$;
+  }
+
+  get currentNumberOfCards() {
+    return this.gameService.currentNumberOfCards;
+  }
+
+  set currentNumberOfCards(value: NumberOfCardsOptions) {
+    this.gameService.currentNumberOfCards = value;
+  }
+
+  get numberOfCardsOptions() {
+    return this.gameService.numberOfCardsOptions;
   }
 
   constructor(
@@ -137,6 +150,17 @@ export class GameComponent {
 
   toggleCheatMode() {
     this.isCheatModeEnabled = !this.isCheatModeEnabled;
+  }
+
+  updateNumberOfCards(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const value = parseInt(target.value, 10) as NumberOfCardsOptions;
+
+    if (this.numberOfCardsOptions.includes(value)) {
+      this.currentNumberOfCards = value;
+    } else {
+      console.error('Invalid number of cards selected');
+    }
   }
 
   ngOnDestroy() {

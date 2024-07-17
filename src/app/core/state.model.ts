@@ -1,5 +1,7 @@
 import { Theme } from './theme.service';
 
+export type NumberOfCardsOptions = 8 | 16 | 24 | 32 | 40;
+
 export interface Card {
   id: number;
   flipped: boolean;
@@ -38,6 +40,7 @@ export interface BoardOverlay {
 
 export interface GameState {
   cards: Card[];
+  numberOfCards: NumberOfCardsOptions;
   isGameStarted: boolean;
   isProcessing: boolean;
   isCheatModeEnabled: boolean;

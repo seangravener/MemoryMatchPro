@@ -14,12 +14,12 @@ describe('ConfigService', () => {
   });
 
   it('should return the default number of cards', () => {
-    const defaultNumberOfCards = service.getNumberOfCards();
+    const defaultNumberOfCards = service.getNumberOfCardsOptionByIndex();
     expect(defaultNumberOfCards).toBe(24); // Assuming default index is 2
   });
 
   it('should return the correct number of cards for a given index', () => {
-    const numberOfCards = service.getNumberOfCards(1);
+    const numberOfCards = service.getNumberOfCardsOptionByIndex(1);
     expect(numberOfCards).toBe(16);
   });
 });
