@@ -65,7 +65,14 @@ export class GameService {
   winGame() {
     const currentCards = this.stateService.currentState.cards;
 
+    // Simulate all cards being flipped and matched
     const cards = currentCards.map(card => ({
+      ...card,
+      flipped: true,
+      matched: false      ,
+    }));
+
+    const cards2 = currentCards.map(card => ({
       ...card,
       flipped: true,
       matched: true,
@@ -82,8 +89,15 @@ export class GameService {
       }),
     };
 
-    this.endGame();
     this.stateService.updateState({ cards, stats });
+
+    setTimeout(() => {
+      this.stateService.updateState({ cards: cards2 });
+    }, 200);
+
+    setTimeout(() => {
+      this.endGame();
+    }, 2000);
   }
 
   endGame() {
@@ -127,6 +141,12 @@ export class GameService {
 
   handleCardMatch({ element }: CardAction): void {
     this.cardsService.triggerGameEffect(element.nativeElement);
+
+    if (this.isGameWon) {
+      this.winGame();
+    } else {
+      this.stateService.updateState({ isProcessing: false });
+    }
   }
 
   private processFlippedCards(flippedCards: Card[], currentCards: Card[]) {
